@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 NAME=${1:-testing}
 
 openssl req \
@@ -7,7 +9,7 @@ openssl req \
   -x509 \
   -subj "/C=US/ST=California/L=San Francisco/O=Twitch/OU=web/CN=localhost" \
   -extensions SAN \
-  -config <( cat $( [[ "Darwin" -eq "$(uname -s)" ]]  && echo /System/Library/OpenSSL/openssl.cnf || echo /etc/ssl/openssl.cnf  ) \
+  -config <( cat $( [[ "Darwin" = "$(uname -s)" ]]  && echo /System/Library/OpenSSL/openssl.cnf || echo /etc/ssl/openssl.cnf  ) \
     <(printf "[SAN]\nsubjectAltName='DNS:localhost'")) \
   -keyout "${NAME}.key" \
   -out "${NAME}.crt"

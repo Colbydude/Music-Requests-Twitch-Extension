@@ -1,11 +1,10 @@
 {
-  "author": "Twitch Interactive, Inc.",
+  "name": "music-requests-twitch-extension",
+  "version": "1.0.0",
+  "author": "Colbydude",
+  "description": "A way for your audience to request music during your stream!",
+  "main": "music-requests.js",
   "dependencies": {
     "express": "^4.15.4"
-  },
-  "description": "Provides a simple starting point to create and locally develop your Twitch extension.",
-  "license": "Apache-2.0",
-  "main": "boilerplate.js",
-  "name": "twitch-extension-boilerplate",
-  "version": "1.0.0"
+  }
 }

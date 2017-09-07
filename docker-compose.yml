@@ -1,12 +1,12 @@
 version: '2'
 
 services:
-    boilerplatebackend:
+    musicrequestsbackend:
         volumes:
-            - .:/boilerplate
+            - .:/music-requests-twitch-extension
 
             # necessary to prevent OS X node_modules being loaded in:
-            - /boilerplate/backend/node_modules
+            - /music-requests-twitch-extension/backend/node_modules
 
         build:
             context: ./backend
