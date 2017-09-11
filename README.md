@@ -1,10 +1,17 @@
-# Twitch Extensions Boilerplate
+# Twitch Music Request Extension
 
-The Twitch Extensions Boilerplate acts as a simple starting point to create your Extension, as well as a simple method using Docker to locally serve your Extension for testing and development.
+**Goal:** Provide a quick an intuitive way for Twitch Musicians to take requests to perform their own music during a
+live stream.
+
+# What we're going to build:
+- A RESTful API for a music catalog.
+- A configuration panel (on Twitch) for the broadcaster/musician to manage a catalog of their music.
+- A dashboard panel (on Twitch) for the broadcaster/musician to handle incoming music requests.
+- A video overlay (on Twitch) for viewers to request music.
 
 ## Dependencies
 
-You will need:
+We will need:
  * [docker](https://docs.docker.com/engine/installation/)
  * [docker-compose](https://docs.docker.com/compose/install/)
 
@@ -21,6 +28,6 @@ cd certs
 docker-compose up --build
 ```
 
-## Further documentation
+## Twitch Extension documentation
 
 Please consult the [Twitch Extensions documentation on the Twitch developer site](https://dev.twitch.tv/docs/extensions)

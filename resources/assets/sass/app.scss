@@ -1,0 +1,18 @@
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+.btn {
+    border-radius: 0;
+}
+
+.form-control {
+    border-radius: 0;
+    box-shadow: none;
+    color: $twitch-text-color;
+
+    &:focus {
+        box-shadow: none;
+    }
+}
