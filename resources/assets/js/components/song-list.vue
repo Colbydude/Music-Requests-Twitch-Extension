@@ -1,39 +1,43 @@
 <script>
+    import { Config } from './../config.js';
     import { EventBus } from './../event-bus.js';
 
     export default {
-        props: ['artistId'],
-
         mounted () {
             EventBus.$on('new-song-added', this.addSong);
-
-            this.getSongs();
+            EventBus.$on('app-ready', this.initList)
         },
 
         data () {
             return {
+                channelId: null,
                 songs: {}
             };
         },
 
         methods: {
-            addSong(songObject) {
+            addSong (songObject) {
                 this.songs.push(songObject);
             },
 
-            getSongs() {
+            getSongs () {
                 var app = this;
 
-                axios.get('https://twitch.colbydude.com/api/artist/' + this.artistId + '/songs')
+                axios.get(Config.url + '/artists/' + this.channelId + '/songs')
                      .then(function (response) {
                          app.songs = response.data;
                      });
             },
 
-            removeSong(index, id) {
+            initList (channelId) {
+                this.channelId = channelId;
+                this.getSongs();
+            },
+
+            removeSong (index, id) {
                 var app = this;
 
-                axios.delete('https://twitch.colbydude.com/api/artist/' + this.artistId + '/songs/' + id)
+                axios.delete(Config.url + '/artists/' + this.channelId + '/songs/' + id)
                      .then(function (response) {
                          app.songs.splice(index, 1);
                      });

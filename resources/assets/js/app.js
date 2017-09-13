@@ -6,27 +6,15 @@
  */
 
 require('./bootstrap');
+import { Config } from './config.js';
 import { EventBus } from './event-bus.js';
 
-window.Vue = require('vue');
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('add-song-form', require('./components/add-song-form.vue'));
-Vue.component('song-list', require('./components/song-list.vue'));
-
-const app = new Vue({
-    el: '#app'
-});
-
+var authentication = {};
 
 if (window.Twitch.ext) {
     window.Twitch.ext.onAuthorized(function(auth) {
         console.log(auth);
+        EventBus.$emit('authentication-verified', auth);
     });
 
     window.Twitch.ext.onContext(function(context, contextFields) {
@@ -38,3 +26,21 @@ if (window.Twitch.ext) {
         console.error(err);
     });
 }
+
+console.log(authentication);
+
+window.Vue = require('vue');
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+Vue.component('config', require('./components/config.vue'));
+Vue.component('add-song-form', require('./components/add-song-form.vue'));
+Vue.component('song-list', require('./components/song-list.vue'));
+
+const app = new Vue({
+    el: '#app'
+});

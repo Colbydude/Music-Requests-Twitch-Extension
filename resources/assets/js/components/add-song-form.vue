@@ -1,11 +1,15 @@
 <script>
+    import { Config } from './../config.js';
     import { EventBus } from './../event-bus.js';
 
     export default {
-        props: ['artistId'],
+        mounted () {
+            EventBus.$on('app-ready', this.setUser);
+        },
 
         data () {
             return {
+                channelId: null,
                 songname: ''
             };
         },
@@ -18,15 +22,25 @@
 
                 var app = this;
 
-                axios.post('https://twitch.colbydude.com/api/artist/' + this.artistId + '/songs', {
+                axios.post(Config.url + '/artists/' + this.channelId + '/songs', {
+                    artist_id: this.channelId,
                     name: this.songname
                 })
                 .then(function (response) {
-                    //console.log(response);
                     app.songname = "";
 
                     EventBus.$emit('new-song-added', response.data);
                 });
+            },
+
+            processForm (event) {
+                if (event.keyCode == 13) {
+                    this.addSong();
+                }
+            },
+
+            setUser (channelId) {
+                this.channelId = channelId;
             }
         }
     }
