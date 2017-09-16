@@ -10,36 +10,54 @@
 
         data () {
             return {
-                channelId: null,
-                songs: {}
+                channelId: null,    // Auth'd user's Channel ID.
+                songs: {}           // Artist's catalog of songs.
             };
         },
 
         methods: {
+            /**
+             * Add a song to the list.
+             *
+             * @param Song songObject
+             */
             addSong (songObject) {
                 this.songs.push(songObject);
             },
 
+            /**
+             * Get the artist's song catalog from our backend.
+             */
             getSongs () {
-                var app = this;
-
-                axios.get(Config.url + '/artists/' + this.channelId + '/songs')
-                     .then(function (response) {
-                         app.songs = response.data;
+                axios.get(Config.Url + '/artists/' + this.channelId + '/songs')
+                     .then(response => {
+                         this.songs = response.data;
+                     })
+                     .catch(error => {
+                         console.log(error);
                      });
             },
 
+            /**
+             * Set the channelId and get the list of songs on initialization.
+             *
+             * @param integer channelId
+             */
             initList (channelId) {
                 this.channelId = channelId;
                 this.getSongs();
             },
 
+            /**
+             * Remove a song from the artist's catalog.
+             *
+             * @param integer index
+             * @param integer id
+             */
             removeSong (index, id) {
-                var app = this;
-
-                axios.delete(Config.url + '/artists/' + this.channelId + '/songs/' + id)
-                     .then(function (response) {
-                         app.songs.splice(index, 1);
+                axios.delete(Config.Url + '/artists/' + this.channelId + '/songs/' + id)
+                     .then(response => {
+                         this.songs.splice(index, 1);
                      });
             }
         }

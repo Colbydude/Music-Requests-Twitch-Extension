@@ -9,36 +9,45 @@
 
         data () {
             return {
-                channelId: null,
-                songname: ''
+                channelId: null,    // Auth'd user's Channel ID.
+                songname: ''        // Song Name input value.
             };
         },
 
         methods: {
+            /**
+             * Add a song to the artist's catalog on our backend.
+             */
             addSong () {
                 if (this.songname.trim() === "") {
+                    this.songname = "";
                     return;
                 }
 
-                var app = this;
-
-                axios.post(Config.url + '/artists/' + this.channelId + '/songs', {
+                axios.post(Config.Url + '/artists/' + this.channelId + '/songs', {
                     artist_id: this.channelId,
                     name: this.songname
                 })
-                .then(function (response) {
-                    app.songname = "";
-
+                .then(response => {
+                    this.songname = "";
                     EventBus.$emit('new-song-added', response.data);
                 });
             },
 
+            /**
+             * Add a song on hitting "enter."
+             */
             processForm (event) {
                 if (event.keyCode == 13) {
                     this.addSong();
                 }
             },
 
+            /**
+             * Set the channel ID on initialization.
+             *
+             * @param integer channelId
+             */
             setUser (channelId) {
                 this.channelId = channelId;
             }
