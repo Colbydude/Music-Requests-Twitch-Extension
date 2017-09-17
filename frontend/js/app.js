@@ -10987,7 +10987,7 @@ module.exports = Vue$3;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
-module.exports = __webpack_require__(49);
+module.exports = __webpack_require__(50);
 
 
 /***/ }),
@@ -11033,11 +11033,12 @@ window.Vue = __webpack_require__(11);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('config', __webpack_require__(39));
-Vue.component('add-song-form', __webpack_require__(41));
-Vue.component('request-modal', __webpack_require__(43));
-Vue.component('song-list', __webpack_require__(45));
-Vue.component('viewer', __webpack_require__(47));
+Vue.component('config', __webpack_require__(40));
+Vue.component('add-song-form', __webpack_require__(42));
+Vue.component('request-list', __webpack_require__(61));
+Vue.component('request-modal', __webpack_require__(44));
+Vue.component('song-list', __webpack_require__(46));
+Vue.component('viewer', __webpack_require__(48));
 
 var app = new Vue({
     el: '#app'
@@ -11076,7 +11077,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * Load in sweetalert.
  */
 try {
-  window.swal = __webpack_require__(60);
+  window.swal = __webpack_require__(39);
 } catch (e) {}
 
 /***/ }),
@@ -41910,605 +41911,6 @@ module.exports = function spread(callback) {
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
-var Component = __webpack_require__(3)(
-  /* script */
-  __webpack_require__(40),
-  /* template */
-  null,
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "/Users/colbyterry/GitHub/JS/music-requests-twitch-extension/resources/assets/js/components/config.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-fdb68760", Component.options)
-  } else {
-    hotAPI.reload("data-v-fdb68760", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 40 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus_js__ = __webpack_require__(2);
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('authentication-verified', this.setInfo);
-    },
-    data: function data() {
-        return {
-            channelId: null, // Auth'd users's Channel ID.
-            clientId: null // Twitch Extension's Client ID.
-        };
-    },
-
-
-    methods: {
-        /**
-         * Creates an artist on our backend.
-         *
-         * @param string name
-         */
-        createArtist: function createArtist(name) {
-            var _this = this;
-
-            console.log('' + name + ' ' + this.channelId);
-
-            axios.post(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists', {
-                twitch_channel_id: this.channelId,
-                name: name
-            }).then(function (response) {
-                __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$emit('app-ready', _this.channelId);
-            }).catch(function (error) {
-                console.log(error);
-                //alert('There was an error creating this artist.');
-            });
-        },
-
-
-        /**
-         * Gets user data from the Twitch API then call to create the artist.
-         */
-        getUserData: function getUserData() {
-            var _this2 = this;
-
-            axios.create({
-                headers: { 'Client-ID': this.clientId }
-            }).get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].TwitchApi + '/users?id=' + this.channelId).then(function (response) {
-                _this2.createArtist(response.data.data[0].display_name);
-            }).catch(function (error) {
-                console.log(error);
-                //alert('Twitch API error.');
-            });
-        },
-
-
-        /**
-         * Sets the info from the auth object on initialization.
-         *
-         * @param Auth auth
-         */
-        setInfo: function setInfo(auth) {
-            this.channelId = auth.channelId;
-            this.clientId = auth.clientId;
-
-            this.verifyArtist();
-        },
-
-
-        /**
-         * Verifies the artist exists on our backend. If it doesn't, call to create it.
-         */
-        verifyArtist: function verifyArtist() {
-            var _this3 = this;
-
-            axios.get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId).then(function (response) {
-                __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$emit('app-ready', _this3.channelId);
-            }).catch(function (error) {
-                if (error.response.status == 404) {
-                    _this3.getUserData();
-                }
-            });
-        }
-    }
-});
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(3)(
-  /* script */
-  __webpack_require__(42),
-  /* template */
-  null,
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "/Users/colbyterry/GitHub/JS/music-requests-twitch-extension/resources/assets/js/components/add-song-form.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-46c0c6b2", Component.options)
-  } else {
-    hotAPI.reload("data-v-46c0c6b2", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 42 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus_js__ = __webpack_require__(2);
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('app-ready', this.setUser);
-    },
-    data: function data() {
-        return {
-            channelId: null, // Auth'd user's Channel ID.
-            songname: '' // Song Name input value.
-        };
-    },
-
-
-    methods: {
-        /**
-         * Add a song to the artist's catalog on our backend.
-         */
-        addSong: function addSong() {
-            var _this = this;
-
-            if (this.songname.trim() === "") {
-                this.songname = "";
-                return;
-            }
-
-            axios.post(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId + '/songs', {
-                name: this.songname
-            }).then(function (response) {
-                _this.songname = "";
-                __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$emit('new-song-added', response.data);
-            });
-        },
-
-
-        /**
-         * Add a song on hitting "enter."
-         */
-        processForm: function processForm(event) {
-            if (event.keyCode == 13) {
-                this.addSong();
-            }
-        },
-
-
-        /**
-         * Set the channel ID on initialization.
-         *
-         * @param integer channelId
-         */
-        setUser: function setUser(channelId) {
-            this.channelId = channelId;
-        }
-    }
-});
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(3)(
-  /* script */
-  __webpack_require__(44),
-  /* template */
-  null,
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "/Users/colbyterry/GitHub/JS/music-requests-twitch-extension/resources/assets/js/components/request-modal.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-278594d1", Component.options)
-  } else {
-    hotAPI.reload("data-v-278594d1", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 44 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus_js__ = __webpack_require__(2);
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('authentication-verified', this.setInfo);
-    },
-    data: function data() {
-        return {
-            channelId: null, // Channel ID our frontend is being served on.
-            clientId: null, // Twitch Extension's Client ID.
-            songs: [], // List of songs the user can request.
-            songname: '', // Song to be requested.
-            userId: null // ID of the currently auth'd user.
-        };
-    },
-
-
-    methods: {
-        /**
-         * Get the artist's song catalog from our backend.
-         */
-        getSongs: function getSongs() {
-            var _this = this;
-
-            axios.get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId + '/songs').then(function (response) {
-                _this.songs = response.data;
-                console.log(_this.songs);
-            }).catch(function (error) {
-                console.log(error);
-            });
-        },
-        getSongFromName: function getSongFromName() {
-            var _this2 = this;
-
-            return this.songs.find(function (song) {
-                return song.name === _this2.songname;
-            });
-        },
-        requestSong: function requestSong() {
-            var _this3 = this;
-
-            var songObject = this.getSongFromName();
-
-            if (songObject === undefined) {
-                console.log('Error song not found.');
-                return;
-            }
-
-            axios.post(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests', {
-                song_id: songObject.id,
-                twitch_user_id: this.userId
-            }).then(function (response) {
-                _this3.songname = '';
-                swal({
-                    title: "Song Requested!",
-                    text: "The broadcaster will be notified shortly.",
-                    type: 'success',
-                    timer: 2000,
-                    showConfirmButton: false
-                }).then(function () {}, function (dismiss) {
-                    //
-                });
-            }).catch(function (error) {
-                console.log(error);
-            });
-        },
-
-
-        /**
-         * Sets the info from the auth object on initialization.
-         *
-         * @param Auth auth
-         */
-        setInfo: function setInfo(auth) {
-            this.channelId = auth.channelId;
-            this.clientId = auth.clientId;
-            this.userId = auth.userId.substr(1);
-
-            this.getSongs();
-        }
-    }
-});
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(3)(
-  /* script */
-  __webpack_require__(46),
-  /* template */
-  null,
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "/Users/colbyterry/GitHub/JS/music-requests-twitch-extension/resources/assets/js/components/song-list.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3cd0b290", Component.options)
-  } else {
-    hotAPI.reload("data-v-3cd0b290", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 46 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus_js__ = __webpack_require__(2);
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('new-song-added', this.addSong);
-        __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('app-ready', this.initList);
-    },
-    data: function data() {
-        return {
-            channelId: null, // Channel ID our frontend is being served on.
-            songs: [], // Artist's catalog of songs.
-            userId: null // ID of the currently auth'd user.
-        };
-    },
-
-
-    methods: {
-        /**
-         * Add a song to the list.
-         *
-         * @param Song songObject
-         */
-        addSong: function addSong(songObject) {
-            this.songs.push(songObject);
-        },
-
-
-        /**
-         * Get the artist's song catalog from our backend.
-         */
-        getSongs: function getSongs() {
-            var _this = this;
-
-            axios.get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId + '/songs').then(function (response) {
-                _this.songs = response.data;
-            }).catch(function (error) {
-                console.log(error);
-            });
-        },
-
-
-        /**
-         * Set the channelId and get the list of songs on initialization.
-         *
-         * @param integer channelId
-         */
-        initList: function initList(channelId) {
-            this.channelId = channelId;
-            this.getSongs();
-        },
-
-
-        /**
-         * Remove a song from the artist's catalog.
-         *
-         * @param integer index
-         * @param integer id
-         */
-        removeSong: function removeSong(index, id) {
-            var _this2 = this;
-
-            axios.delete(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId + '/songs/' + id).then(function (response) {
-                _this2.songs.splice(index, 1);
-            });
-        }
-    }
-});
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(3)(
-  /* script */
-  __webpack_require__(48),
-  /* template */
-  null,
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "/Users/colbyterry/GitHub/JS/music-requests-twitch-extension/resources/assets/js/components/viewer.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-01b6f9c0", Component.options)
-  } else {
-    hotAPI.reload("data-v-01b6f9c0", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 48 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus_js__ = __webpack_require__(2);
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('authentication-verified', this.setInfo);
-    },
-    data: function data() {
-        return {
-            channelId: null, // Auth'd user's Channel ID.
-            channelName: null, // Auth'd user's Channel Name.
-            clientId: null // Twitch Extension's Client ID.
-        };
-    },
-
-
-    methods: {
-        /**
-         * Gets user data from the Twitch API to set the viewer name.
-         */
-        getUserData: function getUserData() {
-            var _this = this;
-
-            axios.create({
-                headers: { 'Client-ID': this.clientId }
-            }).get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].TwitchApi + '/users?id=' + this.channelId).then(function (response) {
-                _this.channelName = response.data.data[0].display_name;
-            }).catch(function (error) {
-                console.log(error);
-                //alert('Twitch API error.');
-            });
-        },
-
-
-        /**
-         * Sets the info from the auth object on initialization.
-         *
-         * @param Auth auth
-         */
-        setInfo: function setInfo(auth) {
-            this.channelId = auth.channelId;
-            this.clientId = auth.clientId;
-
-            this.getUserData();
-        }
-    }
-});
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /*!
  * sweetalert2 v6.8.0
  * Released under the MIT License.
@@ -44318,6 +43720,751 @@ return sweetAlert;
 })));
 if (window.Sweetalert2) window.sweetAlert = window.swal = window.Sweetalert2;
 
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(41),
+  /* template */
+  null,
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/colbyterry/GitHub/JS/music-requests-twitch-extension/resources/assets/js/components/config.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-fdb68760", Component.options)
+  } else {
+    hotAPI.reload("data-v-fdb68760", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus_js__ = __webpack_require__(2);
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('authentication-verified', this.setInfo);
+    },
+    data: function data() {
+        return {
+            channelId: null, // Auth'd users's Channel ID.
+            clientId: null // Twitch Extension's Client ID.
+        };
+    },
+
+
+    methods: {
+        /**
+         * Creates an artist on our backend.
+         *
+         * @param string name
+         */
+        createArtist: function createArtist(name) {
+            var _this = this;
+
+            console.log('' + name + ' ' + this.channelId);
+
+            axios.post(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists', {
+                twitch_channel_id: this.channelId,
+                name: name
+            }).then(function (response) {
+                __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$emit('app-ready', _this.channelId);
+            }).catch(function (error) {
+                console.log(error);
+                //alert('There was an error creating this artist.');
+            });
+        },
+
+
+        /**
+         * Gets user data from the Twitch API then call to create the artist.
+         */
+        getUserData: function getUserData() {
+            var _this2 = this;
+
+            axios.create({
+                headers: { 'Client-ID': this.clientId }
+            }).get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].TwitchApi + '/users?id=' + this.channelId).then(function (response) {
+                _this2.createArtist(response.data.data[0].display_name);
+            }).catch(function (error) {
+                console.log(error);
+                //alert('Twitch API error.');
+            });
+        },
+
+
+        /**
+         * Sets the info from the auth object on initialization.
+         *
+         * @param Auth auth
+         */
+        setInfo: function setInfo(auth) {
+            this.channelId = auth.channelId;
+            this.clientId = auth.clientId;
+
+            this.verifyArtist();
+        },
+
+
+        /**
+         * Verifies the artist exists on our backend. If it doesn't, call to create it.
+         */
+        verifyArtist: function verifyArtist() {
+            var _this3 = this;
+
+            axios.get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId).then(function (response) {
+                __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$emit('app-ready', _this3.channelId);
+            }).catch(function (error) {
+                if (error.response.status == 404) {
+                    _this3.getUserData();
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(43),
+  /* template */
+  null,
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/colbyterry/GitHub/JS/music-requests-twitch-extension/resources/assets/js/components/add-song-form.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-46c0c6b2", Component.options)
+  } else {
+    hotAPI.reload("data-v-46c0c6b2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus_js__ = __webpack_require__(2);
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('app-ready', this.setUser);
+    },
+    data: function data() {
+        return {
+            channelId: null, // Auth'd user's Channel ID.
+            songname: '' // Song Name input value.
+        };
+    },
+
+
+    methods: {
+        /**
+         * Add a song to the artist's catalog on our backend.
+         */
+        addSong: function addSong() {
+            var _this = this;
+
+            if (this.songname.trim() === "") {
+                this.songname = "";
+                return;
+            }
+
+            axios.post(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId + '/songs', {
+                name: this.songname
+            }).then(function (response) {
+                _this.songname = "";
+                __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$emit('new-song-added', response.data);
+            });
+        },
+
+
+        /**
+         * Add a song on hitting "enter."
+         */
+        processForm: function processForm(event) {
+            if (event.keyCode == 13) {
+                this.addSong();
+            }
+        },
+
+
+        /**
+         * Set the channel ID on initialization.
+         *
+         * @param integer channelId
+         */
+        setUser: function setUser(channelId) {
+            this.channelId = channelId;
+        }
+    }
+});
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(45),
+  /* template */
+  null,
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/colbyterry/GitHub/JS/music-requests-twitch-extension/resources/assets/js/components/request-modal.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-278594d1", Component.options)
+  } else {
+    hotAPI.reload("data-v-278594d1", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus_js__ = __webpack_require__(2);
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('authentication-verified', this.setInfo);
+    },
+    data: function data() {
+        return {
+            channelId: null, // Channel ID our frontend is being served on.
+            clientId: null, // Twitch Extension's Client ID.
+            songs: [], // List of songs the user can request.
+            songname: '', // Song to be requested.
+            userId: null, // ID of the currently auth'd user.
+            userName: null // Username of the currently auth'd user.
+        };
+    },
+
+
+    methods: {
+        /**
+         * Get the artist's song catalog from our backend.
+         */
+        getSongs: function getSongs() {
+            var _this = this;
+
+            axios.get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId + '/songs').then(function (response) {
+                _this.songs = response.data;
+                console.log(_this.songs);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+
+
+        /**
+         * Gets user data from the Twitch API then call to create the request.
+         */
+        getUserData: function getUserData() {
+            var _this2 = this;
+
+            axios.create({
+                headers: { 'Client-ID': this.clientId }
+            }).get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].TwitchApi + '/users?id=' + this.userId).then(function (response) {
+                _this2.userName = response.data.data[0].display_name;
+            }).catch(function (error) {
+                console.log(error);
+                //alert('Twitch API error.');
+            });
+        },
+        getSongFromName: function getSongFromName() {
+            var _this3 = this;
+
+            return this.songs.find(function (song) {
+                return song.name === _this3.songname;
+            });
+        },
+        requestSong: function requestSong() {
+            var _this4 = this;
+
+            var songObject = this.getSongFromName();
+
+            if (songObject === undefined) {
+                console.log('Error song not found.');
+                return;
+            }
+
+            axios.post(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests', {
+                song_id: songObject.id,
+                twitch_user_id: this.userId,
+                twitch_user_name: this.userName
+            }).then(function (response) {
+                _this4.songname = '';
+                swal({
+                    title: "Song Requested!",
+                    text: "The broadcaster will be notified shortly.",
+                    type: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(function () {}, function (dismiss) {
+                    //
+                });
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+
+
+        /**
+         * Sets the info from the auth object on initialization.
+         *
+         * @param Auth auth
+         */
+        setInfo: function setInfo(auth) {
+            this.channelId = auth.channelId;
+            this.clientId = auth.clientId;
+            this.userId = auth.userId.substr(1);
+
+            this.getUserData();
+            this.getSongs();
+        }
+    }
+});
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(47),
+  /* template */
+  null,
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/colbyterry/GitHub/JS/music-requests-twitch-extension/resources/assets/js/components/song-list.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3cd0b290", Component.options)
+  } else {
+    hotAPI.reload("data-v-3cd0b290", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus_js__ = __webpack_require__(2);
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('new-song-added', this.addSong);
+        __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('app-ready', this.initList);
+    },
+    data: function data() {
+        return {
+            channelId: null, // Channel ID our frontend is being served on.
+            songs: [], // Artist's catalog of songs.
+            userId: null // ID of the currently auth'd user.
+        };
+    },
+
+
+    methods: {
+        /**
+         * Add a song to the list.
+         *
+         * @param Song songObject
+         */
+        addSong: function addSong(songObject) {
+            this.songs.push(songObject);
+        },
+
+
+        /**
+         * Get the artist's song catalog from our backend.
+         */
+        getSongs: function getSongs() {
+            var _this = this;
+
+            axios.get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId + '/songs').then(function (response) {
+                _this.songs = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+
+
+        /**
+         * Set the channelId and get the list of songs on initialization.
+         *
+         * @param integer channelId
+         */
+        initList: function initList(channelId) {
+            this.channelId = channelId;
+            this.getSongs();
+        },
+
+
+        /**
+         * Remove a song from the artist's catalog.
+         *
+         * @param integer index
+         * @param integer id
+         */
+        removeSong: function removeSong(index, id) {
+            var _this2 = this;
+
+            axios.delete(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId + '/songs/' + id).then(function (response) {
+                _this2.songs.splice(index, 1);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(49),
+  /* template */
+  null,
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/colbyterry/GitHub/JS/music-requests-twitch-extension/resources/assets/js/components/viewer.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-01b6f9c0", Component.options)
+  } else {
+    hotAPI.reload("data-v-01b6f9c0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus_js__ = __webpack_require__(2);
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('authentication-verified', this.setInfo);
+    },
+    data: function data() {
+        return {
+            channelId: null, // Auth'd user's Channel ID.
+            channelName: null, // Auth'd user's Channel Name.
+            clientId: null // Twitch Extension's Client ID.
+        };
+    },
+
+
+    methods: {
+        /**
+         * Gets user data from the Twitch API to set the viewer name.
+         */
+        getUserData: function getUserData() {
+            var _this = this;
+
+            axios.create({
+                headers: { 'Client-ID': this.clientId }
+            }).get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].TwitchApi + '/users?id=' + this.channelId).then(function (response) {
+                _this.channelName = response.data.data[0].display_name;
+            }).catch(function (error) {
+                console.log(error);
+                //alert('Twitch API error.');
+            });
+        },
+
+
+        /**
+         * Sets the info from the auth object on initialization.
+         *
+         * @param Auth auth
+         */
+        setInfo: function setInfo(auth) {
+            this.channelId = auth.channelId;
+            this.clientId = auth.clientId;
+
+            this.getUserData();
+        }
+    }
+});
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(62),
+  /* template */
+  null,
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/colbyterry/GitHub/JS/music-requests-twitch-extension/resources/assets/js/components/request-list.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5dc2ecaa", Component.options)
+  } else {
+    hotAPI.reload("data-v-5dc2ecaa", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus_js__ = __webpack_require__(2);
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        __WEBPACK_IMPORTED_MODULE_1__event_bus_js__["a" /* EventBus */].$on('authentication-verified', this.initList);
+    },
+    data: function data() {
+        return {
+            channelId: null, // Channel ID our frontend is being served on.
+            currentRequestValue: '', // Text value of the current request textbox.
+            lastPlayed: null, // Last played request.
+            requests: [] // Artist's recent requests.
+        };
+    },
+
+
+    computed: {
+        currentRequest: function currentRequest() {
+            if (this.currentRequestValue !== '') {
+                return this.currentRequestValue;
+            }
+
+            if (this.lastPlayed !== null) {
+                return this.lastPlayed.song.name + ' - ' + this.lastPlayed.twitch_user_name;
+            }
+
+            return '';
+        }
+    },
+
+    methods: {
+        /**
+         * Get the artist's requests from our backend.
+         */
+        getRequests: function getRequests() {
+            var _this = this;
+
+            axios.get(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests').then(function (response) {
+                console.log(response);
+                _this.requests = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+
+
+        /**
+         * Set the channelId and get the list of requests on initialization.
+         *
+         * @param integer channelId
+         */
+        initList: function initList(auth) {
+            this.channelId = auth.channelId;
+            this.getRequests();
+        },
+
+
+        /**
+         * Remove a song from the artist's catalog.
+         *
+         * @param integer index
+         * @param integer id
+         */
+        playRequest: function playRequest(index, id) {
+            var _this2 = this;
+
+            this.lastPlayed = this.requests[index];
+
+            axios.patch(__WEBPACK_IMPORTED_MODULE_0__config_js__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests/' + id, {
+                is_taken: true
+            }).then(function (response) {
+                _this2.requests.splice(index, 1);
+            });
+        }
+    }
+});
 
 /***/ })
 /******/ ]);

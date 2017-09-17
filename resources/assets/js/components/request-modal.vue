@@ -13,7 +13,8 @@
                 clientId: null,     // Twitch Extension's Client ID.
                 songs: [],          // List of songs the user can request.
                 songname: '',       // Song to be requested.
-                userId: null        // ID of the currently auth'd user.
+                userId: null,       // ID of the currently auth'd user.
+                userName: null      // Username of the currently auth'd user.
             }
         },
 
@@ -32,6 +33,22 @@
                      });
             },
 
+            /**
+             * Gets user data from the Twitch API then call to create the request.
+             */
+            getUserData () {
+                axios.create({
+                    headers: {'Client-ID': this.clientId}
+                }).get(Config.TwitchApi + '/users?id=' + this.userId)
+                  .then(response => {
+                      this.userName = response.data.data[0].display_name;
+                  })
+                  .catch(error => {
+                      console.log(error);
+                      //alert('Twitch API error.');
+                  });
+            },
+
             getSongFromName() {
                 return this.songs.find(song => song.name === this.songname);
             },
@@ -46,7 +63,8 @@
 
                 axios.post(Config.Url + '/artists/' + this.channelId + '/requests', {
                          song_id: songObject.id,
-                         twitch_user_id: this.userId
+                         twitch_user_id: this.userId,
+                         twitch_user_name: this.userName
                      })
                      .then(response => {
                          this.songname = '';
@@ -78,6 +96,7 @@
                 this.clientId = auth.clientId;
                 this.userId = auth.userId.substr(1);
 
+                this.getUserData();
                 this.getSongs();
             }
         }

@@ -13,42 +13,93 @@
             <config inline-template>
                 <div class="container-fluid">
                     <div class="row">
-                        <add-song-form artist-id="1" inline-template>
-                            <div class="col-sm-6">
+                        <div class="col-sm-6">
+                            <request-list inline-template>
+                                <div>
+                                    <div class="form-group">
+                                        <label for="current-request">Current Request:</label>
+                                        <input type="text" name="current-request" id="current-request" class="form-control" :placeholder="currentRequest" v-model="currentRequestValue">
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><h4 class="panel-title">Requests</h4></div>
+                                        <div class="scrollable">
+                                            <table class="table table-condensed table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>&nbsp;</th>
+                                                        <th>Song</th>
+                                                        <th class="text-right">Requested By</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                            <div class="body">
+                                                <table class="table table-condensed table-striped">
+                                                    <tbody>
+                                                        <tr v-for="(request, index) in requests">
+                                                            <td>
+                                                                <button class="btn btn-primary btn-xs" v-on:click="playRequest(index, request.id)">
+                                                                    <span class="glyphicon glyphicon-play"></span>
+                                                                </button>
+                                                                <br>
+                                                                <button class="btn btn-danger btn-xs">
+                                                                    <span class="glyphicon glyphicon-remove">
+                                                                </span>
+                                                            </td>
+                                                            <td>{{ request.song.name }}</td>
+                                                            <td class="text-right">{{ request.twitch_user_name }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </request-list>
+                        </div>
+                        <div class="col-sm-6">
+                            <add-song-form artist-id="1" inline-template>
                                 <div class="form-group">
                                     <label for="songname">Song Name:</label>
-                                    <input type="text" name="songname" id="songname" class="form-control" v-model="songname" v-on:keyup="processForm" required>
+                                    <div class="input-group">
+                                        <input type="text" name="songname" id="songname" class="form-control" v-model="songname" v-on:keyup="processForm" required>
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary" v-on:click="addSong">Add</button>
+                                        </span>
+                                    </div>
                                 </div>
+                            </add-song-form>
 
-                                <button type="submit" class="btn btn-primary" v-on:click="addSong">Add</button>
-                            </div>
-                        </add-song-form>
-                        <song-list artist-id="1" inline-template>
-                            <div class="col-sm-6">
+                            <song-list artist-id="1" inline-template>
                                 <div class="panel panel-default">
                                     <div class="panel-heading"><h4 class="panel-title">Songs</h4></div>
-                                    <table class="table table-condensed table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Song</th>
-                                                <!--<th>Game</th>-->
-                                                <th>&nbsp;</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="(song, index) in songs">
-                                                <td>{{ song.name }}</td>
-                                                <!--<td>&nbsp;</td>-->
-                                                <td class="text-right">
-                                                    <!--<button class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span></button>-->
-                                                    <button class="btn btn-danger btn-xs" v-on:click="removeSong(index, song.id)"><span class="glyphicon glyphicon-remove"></span></button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="scrollable">
+                                        <table class="table table-condensed table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Song</th>
+                                                    <!--<th>Game</th>-->
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <div class="body">
+                                            <table class="table table-condensed table-striped">
+                                                <tbody>
+                                                    <tr v-for="(song, index) in songs">
+                                                        <td>{{ song.name }}</td>
+                                                        <!--<td>&nbsp;</td>-->
+                                                        <td class="text-right">
+                                                            <!--<button class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span></button>-->
+                                                            <button class="btn btn-danger btn-xs" v-on:click="removeSong(index, song.id)"><span class="glyphicon glyphicon-remove"></span></button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </song-list>
+                            </song-list>
+                        </div>
                     </div>
                 </config>
             </div>

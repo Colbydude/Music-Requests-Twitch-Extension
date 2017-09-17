@@ -4,6 +4,14 @@
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "~sweetalert2/dist/sweetalert2.css";
 
+html, body {
+    height: 100%;
+}
+
+.live-config {
+    padding-top: 15px;
+}
+
 .viewer {
     background-color: transparent;
     padding-top: 100px;
@@ -11,6 +19,12 @@
 
 .btn {
     border-radius: 0;
+
+    &:focus, &.focus,
+    &:active:focus, &:active.focus,
+    &.active:focus, &.active.focus {
+        outline: none;
+    }
 }
 
 .form-control {
@@ -23,6 +37,51 @@
     }
 }
 
+.panel, .panel-heading, .panel-body, .panel-footer {
+    border-radius: 0;
+}
+
+.scrollable {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    height: 295px;
+    overflow-x: scroll;
+
+    .table {
+        margin-bottom: 0;
+    }
+
+    & > .body {
+        flex: 1;
+        -webkit-flex: 1;
+        overflow-y: scroll;
+        width: 100%;
+
+        .btn-primary {
+            margin-bottom: 5px;
+        }
+    }
+}
+
 .modal-content, .modal-header, .modal-footer {
     border-radius: 0;
+}
+
+.request-wrapper {
+    height: 285px;
+    position: relative;
+
+    .panel-default {
+        border: none;
+        border-top: 1px solid #ddd;
+        box-shadow: none;
+        height: 210px;
+        margin-bottom: 0;
+
+        .scrollable {
+            height: 172px;
+        }
+    }
 }

@@ -35,6 +35,7 @@ window.Vue = require('vue');
 
 Vue.component('config', require('./components/config.vue'));
 Vue.component('add-song-form', require('./components/add-song-form.vue'));
+Vue.component('request-list', require('./components/request-list.vue'));
 Vue.component('request-modal', require('./components/request-modal.vue'));
 Vue.component('song-list', require('./components/song-list.vue'));
 Vue.component('viewer', require('./components/viewer.vue'));
