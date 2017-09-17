@@ -1,7 +1,13 @@
 @import "variables";
 
-// Bootstrap
+// Node Packages
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~sweetalert2/dist/sweetalert2.css";
+
+.viewer {
+    background-color: transparent;
+    padding-top: 100px;
+}
 
 .btn {
     border-radius: 0;
@@ -15,4 +21,8 @@
     &:focus {
         box-shadow: none;
     }
+}
+
+.modal-content, .modal-header, .modal-footer {
+    border-radius: 0;
 }

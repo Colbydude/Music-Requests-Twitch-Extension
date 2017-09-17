@@ -25,7 +25,6 @@
                 }
 
                 axios.post(Config.Url + '/artists/' + this.channelId + '/songs', {
-                    artist_id: this.channelId,
                     name: this.songname
                 })
                 .then(response => {

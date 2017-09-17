@@ -11,17 +11,17 @@ import { EventBus } from './event-bus.js';
 
 if (window.Twitch.ext) {
     window.Twitch.ext.onAuthorized(function(auth) {
-        //console.log(auth);
+        console.log(auth);
         EventBus.$emit('authentication-verified', auth);
     });
 
     window.Twitch.ext.onContext(function(context, contextFields) {
-        //console.log(context);
-        //console.log(contextFields);
+        console.log(context);
+        console.log(contextFields);
     });
 
     window.Twitch.ext.onError(function(err) {
-        //console.error(err);
+        console.error(err);
     });
 }
 
@@ -35,7 +35,9 @@ window.Vue = require('vue');
 
 Vue.component('config', require('./components/config.vue'));
 Vue.component('add-song-form', require('./components/add-song-form.vue'));
+Vue.component('request-modal', require('./components/request-modal.vue'));
 Vue.component('song-list', require('./components/song-list.vue'));
+Vue.component('viewer', require('./components/viewer.vue'));
 
 const app = new Vue({
     el: '#app'

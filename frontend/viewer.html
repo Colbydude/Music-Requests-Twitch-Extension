@@ -7,10 +7,38 @@
 
         <link rel="stylesheet" href="css/app.css">
     </head>
-    <body>
-        <p>This is the viewer page!</p>
+    <body class="viewer">
+        <div id="app">
+            <viewer inline-template>
+                <div class="container-fluid">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#request-modal"><span class="glyphicon glyphicon-music"></span></button>
+                </div>
+            </viewer>
+            <request-modal inline-template>
+                <div class="modal fade" id="request-modal" tabindex="-1" role="dialog" aria-labelledby="request-modal-label">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="request-modal-label">Request A Song!</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="songname">Song Name:</label>
+                                    <input type="text" name="songname" id="songname" class="form-control" v-model="songname" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" v-on:click="requestSong">Request</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </request-modal>
+        </div>
 
         <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
-        <script src="js/viewer.js"></script>
+        <script src="js/app.js"></script>
     </body>
 </html>

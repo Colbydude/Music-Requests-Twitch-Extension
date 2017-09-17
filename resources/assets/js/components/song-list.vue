@@ -10,8 +10,9 @@
 
         data () {
             return {
-                channelId: null,    // Auth'd user's Channel ID.
-                songs: {}           // Artist's catalog of songs.
+                channelId: null,    // Channel ID our frontend is being served on.
+                songs: [],          // Artist's catalog of songs.
+                userId: null        // ID of the currently auth'd user.
             };
         },
 
