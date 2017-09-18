@@ -1,10 +1,10 @@
 <script>
-    import { Config } from './../config.js';
-    import { EventBus } from './../event-bus.js';
+    import { Config } from './../config';
+    import { EventBus } from './../event-bus';
 
     export default {
         mounted () {
-            EventBus.$on('authentication-verified', this.initList)
+            EventBus.$on('authentication-verified', this.initList);
         },
 
         data () {
@@ -37,7 +37,6 @@
             getRequests () {
                 axios.get(Config.Url + '/artists/' + this.channelId + '/requests')
                      .then(response => {
-                         console.log(response);
                          this.requests = response.data;
                      })
                      .catch(error => {
@@ -52,6 +51,14 @@
              */
             initList (auth) {
                 this.channelId = auth.channelId;
+
+                // Listen for new requests coming in.
+                if (Twitch.ext) {
+                    Twitch.ext.listen('whisper-U' + this.channelId, (target, contentType, message) => {
+                        console.log(message);
+                    });
+                }
+
                 this.getRequests();
             },
 

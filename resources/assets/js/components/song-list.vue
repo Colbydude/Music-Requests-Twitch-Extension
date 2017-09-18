@@ -1,6 +1,6 @@
 <script>
-    import { Config } from './../config.js';
-    import { EventBus } from './../event-bus.js';
+    import { Config } from './../config';
+    import { EventBus } from './../event-bus';
 
     export default {
         mounted () {
@@ -18,12 +18,12 @@
 
         methods: {
             /**
-             * Add a song to the list.
+             * Add a song to the (beginning of) list.
              *
              * @param Song songObject
              */
             addSong (songObject) {
-                this.songs.push(songObject);
+                this.songs.unshift(songObject);
             },
 
             /**

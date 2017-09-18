@@ -1,6 +1,6 @@
 <script>
-    import { Config } from './../config.js';
-    import { EventBus } from './../event-bus.js';
+    import { Config } from './../config';
+    import { EventBus } from './../event-bus';
 
     export default {
         mounted () {
@@ -9,29 +9,12 @@
 
         data () {
             return {
-                channelId: null,    // Auth'd user's Channel ID.
-                channelName: null,  // Auth'd user's Channel Name.
+                channelId: null,    // Channel ID our frontend is being served on.
                 clientId: null      // Twitch Extension's Client ID.
             }
         },
 
         methods: {
-            /**
-             * Gets user data from the Twitch API to set the viewer name.
-             */
-            getUserData () {
-                axios.create({
-                    headers: {'Client-ID': this.clientId}
-                }).get(Config.TwitchApi + '/users?id=' + this.channelId)
-                  .then(response => {
-                      this.channelName = response.data.data[0].display_name;
-                  })
-                  .catch(error => {
-                      console.log(error);
-                      //alert('Twitch API error.');
-                  });
-            },
-
             /**
              * Sets the info from the auth object on initialization.
              *
@@ -40,8 +23,6 @@
             setInfo (auth) {
                 this.channelId = auth.channelId;
                 this.clientId = auth.clientId;
-
-                this.getUserData();
             }
         }
     }

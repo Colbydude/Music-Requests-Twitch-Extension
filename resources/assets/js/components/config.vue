@@ -1,6 +1,7 @@
 <script>
-    import { Config } from './../config.js';
-    import { EventBus } from './../event-bus.js';
+    import { Config } from './../config';
+    import { EventBus } from './../event-bus';
+    import twitchExt from './../twitchExt';
 
     export default {
         mounted () {
@@ -9,7 +10,7 @@
 
         data () {
             return {
-                channelId: null,    // Auth'd users's Channel ID.
+                channelId: null,    // Channel ID our frontend is being served on.
                 clientId: null      // Twitch Extension's Client ID.
             }
         },
@@ -42,7 +43,7 @@
             getUserData () {
                 axios.create({
                     headers: {'Client-ID': this.clientId}
-                }).get(Config.TwitchApi + '/users?id=' + this.channelId)
+                }).get(Config.TwitchApi + '/helix/users?id=' + this.channelId)
                   .then(response => {
                       this.createArtist(response.data.data[0].display_name);
                   })

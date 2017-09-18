@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+const Dotenv = require('dotenv-webpack');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +12,13 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'frontend/js')
+mix.webpackConfig({
+    plugins: [
+        new Dotenv()
+    ]
+});
+
+mix.setPublicPath('frontend')
+   .setResourceRoot('../')
+   .js('resources/assets/js/app.js', 'frontend/js')
    .sass('resources/assets/sass/app.scss', 'frontend/css');

@@ -1,6 +1,6 @@
 <script>
-    import { Config } from './../config.js';
-    import { EventBus } from './../event-bus.js';
+    import { Config } from './../config';
+    import { EventBus } from './../event-bus';
 
     export default {
         mounted () {
@@ -39,7 +39,7 @@
             getUserData () {
                 axios.create({
                     headers: {'Client-ID': this.clientId}
-                }).get(Config.TwitchApi + '/users?id=' + this.userId)
+                }).get(Config.TwitchApi + '/helix/users?id=' + this.userId)
                   .then(response => {
                       this.userName = response.data.data[0].display_name;
                   })
@@ -68,6 +68,7 @@
                      })
                      .then(response => {
                          this.songname = '';
+                         Twitch.ext.send('whisper-U' + this.channelId, 'application/json', response.data);
                          swal({
                              title: "Song Requested!",
                              text: "The broadcaster will be notified shortly.",

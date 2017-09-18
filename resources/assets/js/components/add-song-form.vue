@@ -1,6 +1,6 @@
 <script>
-    import { Config } from './../config.js';
-    import { EventBus } from './../event-bus.js';
+    import { Config } from './../config';
+    import { EventBus } from './../event-bus';
 
     export default {
         mounted () {
@@ -9,7 +9,7 @@
 
         data () {
             return {
-                channelId: null,    // Auth'd user's Channel ID.
+                channelId: null,    // Channel ID our frontend is being served on.
                 songname: ''        // Song Name input value.
             };
         },
