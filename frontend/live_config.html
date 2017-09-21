@@ -9,49 +9,7 @@
     </head>
     <body class="live-config">
         <div id="app" style="height: 100%; width: 100%">
-            <request-list inline-template>
-                <div class="request-wrapper">
-                    <div class="container-fluid">
-                        <div class="form-group">
-                            <label for="current-request">Current Request:</label>
-                            <input type="text" name="current-request" id="current-request" class="form-control" :placeholder="currentRequest" v-model="currentRequestValue">
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><h4 class="panel-title">Requests</h4></div>
-                        <div class="scrollable">
-                            <table class="table table-condensed table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>&nbsp;</th>
-                                        <th>Song</th>
-                                        <th class="text-right">Requested By</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                            <div class="body">
-                                <table class="table table-condensed table-striped">
-                                    <tbody>
-                                        <tr v-for="(request, index) in requests">
-                                            <td>
-                                                <button class="btn btn-primary btn-xs" v-on:click="playRequest(index, request.id)">
-                                                    <span class="glyphicon glyphicon-play"></span>
-                                                </button>
-                                                <br>
-                                                <button class="btn btn-danger btn-xs">
-                                                    <span class="glyphicon glyphicon-remove">
-                                                </span>
-                                            </td>
-                                            <td>{{ request.song.name }}</td>
-                                            <td class="text-right">{{ request.twitch_user_name }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </request-list>
+            <request-list :is-dashboard="true"></request-list>
         </div>
 
         <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>

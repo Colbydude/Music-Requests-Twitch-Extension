@@ -2,6 +2,7 @@
 
 // Node Packages
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~font-awesome/scss/font-awesome.scss";
 @import "~sweetalert2/dist/sweetalert2.css";
 
 html, body {
@@ -35,6 +36,13 @@ html, body {
     &:focus {
         box-shadow: none;
     }
+}
+
+.has-feedback label ~ .form-control-feedback {
+    height: auto;
+    right: 10px;
+    top: 34px;
+    width: auto;
 }
 
 .panel, .panel-heading, .panel-body, .panel-footer {
@@ -83,5 +91,11 @@ html, body {
         .scrollable {
             height: 172px;
         }
+    }
+}
+
+.request-results {
+    & > .list-group-item.active {
+        cursor: pointer;
     }
 }

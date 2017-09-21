@@ -14,47 +14,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <request-list inline-template>
-                                <div>
-                                    <div class="form-group">
-                                        <label for="current-request">Current Request:</label>
-                                        <input type="text" name="current-request" id="current-request" class="form-control" :placeholder="currentRequest" v-model="currentRequestValue">
-                                    </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading"><h4 class="panel-title">Requests</h4></div>
-                                        <div class="scrollable">
-                                            <table class="table table-condensed table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>&nbsp;</th>
-                                                        <th>Song</th>
-                                                        <th class="text-right">Requested By</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
-                                            <div class="body">
-                                                <table class="table table-condensed table-striped">
-                                                    <tbody>
-                                                        <tr v-for="(request, index) in requests">
-                                                            <td>
-                                                                <button class="btn btn-primary btn-xs" v-on:click="playRequest(index, request.id)">
-                                                                    <span class="glyphicon glyphicon-play"></span>
-                                                                </button>
-                                                                <br>
-                                                                <button class="btn btn-danger btn-xs">
-                                                                    <span class="glyphicon glyphicon-remove">
-                                                                </span>
-                                                            </td>
-                                                            <td>{{ request.song.name }}</td>
-                                                            <td class="text-right">{{ request.twitch_user_name }}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </request-list>
+                            <request-list></request-list>
                         </div>
                         <div class="col-sm-6">
                             <add-song-form artist-id="1" inline-template>
@@ -89,8 +49,8 @@
                                                         <td>{{ song.name }}</td>
                                                         <!--<td>&nbsp;</td>-->
                                                         <td class="text-right">
-                                                            <!--<button class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil"></span></button>-->
-                                                            <button class="btn btn-danger btn-xs" v-on:click="removeSong(index, song.id)"><span class="glyphicon glyphicon-remove"></span></button>
+                                                            <!--<button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span></button>-->
+                                                            <button class="btn btn-danger btn-xs" v-on:click="removeSong(index, song.id)"><span class="fa fa-trash"></span></button>
                                                         </td>
                                                     </tr>
                                                 </tbody>

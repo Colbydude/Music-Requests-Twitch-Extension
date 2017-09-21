@@ -59,6 +59,7 @@
                 axios.delete(Config.Url + '/artists/' + this.channelId + '/songs/' + id)
                      .then(response => {
                          this.songs.splice(index, 1);
+                         EventBus.$emit('song-deleted', id);
                      });
             }
         }
