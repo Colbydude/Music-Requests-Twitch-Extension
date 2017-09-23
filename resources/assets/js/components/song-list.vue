@@ -1,3 +1,34 @@
+<template>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4 class="panel-title">Songs</h4></div>
+        <div class="scrollable">
+            <table class="table table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th>Song</th>
+                        <!--<th>Game</th>-->
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="body">
+                <table class="table table-condensed table-striped">
+                    <tbody>
+                        <tr v-for="(song, index) in songs">
+                            <td>{{ song.name }}</td>
+                            <!--<td>&nbsp;</td>-->
+                            <td class="text-right">
+                                <!--<button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span></button>-->
+                                <button class="btn btn-danger btn-xs" v-on:click="removeSong(index, song.id)"><span class="fa fa-trash"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</template>
+
 <script>
     import { Config } from './../config';
     import { EventBus } from './../event-bus';

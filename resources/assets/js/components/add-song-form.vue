@@ -1,3 +1,15 @@
+<template>
+    <div class="form-group">
+        <label for="songname">Song Name:</label>
+        <div class="input-group">
+            <input type="text" name="songname" id="songname" class="form-control" v-model="songname" v-on:keyup="processForm" required>
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary" v-on:click="addSong">Add</button>
+            </span>
+        </div>
+    </div>
+</template>
+
 <script>
     import { Config } from './../config';
     import { EventBus } from './../event-bus';

@@ -9,8 +9,12 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
-    "devDependencies": {
+    "dependencies": {
         "axios": "^0.16.2",
+        "vue": "^2.1.10",
+        "vue-router": "^2.7.0"
+    },
+    "devDependencies": {
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.0.1",
         "dotenv-webpack": "^1.5.4",
@@ -20,7 +24,6 @@
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
         "sweetalert2": "^6.6.10",
-        "vue": "^2.1.10",
         "vue-typeahead": "^2.3.2"
     }
 }

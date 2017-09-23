@@ -1,7 +1,9 @@
 // Load in our JavaScript dependencies.
 require('./bootstrap');
+import app from './components/app';
 import { EventBus } from './event-bus';
 import twitchExt from './twitchExt';
+import router from './router'
 import Vue from 'vue';
 
 // Create a fresh Vue instance and attach it to the page.
@@ -9,13 +11,18 @@ Vue.prototype.$http = axios;
 Vue.use(twitchExt);
 
 Vue.component('add-song-form', require('./components/add-song-form.vue'));
+Vue.component('app', require('./components/app.vue'));
 Vue.component('config', require('./components/config.vue'));
+Vue.component('live_config', require('./components/live_config.vue'));
 Vue.component('request-form', require('./components/request-form.vue'));
 Vue.component('request-list', require('./components/request-list.vue'));
 Vue.component('song-list', require('./components/song-list.vue'));
+Vue.component('viewer', require('./components/viewer.vue'));
 
-const app = new Vue({
-    el: '#app'
+new Vue({
+    el: '#app',
+    router,
+    render: h => h(app)
 });
 
 // Spoof Twitch.ext auth if we're testing locally.

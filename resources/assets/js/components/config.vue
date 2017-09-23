@@ -1,3 +1,17 @@
+<template>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <request-list></request-list>
+            </div>
+            <div class="col-sm-6">
+                <add-song-form></add-song-form>
+                <song-list></song-list>
+            </div>
+        </div>
+    </div>
+</template>
+
 <script>
     import { Config } from './../config';
     import { EventBus } from './../event-bus';

@@ -9,61 +9,7 @@
     </head>
     <body>
         <br>
-        <div id="app">
-            <config inline-template>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <request-list></request-list>
-                        </div>
-                        <div class="col-sm-6">
-                            <add-song-form artist-id="1" inline-template>
-                                <div class="form-group">
-                                    <label for="songname">Song Name:</label>
-                                    <div class="input-group">
-                                        <input type="text" name="songname" id="songname" class="form-control" v-model="songname" v-on:keyup="processForm" required>
-                                        <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-primary" v-on:click="addSong">Add</button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </add-song-form>
-
-                            <song-list artist-id="1" inline-template>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><h4 class="panel-title">Songs</h4></div>
-                                    <div class="scrollable">
-                                        <table class="table table-condensed table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Song</th>
-                                                    <!--<th>Game</th>-->
-                                                    <th>&nbsp;</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                        <div class="body">
-                                            <table class="table table-condensed table-striped">
-                                                <tbody>
-                                                    <tr v-for="(song, index) in songs">
-                                                        <td>{{ song.name }}</td>
-                                                        <!--<td>&nbsp;</td>-->
-                                                        <td class="text-right">
-                                                            <!--<button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span></button>-->
-                                                            <button class="btn btn-danger btn-xs" v-on:click="removeSong(index, song.id)"><span class="fa fa-trash"></span></button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </song-list>
-                        </div>
-                    </div>
-                </config>
-            </div>
-        </div>
+        <div id="app"></div>
 
         <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
         <script src="js/app.js"></script>
