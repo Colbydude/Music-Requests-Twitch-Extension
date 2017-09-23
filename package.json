@@ -12,9 +12,11 @@
     "dependencies": {
         "axios": "^0.16.2",
         "vue": "^2.1.10",
-        "vue-router": "^2.7.0"
+        "vue-router": "^2.7.0",
+        "vuex": "^2.4.0"
     },
     "devDependencies": {
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.0.1",
         "dotenv-webpack": "^1.5.4",

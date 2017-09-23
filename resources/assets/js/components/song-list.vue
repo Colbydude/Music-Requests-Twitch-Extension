@@ -6,7 +6,6 @@
                 <thead>
                     <tr>
                         <th>Song</th>
-                        <!--<th>Game</th>-->
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -16,10 +15,9 @@
                     <tbody>
                         <tr v-for="(song, index) in songs">
                             <td>{{ song.name }}</td>
-                            <!--<td>&nbsp;</td>-->
                             <td class="text-right">
                                 <!--<button class="btn btn-warning btn-xs"><span class="fa fa-pencil"></span></button>-->
-                                <button class="btn btn-danger btn-xs" v-on:click="removeSong(index, song.id)"><span class="fa fa-trash"></span></button>
+                                <button class="btn btn-danger btn-xs" @click="removeSong(index, song.id)"><span class="fa fa-trash"></span></button>
                             </td>
                         </tr>
                     </tbody>
@@ -32,24 +30,25 @@
 <script>
     import { Config } from './../config';
     import { EventBus } from './../event-bus';
+    import { mapState } from 'vuex';
 
     export default {
         mounted () {
             EventBus.$on('new-song-added', this.addSong);
-            EventBus.$on('app-ready', this.initList)
+            EventBus.$on('config-ready', this.getSongs)
         },
 
         data () {
             return {
-                channelId: null,    // Channel ID our frontend is being served on.
-                songs: [],          // Artist's catalog of songs.
-                userId: null        // ID of the currently auth'd user.
+                songs: []   // Artist's catalog of songs.
             };
         },
 
+        computed: mapState(['auth']),
+
         methods: {
             /**
-             * Add a song to the (beginning of) list.
+             * Add a song to (the beginning of) the list.
              *
              * @param Song songObject
              */
@@ -61,7 +60,7 @@
              * Get the artist's song catalog from our backend.
              */
             getSongs () {
-                axios.get(Config.Url + '/artists/' + this.channelId + '/songs')
+                axios.get(Config.Url + '/artists/' + this.auth.channel_id + '/songs')
                      .then(response => {
                          this.songs = response.data;
                      })
@@ -71,23 +70,13 @@
             },
 
             /**
-             * Set the channelId and get the list of songs on initialization.
-             *
-             * @param integer channelId
-             */
-            initList (channelId) {
-                this.channelId = channelId;
-                this.getSongs();
-            },
-
-            /**
              * Remove a song from the artist's catalog.
              *
              * @param integer index
              * @param integer id
              */
             removeSong (index, id) {
-                axios.delete(Config.Url + '/artists/' + this.channelId + '/songs/' + id)
+                axios.delete(Config.Url + '/artists/' + this.auth.channel_id + '/songs/' + id)
                      .then(response => {
                          this.songs.splice(index, 1);
                          EventBus.$emit('song-deleted', id);

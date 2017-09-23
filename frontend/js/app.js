@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 56);
+/******/ 	return __webpack_require__(__webpack_require__.s = 55);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,7 +70,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(31);
+var bind = __webpack_require__(30);
 var isBuffer = __webpack_require__(64);
 
 /*global toString:true*/
@@ -389,8 +389,8 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var store = __webpack_require__(46)('wks');
-var uid = __webpack_require__(47);
+var store = __webpack_require__(45)('wks');
+var uid = __webpack_require__(46);
 var Symbol = __webpack_require__(1).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
@@ -509,20 +509,9 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 /***/ }),
 /* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EventBus; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-
-var EventBus = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a();
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(12);
+var isObject = __webpack_require__(13);
 module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
@@ -530,13 +519,930 @@ module.exports = function (it) {
 
 
 /***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Config; });
+var Config = {
+    ExtensionSecret: Object({"NODE_ENV":"development"}).TWITCH_EXTENSION_SECRET,
+    TwitchApi: "https://api.twitch.tv",
+    Url: "https://twitch.colbydude.com/api"
+};
+
+/***/ }),
 /* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EventBus; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+
+var EventBus = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a();
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Store */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapState; });
+/* unused harmony export mapMutations */
+/* unused harmony export mapGetters */
+/* unused harmony export mapActions */
+/* unused harmony export createNamespacedHelpers */
+/**
+ * vuex v2.4.0
+ * (c) 2017 Evan You
+ * @license MIT
+ */
+var applyMixin = function (Vue) {
+  var version = Number(Vue.version.split('.')[0]);
+
+  if (version >= 2) {
+    Vue.mixin({ beforeCreate: vuexInit });
+  } else {
+    // override init and inject vuex init procedure
+    // for 1.x backwards compatibility.
+    var _init = Vue.prototype._init;
+    Vue.prototype._init = function (options) {
+      if ( options === void 0 ) options = {};
+
+      options.init = options.init
+        ? [vuexInit].concat(options.init)
+        : vuexInit;
+      _init.call(this, options);
+    };
+  }
+
+  /**
+   * Vuex init hook, injected into each instances init hooks list.
+   */
+
+  function vuexInit () {
+    var options = this.$options;
+    // store injection
+    if (options.store) {
+      this.$store = typeof options.store === 'function'
+        ? options.store()
+        : options.store;
+    } else if (options.parent && options.parent.$store) {
+      this.$store = options.parent.$store;
+    }
+  }
+};
+
+var devtoolHook =
+  typeof window !== 'undefined' &&
+  window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+
+function devtoolPlugin (store) {
+  if (!devtoolHook) { return }
+
+  store._devtoolHook = devtoolHook;
+
+  devtoolHook.emit('vuex:init', store);
+
+  devtoolHook.on('vuex:travel-to-state', function (targetState) {
+    store.replaceState(targetState);
+  });
+
+  store.subscribe(function (mutation, state) {
+    devtoolHook.emit('vuex:mutation', mutation, state);
+  });
+}
+
+/**
+ * Get the first item that pass the test
+ * by second argument function
+ *
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
+ */
+/**
+ * Deep copy the given object considering circular structure.
+ * This function caches all nested objects and its copies.
+ * If it detects circular structure, use cached copy to avoid infinite loop.
+ *
+ * @param {*} obj
+ * @param {Array<Object>} cache
+ * @return {*}
+ */
+
+
+/**
+ * forEach for object
+ */
+function forEachValue (obj, fn) {
+  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
+}
+
+function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+function isPromise (val) {
+  return val && typeof val.then === 'function'
+}
+
+function assert (condition, msg) {
+  if (!condition) { throw new Error(("[vuex] " + msg)) }
+}
+
+var Module = function Module (rawModule, runtime) {
+  this.runtime = runtime;
+  this._children = Object.create(null);
+  this._rawModule = rawModule;
+  var rawState = rawModule.state;
+  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
+};
+
+var prototypeAccessors$1 = { namespaced: {} };
+
+prototypeAccessors$1.namespaced.get = function () {
+  return !!this._rawModule.namespaced
+};
+
+Module.prototype.addChild = function addChild (key, module) {
+  this._children[key] = module;
+};
+
+Module.prototype.removeChild = function removeChild (key) {
+  delete this._children[key];
+};
+
+Module.prototype.getChild = function getChild (key) {
+  return this._children[key]
+};
+
+Module.prototype.update = function update (rawModule) {
+  this._rawModule.namespaced = rawModule.namespaced;
+  if (rawModule.actions) {
+    this._rawModule.actions = rawModule.actions;
+  }
+  if (rawModule.mutations) {
+    this._rawModule.mutations = rawModule.mutations;
+  }
+  if (rawModule.getters) {
+    this._rawModule.getters = rawModule.getters;
+  }
+};
+
+Module.prototype.forEachChild = function forEachChild (fn) {
+  forEachValue(this._children, fn);
+};
+
+Module.prototype.forEachGetter = function forEachGetter (fn) {
+  if (this._rawModule.getters) {
+    forEachValue(this._rawModule.getters, fn);
+  }
+};
+
+Module.prototype.forEachAction = function forEachAction (fn) {
+  if (this._rawModule.actions) {
+    forEachValue(this._rawModule.actions, fn);
+  }
+};
+
+Module.prototype.forEachMutation = function forEachMutation (fn) {
+  if (this._rawModule.mutations) {
+    forEachValue(this._rawModule.mutations, fn);
+  }
+};
+
+Object.defineProperties( Module.prototype, prototypeAccessors$1 );
+
+var ModuleCollection = function ModuleCollection (rawRootModule) {
+  // register root module (Vuex.Store options)
+  this.register([], rawRootModule, false);
+};
+
+ModuleCollection.prototype.get = function get (path) {
+  return path.reduce(function (module, key) {
+    return module.getChild(key)
+  }, this.root)
+};
+
+ModuleCollection.prototype.getNamespace = function getNamespace (path) {
+  var module = this.root;
+  return path.reduce(function (namespace, key) {
+    module = module.getChild(key);
+    return namespace + (module.namespaced ? key + '/' : '')
+  }, '')
+};
+
+ModuleCollection.prototype.update = function update$1 (rawRootModule) {
+  update([], this.root, rawRootModule);
+};
+
+ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
+    var this$1 = this;
+    if ( runtime === void 0 ) runtime = true;
+
+  if (true) {
+    assertRawModule(path, rawModule);
+  }
+
+  var newModule = new Module(rawModule, runtime);
+  if (path.length === 0) {
+    this.root = newModule;
+  } else {
+    var parent = this.get(path.slice(0, -1));
+    parent.addChild(path[path.length - 1], newModule);
+  }
+
+  // register nested modules
+  if (rawModule.modules) {
+    forEachValue(rawModule.modules, function (rawChildModule, key) {
+      this$1.register(path.concat(key), rawChildModule, runtime);
+    });
+  }
+};
+
+ModuleCollection.prototype.unregister = function unregister (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+  if (!parent.getChild(key).runtime) { return }
+
+  parent.removeChild(key);
+};
+
+function update (path, targetModule, newModule) {
+  if (true) {
+    assertRawModule(path, newModule);
+  }
+
+  // update target module
+  targetModule.update(newModule);
+
+  // update nested modules
+  if (newModule.modules) {
+    for (var key in newModule.modules) {
+      if (!targetModule.getChild(key)) {
+        if (true) {
+          console.warn(
+            "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
+            'manual reload is needed'
+          );
+        }
+        return
+      }
+      update(
+        path.concat(key),
+        targetModule.getChild(key),
+        newModule.modules[key]
+      );
+    }
+  }
+}
+
+function assertRawModule (path, rawModule) {
+  ['getters', 'actions', 'mutations'].forEach(function (key) {
+    if (!rawModule[key]) { return }
+
+    forEachValue(rawModule[key], function (value, type) {
+      assert(
+        typeof value === 'function',
+        makeAssertionMessage(path, key, type, value)
+      );
+    });
+  });
+}
+
+function makeAssertionMessage (path, key, type, value) {
+  var buf = key + " should be function but \"" + key + "." + type + "\"";
+  if (path.length > 0) {
+    buf += " in module \"" + (path.join('.')) + "\"";
+  }
+  buf += " is " + (JSON.stringify(value)) + ".";
+
+  return buf
+}
+
+var Vue; // bind on install
+
+var Store = function Store (options) {
+  var this$1 = this;
+  if ( options === void 0 ) options = {};
+
+  if (true) {
+    assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
+    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
+    assert(this instanceof Store, "Store must be called with the new operator.");
+  }
+
+  var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
+  var strict = options.strict; if ( strict === void 0 ) strict = false;
+
+  var state = options.state; if ( state === void 0 ) state = {};
+  if (typeof state === 'function') {
+    state = state();
+  }
+
+  // store internal state
+  this._committing = false;
+  this._actions = Object.create(null);
+  this._mutations = Object.create(null);
+  this._wrappedGetters = Object.create(null);
+  this._modules = new ModuleCollection(options);
+  this._modulesNamespaceMap = Object.create(null);
+  this._subscribers = [];
+  this._watcherVM = new Vue();
+
+  // bind commit and dispatch to self
+  var store = this;
+  var ref = this;
+  var dispatch = ref.dispatch;
+  var commit = ref.commit;
+  this.dispatch = function boundDispatch (type, payload) {
+    return dispatch.call(store, type, payload)
+  };
+  this.commit = function boundCommit (type, payload, options) {
+    return commit.call(store, type, payload, options)
+  };
+
+  // strict mode
+  this.strict = strict;
+
+  // init root module.
+  // this also recursively registers all sub-modules
+  // and collects all module getters inside this._wrappedGetters
+  installModule(this, state, [], this._modules.root);
+
+  // initialize the store vm, which is responsible for the reactivity
+  // (also registers _wrappedGetters as computed properties)
+  resetStoreVM(this, state);
+
+  // apply plugins
+  plugins.forEach(function (plugin) { return plugin(this$1); });
+
+  if (Vue.config.devtools) {
+    devtoolPlugin(this);
+  }
+};
+
+var prototypeAccessors = { state: {} };
+
+prototypeAccessors.state.get = function () {
+  return this._vm._data.$$state
+};
+
+prototypeAccessors.state.set = function (v) {
+  if (true) {
+    assert(false, "Use store.replaceState() to explicit replace store state.");
+  }
+};
+
+Store.prototype.commit = function commit (_type, _payload, _options) {
+    var this$1 = this;
+
+  // check object-style commit
+  var ref = unifyObjectStyle(_type, _payload, _options);
+    var type = ref.type;
+    var payload = ref.payload;
+    var options = ref.options;
+
+  var mutation = { type: type, payload: payload };
+  var entry = this._mutations[type];
+  if (!entry) {
+    if (true) {
+      console.error(("[vuex] unknown mutation type: " + type));
+    }
+    return
+  }
+  this._withCommit(function () {
+    entry.forEach(function commitIterator (handler) {
+      handler(payload);
+    });
+  });
+  this._subscribers.forEach(function (sub) { return sub(mutation, this$1.state); });
+
+  if (
+    "development" !== 'production' &&
+    options && options.silent
+  ) {
+    console.warn(
+      "[vuex] mutation type: " + type + ". Silent option has been removed. " +
+      'Use the filter functionality in the vue-devtools'
+    );
+  }
+};
+
+Store.prototype.dispatch = function dispatch (_type, _payload) {
+  // check object-style dispatch
+  var ref = unifyObjectStyle(_type, _payload);
+    var type = ref.type;
+    var payload = ref.payload;
+
+  var entry = this._actions[type];
+  if (!entry) {
+    if (true) {
+      console.error(("[vuex] unknown action type: " + type));
+    }
+    return
+  }
+  return entry.length > 1
+    ? Promise.all(entry.map(function (handler) { return handler(payload); }))
+    : entry[0](payload)
+};
+
+Store.prototype.subscribe = function subscribe (fn) {
+  var subs = this._subscribers;
+  if (subs.indexOf(fn) < 0) {
+    subs.push(fn);
+  }
+  return function () {
+    var i = subs.indexOf(fn);
+    if (i > -1) {
+      subs.splice(i, 1);
+    }
+  }
+};
+
+Store.prototype.watch = function watch (getter, cb, options) {
+    var this$1 = this;
+
+  if (true) {
+    assert(typeof getter === 'function', "store.watch only accepts a function.");
+  }
+  return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
+};
+
+Store.prototype.replaceState = function replaceState (state) {
+    var this$1 = this;
+
+  this._withCommit(function () {
+    this$1._vm._data.$$state = state;
+  });
+};
+
+Store.prototype.registerModule = function registerModule (path, rawModule) {
+  if (typeof path === 'string') { path = [path]; }
+
+  if (true) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+    assert(path.length > 0, 'cannot register the root module by using registerModule.');
+  }
+
+  this._modules.register(path, rawModule);
+  installModule(this, this.state, path, this._modules.get(path));
+  // reset store to update getters...
+  resetStoreVM(this, this.state);
+};
+
+Store.prototype.unregisterModule = function unregisterModule (path) {
+    var this$1 = this;
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if (true) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  this._modules.unregister(path);
+  this._withCommit(function () {
+    var parentState = getNestedState(this$1.state, path.slice(0, -1));
+    Vue.delete(parentState, path[path.length - 1]);
+  });
+  resetStore(this);
+};
+
+Store.prototype.hotUpdate = function hotUpdate (newOptions) {
+  this._modules.update(newOptions);
+  resetStore(this, true);
+};
+
+Store.prototype._withCommit = function _withCommit (fn) {
+  var committing = this._committing;
+  this._committing = true;
+  fn();
+  this._committing = committing;
+};
+
+Object.defineProperties( Store.prototype, prototypeAccessors );
+
+function resetStore (store, hot) {
+  store._actions = Object.create(null);
+  store._mutations = Object.create(null);
+  store._wrappedGetters = Object.create(null);
+  store._modulesNamespaceMap = Object.create(null);
+  var state = store.state;
+  // init all modules
+  installModule(store, state, [], store._modules.root, true);
+  // reset vm
+  resetStoreVM(store, state, hot);
+}
+
+function resetStoreVM (store, state, hot) {
+  var oldVm = store._vm;
+
+  // bind store public getters
+  store.getters = {};
+  var wrappedGetters = store._wrappedGetters;
+  var computed = {};
+  forEachValue(wrappedGetters, function (fn, key) {
+    // use computed to leverage its lazy-caching mechanism
+    computed[key] = function () { return fn(store); };
+    Object.defineProperty(store.getters, key, {
+      get: function () { return store._vm[key]; },
+      enumerable: true // for local getters
+    });
+  });
+
+  // use a Vue instance to store the state tree
+  // suppress warnings just in case the user has added
+  // some funky global mixins
+  var silent = Vue.config.silent;
+  Vue.config.silent = true;
+  store._vm = new Vue({
+    data: {
+      $$state: state
+    },
+    computed: computed
+  });
+  Vue.config.silent = silent;
+
+  // enable strict mode for new vm
+  if (store.strict) {
+    enableStrictMode(store);
+  }
+
+  if (oldVm) {
+    if (hot) {
+      // dispatch changes in all subscribed watchers
+      // to force getter re-evaluation for hot reloading.
+      store._withCommit(function () {
+        oldVm._data.$$state = null;
+      });
+    }
+    Vue.nextTick(function () { return oldVm.$destroy(); });
+  }
+}
+
+function installModule (store, rootState, path, module, hot) {
+  var isRoot = !path.length;
+  var namespace = store._modules.getNamespace(path);
+
+  // register in namespace map
+  if (module.namespaced) {
+    store._modulesNamespaceMap[namespace] = module;
+  }
+
+  // set state
+  if (!isRoot && !hot) {
+    var parentState = getNestedState(rootState, path.slice(0, -1));
+    var moduleName = path[path.length - 1];
+    store._withCommit(function () {
+      Vue.set(parentState, moduleName, module.state);
+    });
+  }
+
+  var local = module.context = makeLocalContext(store, namespace, path);
+
+  module.forEachMutation(function (mutation, key) {
+    var namespacedType = namespace + key;
+    registerMutation(store, namespacedType, mutation, local);
+  });
+
+  module.forEachAction(function (action, key) {
+    var namespacedType = namespace + key;
+    registerAction(store, namespacedType, action, local);
+  });
+
+  module.forEachGetter(function (getter, key) {
+    var namespacedType = namespace + key;
+    registerGetter(store, namespacedType, getter, local);
+  });
+
+  module.forEachChild(function (child, key) {
+    installModule(store, rootState, path.concat(key), child, hot);
+  });
+}
+
+/**
+ * make localized dispatch, commit, getters and state
+ * if there is no namespace, just use root ones
+ */
+function makeLocalContext (store, namespace, path) {
+  var noNamespace = namespace === '';
+
+  var local = {
+    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if ("development" !== 'production' && !store._actions[type]) {
+          console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      return store.dispatch(type, payload)
+    },
+
+    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if ("development" !== 'production' && !store._mutations[type]) {
+          console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      store.commit(type, payload, options);
+    }
+  };
+
+  // getters and state object must be gotten lazily
+  // because they will be changed by vm update
+  Object.defineProperties(local, {
+    getters: {
+      get: noNamespace
+        ? function () { return store.getters; }
+        : function () { return makeLocalGetters(store, namespace); }
+    },
+    state: {
+      get: function () { return getNestedState(store.state, path); }
+    }
+  });
+
+  return local
+}
+
+function makeLocalGetters (store, namespace) {
+  var gettersProxy = {};
+
+  var splitPos = namespace.length;
+  Object.keys(store.getters).forEach(function (type) {
+    // skip if the target getter is not match this namespace
+    if (type.slice(0, splitPos) !== namespace) { return }
+
+    // extract local getter type
+    var localType = type.slice(splitPos);
+
+    // Add a port to the getters proxy.
+    // Define as getter property because
+    // we do not want to evaluate the getters in this time.
+    Object.defineProperty(gettersProxy, localType, {
+      get: function () { return store.getters[type]; },
+      enumerable: true
+    });
+  });
+
+  return gettersProxy
+}
+
+function registerMutation (store, type, handler, local) {
+  var entry = store._mutations[type] || (store._mutations[type] = []);
+  entry.push(function wrappedMutationHandler (payload) {
+    handler.call(store, local.state, payload);
+  });
+}
+
+function registerAction (store, type, handler, local) {
+  var entry = store._actions[type] || (store._actions[type] = []);
+  entry.push(function wrappedActionHandler (payload, cb) {
+    var res = handler.call(store, {
+      dispatch: local.dispatch,
+      commit: local.commit,
+      getters: local.getters,
+      state: local.state,
+      rootGetters: store.getters,
+      rootState: store.state
+    }, payload, cb);
+    if (!isPromise(res)) {
+      res = Promise.resolve(res);
+    }
+    if (store._devtoolHook) {
+      return res.catch(function (err) {
+        store._devtoolHook.emit('vuex:error', err);
+        throw err
+      })
+    } else {
+      return res
+    }
+  });
+}
+
+function registerGetter (store, type, rawGetter, local) {
+  if (store._wrappedGetters[type]) {
+    if (true) {
+      console.error(("[vuex] duplicate getter key: " + type));
+    }
+    return
+  }
+  store._wrappedGetters[type] = function wrappedGetter (store) {
+    return rawGetter(
+      local.state, // local state
+      local.getters, // local getters
+      store.state, // root state
+      store.getters // root getters
+    )
+  };
+}
+
+function enableStrictMode (store) {
+  store._vm.$watch(function () { return this._data.$$state }, function () {
+    if (true) {
+      assert(store._committing, "Do not mutate vuex store state outside mutation handlers.");
+    }
+  }, { deep: true, sync: true });
+}
+
+function getNestedState (state, path) {
+  return path.length
+    ? path.reduce(function (state, key) { return state[key]; }, state)
+    : state
+}
+
+function unifyObjectStyle (type, payload, options) {
+  if (isObject(type) && type.type) {
+    options = payload;
+    payload = type;
+    type = type.type;
+  }
+
+  if (true) {
+    assert(typeof type === 'string', ("Expects string as the type, but found " + (typeof type) + "."));
+  }
+
+  return { type: type, payload: payload, options: options }
+}
+
+function install (_Vue) {
+  if (Vue) {
+    if (true) {
+      console.error(
+        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
+      );
+    }
+    return
+  }
+  Vue = _Vue;
+  applyMixin(Vue);
+}
+
+// auto install in dist mode
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue);
+}
+
+var mapState = normalizeNamespace(function (namespace, states) {
+  var res = {};
+  normalizeMap(states).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedState () {
+      var state = this.$store.state;
+      var getters = this.$store.getters;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
+        if (!module) {
+          return
+        }
+        state = module.context.state;
+        getters = module.context.getters;
+      }
+      return typeof val === 'function'
+        ? val.call(this, state, getters)
+        : state[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+var mapMutations = normalizeNamespace(function (namespace, mutations) {
+  var res = {};
+  normalizeMap(mutations).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    val = namespace + val;
+    res[key] = function mappedMutation () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      if (namespace && !getModuleByNamespace(this.$store, 'mapMutations', namespace)) {
+        return
+      }
+      return this.$store.commit.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+var mapGetters = normalizeNamespace(function (namespace, getters) {
+  var res = {};
+  normalizeMap(getters).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    val = namespace + val;
+    res[key] = function mappedGetter () {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
+        return
+      }
+      if ("development" !== 'production' && !(val in this.$store.getters)) {
+        console.error(("[vuex] unknown getter: " + val));
+        return
+      }
+      return this.$store.getters[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+var mapActions = normalizeNamespace(function (namespace, actions) {
+  var res = {};
+  normalizeMap(actions).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    val = namespace + val;
+    res[key] = function mappedAction () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      if (namespace && !getModuleByNamespace(this.$store, 'mapActions', namespace)) {
+        return
+      }
+      return this.$store.dispatch.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+var createNamespacedHelpers = function (namespace) { return ({
+  mapState: mapState.bind(null, namespace),
+  mapGetters: mapGetters.bind(null, namespace),
+  mapMutations: mapMutations.bind(null, namespace),
+  mapActions: mapActions.bind(null, namespace)
+}); };
+
+function normalizeMap (map) {
+  return Array.isArray(map)
+    ? map.map(function (key) { return ({ key: key, val: key }); })
+    : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
+}
+
+function normalizeNamespace (fn) {
+  return function (namespace, map) {
+    if (typeof namespace !== 'string') {
+      map = namespace;
+      namespace = '';
+    } else if (namespace.charAt(namespace.length - 1) !== '/') {
+      namespace += '/';
+    }
+    return fn(namespace, map)
+  }
+}
+
+function getModuleByNamespace (store, helper, namespace) {
+  var module = store._modulesNamespaceMap[namespace];
+  if ("development" !== 'production' && !module) {
+    console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
+  }
+  return module
+}
+
+var index_esm = {
+  Store: Store,
+  install: install,
+  version: '2.4.0',
+  mapState: mapState,
+  mapMutations: mapMutations,
+  mapGetters: mapGetters,
+  mapActions: mapActions,
+  createNamespacedHelpers: createNamespacedHelpers
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (index_esm);
+
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(1);
 var core = __webpack_require__(4);
-var ctx = __webpack_require__(15);
-var hide = __webpack_require__(8);
+var ctx = __webpack_require__(16);
+var hide = __webpack_require__(10);
 var PROTOTYPE = 'prototype';
 
 var $export = function (type, name, source) {
@@ -597,12 +1503,12 @@ module.exports = $export;
 
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(11);
-var createDesc = __webpack_require__(42);
-module.exports = __webpack_require__(9) ? function (object, key, value) {
+var dP = __webpack_require__(12);
+var createDesc = __webpack_require__(41);
+module.exports = __webpack_require__(11) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -611,7 +1517,7 @@ module.exports = __webpack_require__(9) ? function (object, key, value) {
 
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
@@ -621,27 +1527,15 @@ module.exports = !__webpack_require__(23)(function () {
 
 
 /***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Config; });
-var Config = {
-    ExtensionSecret: Object({"NODE_ENV":"development"}).TWITCH_EXTENSION_SECRET,
-    TwitchApi: "https://api.twitch.tv",
-    Url: "https://twitch.colbydude.dev/api"
-};
-
-/***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(6);
+var anObject = __webpack_require__(5);
 var IE8_DOM_DEFINE = __webpack_require__(104);
 var toPrimitive = __webpack_require__(105);
 var dP = Object.defineProperty;
 
-exports.f = __webpack_require__(9) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+exports.f = __webpack_require__(11) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
@@ -655,7 +1549,7 @@ exports.f = __webpack_require__(9) ? Object.defineProperty : function defineProp
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -664,14 +1558,14 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = {};
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10871,11 +11765,11 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(29)))
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(16);
+var aFunction = __webpack_require__(17);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -10897,7 +11791,7 @@ module.exports = function (fn, that, length) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -10907,7 +11801,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 var hasOwnProperty = {}.hasOwnProperty;
@@ -10917,7 +11811,7 @@ module.exports = function (it, key) {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -10928,7 +11822,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10951,10 +11845,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(32);
+    adapter = __webpack_require__(31);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(32);
+    adapter = __webpack_require__(31);
   }
   return adapter;
 }
@@ -11028,35 +11922,6 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(66)))
 
 /***/ }),
-/* 20 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(5);
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = (function () {
-    if (window.Twitch.ext) {
-        window.Twitch.ext.onAuthorized(function (auth) {
-            console.log(auth);
-            __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('authentication-verified', auth);
-        });
-
-        window.Twitch.ext.onContext(function (context, contextFields) {
-            console.log(context);
-            console.log(contextFields);
-        });
-
-        window.Twitch.ext.onError(function (err) {
-            console.error(err);
-        });
-    }
-});
-
-/***/ }),
 /* 21 */
 /***/ (function(module, exports) {
 
@@ -11096,7 +11961,7 @@ module.exports = function (exec) {
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(12);
+var isObject = __webpack_require__(13);
 var document = __webpack_require__(1).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
@@ -11110,7 +11975,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(44);
+var IObject = __webpack_require__(43);
 var defined = __webpack_require__(22);
 module.exports = function (it) {
   return IObject(defined(it));
@@ -11121,8 +11986,8 @@ module.exports = function (it) {
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var shared = __webpack_require__(46)('keys');
-var uid = __webpack_require__(47);
+var shared = __webpack_require__(45)('keys');
+var uid = __webpack_require__(46);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
@@ -11132,8 +11997,8 @@ module.exports = function (key) {
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var def = __webpack_require__(11).f;
-var has = __webpack_require__(17);
+var def = __webpack_require__(12).f;
+var has = __webpack_require__(18);
 var TAG = __webpack_require__(2)('toStringTag');
 
 module.exports = function (it, tag, stat) {
@@ -11148,7 +12013,7 @@ module.exports = function (it, tag, stat) {
 "use strict";
 
 // 25.4.1.5 NewPromiseCapability(C)
-var aFunction = __webpack_require__(16);
+var aFunction = __webpack_require__(17);
 
 function PromiseCapability(C) {
   var resolve, reject;
@@ -11197,12 +12062,6 @@ module.exports = g;
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(63);
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 
@@ -11218,7 +12077,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11229,7 +12088,7 @@ var settle = __webpack_require__(68);
 var buildURL = __webpack_require__(70);
 var parseHeaders = __webpack_require__(71);
 var isURLSameOrigin = __webpack_require__(72);
-var createError = __webpack_require__(33);
+var createError = __webpack_require__(32);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(73);
 
 module.exports = function xhrAdapter(config) {
@@ -11405,7 +12264,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11430,7 +12289,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11442,7 +12301,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11468,7 +12327,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -11514,7 +12373,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -11560,7 +12419,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -11606,7 +12465,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -11652,17 +12511,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(41);
-var $export = __webpack_require__(7);
+var LIBRARY = __webpack_require__(40);
+var $export = __webpack_require__(9);
 var redefine = __webpack_require__(106);
-var hide = __webpack_require__(8);
-var has = __webpack_require__(17);
-var Iterators = __webpack_require__(13);
+var hide = __webpack_require__(10);
+var has = __webpack_require__(18);
+var Iterators = __webpack_require__(14);
 var $iterCreate = __webpack_require__(107);
 var setToStringTag = __webpack_require__(27);
 var getPrototypeOf = __webpack_require__(113);
@@ -11729,14 +12588,14 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = true;
 
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = function (bitmap, value) {
@@ -11750,12 +12609,12 @@ module.exports = function (bitmap, value) {
 
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
 var $keys = __webpack_require__(110);
-var enumBugKeys = __webpack_require__(48);
+var enumBugKeys = __webpack_require__(47);
 
 module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
@@ -11763,11 +12622,11 @@ module.exports = Object.keys || function keys(O) {
 
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(18);
+var cof = __webpack_require__(19);
 // eslint-disable-next-line no-prototype-builtins
 module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
   return cof(it) == 'String' ? it.split('') : Object(it);
@@ -11775,7 +12634,7 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
@@ -11787,7 +12646,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(1);
@@ -11799,7 +12658,7 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports) {
 
 var id = 0;
@@ -11810,7 +12669,7 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports) {
 
 // IE 8- don't enum bug keys
@@ -11820,7 +12679,7 @@ module.exports = (
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var document = __webpack_require__(1).document;
@@ -11828,7 +12687,7 @@ module.exports = document && document.documentElement;
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
@@ -11839,11 +12698,11 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(18);
+var cof = __webpack_require__(19);
 var TAG = __webpack_require__(2)('toStringTag');
 // ES3 wrong here
 var ARG = cof(function () { return arguments; }()) == 'Arguments';
@@ -11868,12 +12727,12 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
-var anObject = __webpack_require__(6);
-var aFunction = __webpack_require__(16);
+var anObject = __webpack_require__(5);
+var aFunction = __webpack_require__(17);
 var SPECIES = __webpack_require__(2)('species');
 module.exports = function (O, D) {
   var C = anObject(O).constructor;
@@ -11883,12 +12742,12 @@ module.exports = function (O, D) {
 
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ctx = __webpack_require__(15);
+var ctx = __webpack_require__(16);
 var invoke = __webpack_require__(124);
-var html = __webpack_require__(49);
+var html = __webpack_require__(48);
 var cel = __webpack_require__(24);
 var global = __webpack_require__(1);
 var process = global.process;
@@ -11929,7 +12788,7 @@ if (!setTask || !clearTask) {
     delete queue[id];
   };
   // Node.js 0.8-
-  if (__webpack_require__(18)(process) == 'process') {
+  if (__webpack_require__(19)(process) == 'process') {
     defer = function (id) {
       process.nextTick(ctx(run, id, 1));
     };
@@ -11973,7 +12832,7 @@ module.exports = {
 
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -11986,11 +12845,11 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(6);
-var isObject = __webpack_require__(12);
+var anObject = __webpack_require__(5);
+var isObject = __webpack_require__(13);
 var newPromiseCapability = __webpack_require__(28);
 
 module.exports = function (C, x) {
@@ -12004,28 +12863,32 @@ module.exports = function (C, x) {
 
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(57);
+__webpack_require__(56);
 module.exports = __webpack_require__(148);
 
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_app__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_app__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_app__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__twitchExt__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__event_bus__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__router__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuex__ = __webpack_require__(8);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 // Load in our JavaScript dependencies.
-__webpack_require__(58);
+__webpack_require__(57);
+
 
 
 
@@ -12034,54 +12897,149 @@ __webpack_require__(58);
 
 // Create a fresh Vue instance and attach it to the page.
 __WEBPACK_IMPORTED_MODULE_4_vue___default.a.prototype.$http = axios;
-__WEBPACK_IMPORTED_MODULE_4_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2__twitchExt__["a" /* default */]);
+__WEBPACK_IMPORTED_MODULE_4_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_5_vuex__["a" /* default */]);
 
 __WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('add-song-form', __webpack_require__(93));
-__WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('app', __webpack_require__(36));
-__WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('config', __webpack_require__(37));
-__WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('live_config', __webpack_require__(38));
+__WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('app', __webpack_require__(35));
+__WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('config', __webpack_require__(36));
+__WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('live_config', __webpack_require__(37));
 __WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('request-form', __webpack_require__(96));
 __WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('request-list', __webpack_require__(142));
 __WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('song-list', __webpack_require__(145));
-__WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('viewer', __webpack_require__(39));
+__WEBPACK_IMPORTED_MODULE_4_vue___default.a.component('viewer', __webpack_require__(38));
+
+var store = new __WEBPACK_IMPORTED_MODULE_5_vuex__["a" /* default */].Store({
+    state: {
+        auth: {
+            channel_id: null,
+            channelname: null,
+            client_id: null,
+            opaque_user_id: null,
+            user_id: null,
+            username: null
+        }
+    },
+
+    getters: {
+        isAuthenticated: function isAuthenticated(state) {
+            return state.auth.user_id ? true : false;
+        }
+    },
+
+    mutations: {
+        setAuth: function setAuth(state, auth) {
+            state.auth = _extends({}, state.auth, auth);
+        },
+        setAuthUsername: function setAuthUsername(state, username) {
+            state.auth.username = username;
+        },
+        setChannelUsername: function setChannelUsername(state, username) {
+            state.auth.channelname = username;
+        }
+    }
+});
 
 new __WEBPACK_IMPORTED_MODULE_4_vue___default.a({
     el: '#app',
     router: __WEBPACK_IMPORTED_MODULE_3__router__["a" /* default */],
+    store: store,
     render: function render(h) {
         return h(__WEBPACK_IMPORTED_MODULE_0__components_app___default.a);
     }
 });
 
+// Twitch JS Helper stuff...
+if (window.Twitch.ext) {
+    window.Twitch.ext.onAuthorized(function (auth) {
+        var parts = auth.token.split(".");
+        var payload = JSON.parse(window.atob(parts[1]));
+        console.log({ payload: payload, auth: auth });
+
+        if (payload.user_id) {
+            // User has granted permissions.
+            // NOTE: User needs to grant permissions in order to submit requests.
+            store.commit('setAuth', {
+                channel_id: payload.channel_id,
+                client_id: auth.clientId,
+                opaque_user_id: payload.opaque_user_id,
+                user_id: payload.user_id
+            });
+
+            // Fetch the username from the Twitch API via the user_id.
+            axios.create({
+                headers: { 'Client-ID': auth.clientId }
+            }).get(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* Config */].TwitchApi + '/helix/users?id=' + payload.user_id).then(function (response) {
+                store.commit('setAuthUsername', response.data.data[0].display_name);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        } else {
+            // User has not granted permissions.
+            store.commit('setAuth', {
+                channel_id: payload.channel_id,
+                client_id: auth.clientId,
+                opaque_user_id: payload.opaque_user_id
+            });
+        }
+
+        // Initialize the components.
+        __WEBPACK_IMPORTED_MODULE_2__event_bus__["a" /* EventBus */].$emit('authentication-verified');
+
+        // Fetch the channel's username from the Twitch API via the channel_id.
+        axios.create({
+            headers: { 'Client-ID': auth.clientId }
+        }).get(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* Config */].TwitchApi + '/helix/users?id=' + payload.channel_id).then(function (response) {
+            store.commit('setChannelUsername', response.data.data[0].display_name);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    });
+
+    window.Twitch.ext.onContext(function (context, contextFields) {
+        console.log(context);
+        console.log(contextFields);
+    });
+
+    window.Twitch.ext.onError(function (err) {
+        console.error(err);
+    });
+}
+
 // Spoof Twitch.ext auth if we're testing locally.
-if (true) {
+if (false) {
     var auth = {
-        channelId: "1058397",
-        clientId: "1058397",
-        userId: "U1058397"
+        channel_id: process.env.TWITCH_CHANNEL_ID,
+        channelname: process.env.TWITCH_USERNAME,
+        client_id: process.env.TWITCH_CHANNEL_ID,
+        user_id: process.env.TWITCH_USER_ID,
+        username: process.env.TWITCH_USERNAME
     };
 
     console.log('DEBUG AUTH BEING USED');
     console.log(auth);
 
-    __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('authentication-verified', auth);
+    // Set global auth object.
+    store.commit('setAuth', auth);
+
+    // Initialize the components.
+    EventBus.$emit('authentication-verified');
 }
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
-window._ = __webpack_require__(59);
+window._ = __webpack_require__(58);
 
 // jQuery and Bootstrap plugins.
 try {
-    window.$ = window.jQuery = __webpack_require__(61);
+    window.$ = window.jQuery = __webpack_require__(60);
 
-    __webpack_require__(62);
+    __webpack_require__(61);
 } catch (e) {}
 
 // Load in Axios.
-window.axios = __webpack_require__(30);
+window.axios = __webpack_require__(62);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -12091,7 +13049,7 @@ try {
 } catch (e) {}
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -29180,10 +30138,10 @@ try {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(29), __webpack_require__(60)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(29), __webpack_require__(59)(module)))
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -29211,7 +30169,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -39471,7 +40429,7 @@ return jQuery;
 
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports) {
 
 /*!
@@ -41854,6 +42812,12 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(63);
+
+/***/ }),
 /* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41861,9 +42825,9 @@ if (typeof jQuery === 'undefined') {
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(31);
+var bind = __webpack_require__(30);
 var Axios = __webpack_require__(65);
-var defaults = __webpack_require__(19);
+var defaults = __webpack_require__(20);
 
 /**
  * Create an instance of Axios
@@ -41896,9 +42860,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(35);
+axios.Cancel = __webpack_require__(34);
 axios.CancelToken = __webpack_require__(80);
-axios.isCancel = __webpack_require__(34);
+axios.isCancel = __webpack_require__(33);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -41946,7 +42910,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(19);
+var defaults = __webpack_require__(20);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(75);
 var dispatchRequest = __webpack_require__(76);
@@ -42248,7 +43212,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(33);
+var createError = __webpack_require__(32);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -42667,8 +43631,8 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(77);
-var isCancel = __webpack_require__(34);
-var defaults = __webpack_require__(19);
+var isCancel = __webpack_require__(33);
+var defaults = __webpack_require__(20);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -42820,7 +43784,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(35);
+var Cancel = __webpack_require__(34);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -44728,13 +45692,13 @@ if (false) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_config__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_config__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_config__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_live_config__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_live_config__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_live_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_live_config__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_viewer__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_viewer__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_viewer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_viewer__);
 
 
@@ -47280,9 +48244,9 @@ if (inBrowser && window.Vue) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__twitchExt__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(8);
 //
 //
 //
@@ -47304,15 +48268,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$on('authentication-verified', this.setInfo);
-    },
-    data: function data() {
-        return {
-            channelId: null, // Channel ID our frontend is being served on.
-            clientId: null // Twitch Extension's Client ID.
-        };
+        __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$on('authentication-verified', this.verifyArtist);
     },
 
+
+    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['auth']),
 
     methods: {
         /**
@@ -47320,50 +48280,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          *
          * @param string name
          */
-        createArtist: function createArtist(name) {
+        createArtist: function createArtist() {
             var _this = this;
 
-            console.log('' + name + ' ' + this.channelId);
-
             axios.post(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists', {
-                twitch_channel_id: this.channelId,
-                name: name
+                twitch_channel_id: this.auth.channel_id,
+                name: this.auth.channelname
             }).then(function (response) {
-                __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('app-ready', _this.channelId);
+                __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('config-ready', _this.channelId);
             }).catch(function (error) {
                 console.log(error);
-                //alert('There was an error creating this artist.');
             });
-        },
-
-
-        /**
-         * Gets user data from the Twitch API then call to create the artist.
-         */
-        getUserData: function getUserData() {
-            var _this2 = this;
-
-            axios.create({
-                headers: { 'Client-ID': this.clientId }
-            }).get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].TwitchApi + '/helix/users?id=' + this.channelId).then(function (response) {
-                _this2.createArtist(response.data.data[0].display_name);
-            }).catch(function (error) {
-                console.log(error);
-                //alert('Twitch API error.');
-            });
-        },
-
-
-        /**
-         * Sets the info from the auth object on initialization.
-         *
-         * @param Auth auth
-         */
-        setInfo: function setInfo(auth) {
-            this.channelId = auth.channelId;
-            this.clientId = auth.clientId;
-
-            this.verifyArtist();
         },
 
 
@@ -47371,13 +48298,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * Verifies the artist exists on our backend. If it doesn't, call to create it.
          */
         verifyArtist: function verifyArtist() {
-            var _this3 = this;
+            var _this2 = this;
 
-            axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId).then(function (response) {
-                __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('app-ready', _this3.channelId);
+            axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id).then(function (response) {
+                __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('config-ready', _this2.channel_id);
             }).catch(function (error) {
                 if (error.response.status == 404) {
-                    _this3.getUserData();
+                    _this2.createArtist();
                 }
             });
         }
@@ -47649,8 +48576,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(8);
 //
 //
 //
@@ -47663,21 +48591,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$on('app-ready', this.setUser);
-    },
     data: function data() {
         return {
-            channelId: null, // Channel ID our frontend is being served on.
             songname: '' // Song Name input value.
         };
     },
 
+
+    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['auth']),
 
     methods: {
         /**
@@ -47691,32 +48618,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return;
             }
 
-            axios.post(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/songs', {
-                name: this.songname
+            axios.post(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/songs', {
+                name: this.songname.trim()
             }).then(function (response) {
                 _this.songname = "";
                 __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('new-song-added', response.data);
+            }).catch(function (error) {
+                console.log(error);
             });
-        },
-
-
-        /**
-         * Add a song on hitting "enter."
-         */
-        processForm: function processForm(event) {
-            if (event.keyCode == 13) {
-                this.addSong();
-            }
-        },
-
-
-        /**
-         * Set the channel ID on initialization.
-         *
-         * @param integer channelId
-         */
-        setUser: function setUser(channelId) {
-            this.channelId = channelId;
         }
     }
 });
@@ -47746,7 +48655,12 @@ var render = function() {
         attrs: { type: "text", name: "songname", id: "songname", required: "" },
         domProps: { value: _vm.songname },
         on: {
-          keyup: _vm.processForm,
+          keydown: function($event) {
+            if (!("button" in $event) && _vm._k($event.keyCode, "enter", 13)) {
+              return null
+            }
+            _vm.addSong($event)
+          },
           input: function($event) {
             if ($event.target.composing) {
               return
@@ -47832,9 +48746,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__twitchExt__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_typeahead__ = __webpack_require__(98);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_typeahead___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_typeahead__);
 //
@@ -47897,6 +48811,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
+    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['auth']),
+
     methods: {
         /**
          * Gets user data from the Twitch API then call to create the request.
@@ -47933,19 +48849,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         requestSong: function requestSong(songId) {
             var _this2 = this;
 
-            axios.post(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests', {
+            axios.post(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/requests', {
                 song_id: songId,
-                twitch_user_id: this.userId,
-                twitch_user_name: this.userName
+                twitch_user_id: this.auth.user_id,
+                twitch_user_name: this.auth.username
             }).then(function (response) {
                 // Send whisper pubsub to update the broadcaster's request list in real-time.
-                Twitch.ext.send('whisper-U' + _this2.channelId, 'application/json', response.data);
+                Twitch.ext.send('whisper-U' + _this2.auth.channel_id, 'application/json', response.data);
 
                 _this2.reset();
 
                 swal({
-                    title: "Song Requested!",
-                    text: "The broadcaster will be notified shortly.",
+                    title: 'Song Requested!',
+                    text: 'The broadcaster will be notified shortly.',
                     type: 'success',
                     timer: 2000,
                     showConfirmButton: false
@@ -47964,16 +48880,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * @param Auth auth
          */
         setInfo: function setInfo(auth) {
-            this.channelId = auth.channelId;
-            this.clientId = auth.clientId;
-            this.src = __WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/songs';
-            this.userId = auth.userId;
-
-            if (auth.userId.charAt(0) == 'U') {
-                this.userId = auth.userId.substr(1);
-            }
-
-            this.getUserData();
+            this.src = __WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/songs';
         }
     }
 });
@@ -48001,7 +48908,7 @@ var _assign = __webpack_require__(135);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _vue = __webpack_require__(14);
+var _vue = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -48158,7 +49065,7 @@ module.exports = __webpack_require__(4).Promise;
 var $at = __webpack_require__(103)(true);
 
 // 21.1.3.27 String.prototype[@@iterator]()
-__webpack_require__(40)(String, 'String', function (iterated) {
+__webpack_require__(39)(String, 'String', function (iterated) {
   this._t = String(iterated); // target
   this._i = 0;                // next index
 // 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -48200,7 +49107,7 @@ module.exports = function (TO_STRING) {
 /* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(9) && !__webpack_require__(23)(function () {
+module.exports = !__webpack_require__(11) && !__webpack_require__(23)(function () {
   return Object.defineProperty(__webpack_require__(24)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -48210,7 +49117,7 @@ module.exports = !__webpack_require__(9) && !__webpack_require__(23)(function ()
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(12);
+var isObject = __webpack_require__(13);
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
 // and the second argument - flag - preferred type is a string
 module.exports = function (it, S) {
@@ -48227,7 +49134,7 @@ module.exports = function (it, S) {
 /* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(8);
+module.exports = __webpack_require__(10);
 
 
 /***/ }),
@@ -48237,12 +49144,12 @@ module.exports = __webpack_require__(8);
 "use strict";
 
 var create = __webpack_require__(108);
-var descriptor = __webpack_require__(42);
+var descriptor = __webpack_require__(41);
 var setToStringTag = __webpack_require__(27);
 var IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-__webpack_require__(8)(IteratorPrototype, __webpack_require__(2)('iterator'), function () { return this; });
+__webpack_require__(10)(IteratorPrototype, __webpack_require__(2)('iterator'), function () { return this; });
 
 module.exports = function (Constructor, NAME, next) {
   Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
@@ -48255,9 +49162,9 @@ module.exports = function (Constructor, NAME, next) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __webpack_require__(6);
+var anObject = __webpack_require__(5);
 var dPs = __webpack_require__(109);
-var enumBugKeys = __webpack_require__(48);
+var enumBugKeys = __webpack_require__(47);
 var IE_PROTO = __webpack_require__(26)('IE_PROTO');
 var Empty = function () { /* empty */ };
 var PROTOTYPE = 'prototype';
@@ -48271,7 +49178,7 @@ var createDict = function () {
   var gt = '>';
   var iframeDocument;
   iframe.style.display = 'none';
-  __webpack_require__(49).appendChild(iframe);
+  __webpack_require__(48).appendChild(iframe);
   iframe.src = 'javascript:'; // eslint-disable-line no-script-url
   // createDict = iframe.contentWindow.Object;
   // html.removeChild(iframe);
@@ -48301,11 +49208,11 @@ module.exports = Object.create || function create(O, Properties) {
 /* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(11);
-var anObject = __webpack_require__(6);
-var getKeys = __webpack_require__(43);
+var dP = __webpack_require__(12);
+var anObject = __webpack_require__(5);
+var getKeys = __webpack_require__(42);
 
-module.exports = __webpack_require__(9) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(11) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -48320,7 +49227,7 @@ module.exports = __webpack_require__(9) ? Object.defineProperties : function def
 /* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var has = __webpack_require__(17);
+var has = __webpack_require__(18);
 var toIObject = __webpack_require__(25);
 var arrayIndexOf = __webpack_require__(111)(false);
 var IE_PROTO = __webpack_require__(26)('IE_PROTO');
@@ -48346,7 +49253,7 @@ module.exports = function (object, names) {
 // false -> Array#indexOf
 // true  -> Array#includes
 var toIObject = __webpack_require__(25);
-var toLength = __webpack_require__(45);
+var toLength = __webpack_require__(44);
 var toAbsoluteIndex = __webpack_require__(112);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
@@ -48386,8 +49293,8 @@ module.exports = function (index, length) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = __webpack_require__(17);
-var toObject = __webpack_require__(50);
+var has = __webpack_require__(18);
+var toObject = __webpack_require__(49);
 var IE_PROTO = __webpack_require__(26)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
@@ -48406,8 +49313,8 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 __webpack_require__(115);
 var global = __webpack_require__(1);
-var hide = __webpack_require__(8);
-var Iterators = __webpack_require__(13);
+var hide = __webpack_require__(10);
+var Iterators = __webpack_require__(14);
 var TO_STRING_TAG = __webpack_require__(2)('toStringTag');
 
 var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
@@ -48433,14 +49340,14 @@ for (var i = 0; i < DOMIterables.length; i++) {
 
 var addToUnscopables = __webpack_require__(116);
 var step = __webpack_require__(117);
-var Iterators = __webpack_require__(13);
+var Iterators = __webpack_require__(14);
 var toIObject = __webpack_require__(25);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
 // 22.1.3.29 Array.prototype.values()
 // 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = __webpack_require__(40)(Array, 'Array', function (iterated, kind) {
+module.exports = __webpack_require__(39)(Array, 'Array', function (iterated, kind) {
   this._t = toIObject(iterated); // target
   this._i = 0;                   // next index
   this._k = kind;                // kind
@@ -48488,21 +49395,21 @@ module.exports = function (done, value) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(41);
+var LIBRARY = __webpack_require__(40);
 var global = __webpack_require__(1);
-var ctx = __webpack_require__(15);
-var classof = __webpack_require__(51);
-var $export = __webpack_require__(7);
-var isObject = __webpack_require__(12);
-var aFunction = __webpack_require__(16);
+var ctx = __webpack_require__(16);
+var classof = __webpack_require__(50);
+var $export = __webpack_require__(9);
+var isObject = __webpack_require__(13);
+var aFunction = __webpack_require__(17);
 var anInstance = __webpack_require__(119);
 var forOf = __webpack_require__(120);
-var speciesConstructor = __webpack_require__(52);
-var task = __webpack_require__(53).set;
+var speciesConstructor = __webpack_require__(51);
+var task = __webpack_require__(52).set;
 var microtask = __webpack_require__(125)();
 var newPromiseCapabilityModule = __webpack_require__(28);
-var perform = __webpack_require__(54);
-var promiseResolve = __webpack_require__(55);
+var perform = __webpack_require__(53);
+var promiseResolve = __webpack_require__(54);
 var PROMISE = 'Promise';
 var TypeError = global.TypeError;
 var process = global.process;
@@ -48784,11 +49691,11 @@ module.exports = function (it, Constructor, name, forbiddenField) {
 /* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ctx = __webpack_require__(15);
+var ctx = __webpack_require__(16);
 var call = __webpack_require__(121);
 var isArrayIter = __webpack_require__(122);
-var anObject = __webpack_require__(6);
-var toLength = __webpack_require__(45);
+var anObject = __webpack_require__(5);
+var toLength = __webpack_require__(44);
 var getIterFn = __webpack_require__(123);
 var BREAK = {};
 var RETURN = {};
@@ -48816,7 +49723,7 @@ exports.RETURN = RETURN;
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
-var anObject = __webpack_require__(6);
+var anObject = __webpack_require__(5);
 module.exports = function (iterator, fn, value, entries) {
   try {
     return entries ? fn(anObject(value)[0], value[1]) : fn(value);
@@ -48834,7 +49741,7 @@ module.exports = function (iterator, fn, value, entries) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
-var Iterators = __webpack_require__(13);
+var Iterators = __webpack_require__(14);
 var ITERATOR = __webpack_require__(2)('iterator');
 var ArrayProto = Array.prototype;
 
@@ -48847,9 +49754,9 @@ module.exports = function (it) {
 /* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof = __webpack_require__(51);
+var classof = __webpack_require__(50);
 var ITERATOR = __webpack_require__(2)('iterator');
-var Iterators = __webpack_require__(13);
+var Iterators = __webpack_require__(14);
 module.exports = __webpack_require__(4).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
     || it['@@iterator']
@@ -48884,11 +49791,11 @@ module.exports = function (fn, args, that) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(1);
-var macrotask = __webpack_require__(53).set;
+var macrotask = __webpack_require__(52).set;
 var Observer = global.MutationObserver || global.WebKitMutationObserver;
 var process = global.process;
 var Promise = global.Promise;
-var isNode = __webpack_require__(18)(process) == 'process';
+var isNode = __webpack_require__(19)(process) == 'process';
 
 module.exports = function () {
   var head, last, notify;
@@ -48957,7 +49864,7 @@ module.exports = function () {
 /* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var hide = __webpack_require__(8);
+var hide = __webpack_require__(10);
 module.exports = function (target, src, safe) {
   for (var key in src) {
     if (safe && target[key]) target[key] = src[key];
@@ -48974,8 +49881,8 @@ module.exports = function (target, src, safe) {
 
 var global = __webpack_require__(1);
 var core = __webpack_require__(4);
-var dP = __webpack_require__(11);
-var DESCRIPTORS = __webpack_require__(9);
+var dP = __webpack_require__(12);
+var DESCRIPTORS = __webpack_require__(11);
 var SPECIES = __webpack_require__(2)('species');
 
 module.exports = function (KEY) {
@@ -49022,11 +49929,11 @@ module.exports = function (exec, skipClosing) {
 "use strict";
 // https://github.com/tc39/proposal-promise-finally
 
-var $export = __webpack_require__(7);
+var $export = __webpack_require__(9);
 var core = __webpack_require__(4);
 var global = __webpack_require__(1);
-var speciesConstructor = __webpack_require__(52);
-var promiseResolve = __webpack_require__(55);
+var speciesConstructor = __webpack_require__(51);
+var promiseResolve = __webpack_require__(54);
 
 $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
   var C = speciesConstructor(this, core.Promise || global.Promise);
@@ -49049,9 +49956,9 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
 "use strict";
 
 // https://github.com/tc39/proposal-promise-try
-var $export = __webpack_require__(7);
+var $export = __webpack_require__(9);
 var newPromiseCapability = __webpack_require__(28);
-var perform = __webpack_require__(54);
+var perform = __webpack_require__(53);
 
 $export($export.S, 'Promise', { 'try': function (callbackfn) {
   var promiseCapability = newPromiseCapability.f(this);
@@ -49112,9 +50019,9 @@ module.exports = function defineProperty(it, key, desc) {
 /* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $export = __webpack_require__(7);
+var $export = __webpack_require__(9);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(9), 'Object', { defineProperty: __webpack_require__(11).f });
+$export($export.S + $export.F * !__webpack_require__(11), 'Object', { defineProperty: __webpack_require__(12).f });
 
 
 /***/ }),
@@ -49136,7 +50043,7 @@ module.exports = __webpack_require__(4).Object.assign;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.3.1 Object.assign(target, source)
-var $export = __webpack_require__(7);
+var $export = __webpack_require__(9);
 
 $export($export.S + $export.F, 'Object', { assign: __webpack_require__(138) });
 
@@ -49148,11 +50055,11 @@ $export($export.S + $export.F, 'Object', { assign: __webpack_require__(138) });
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
-var getKeys = __webpack_require__(43);
+var getKeys = __webpack_require__(42);
 var gOPS = __webpack_require__(139);
 var pIE = __webpack_require__(140);
-var toObject = __webpack_require__(50);
-var IObject = __webpack_require__(44);
+var toObject = __webpack_require__(49);
+var IObject = __webpack_require__(43);
 var $assign = Object.assign;
 
 // should work with symbols and should have deterministic property order (V8 bug)
@@ -49391,8 +50298,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(8);
 //
 //
 //
@@ -49443,6 +50351,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -49451,18 +50360,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['isDashboard'],
 
     mounted: function mounted() {
-        __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$on('authentication-verified', this.initList);
+        __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$on(this.isDashboard ? 'authentication-verified' : 'config-ready', this.initList);
         __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$on('song-deleted', this.getRequests);
     },
     data: function data() {
         return {
-            channelId: null, // Channel ID our frontend is being served on.
             currentRequest: '', // Value of the current request textbox.
             lastPlayed: null, // Last played request.
             requests: [] // Artist's recent requests.
         };
     },
 
+
+    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['auth']),
 
     methods: {
         /**
@@ -49474,7 +50384,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var result = this.requests.find(function (o) {
                 return o.id === requestObject.id;
             });
-            console.log(result);
 
             if (result === undefined) {
                 this.requests.unshift(requestObject);
@@ -49488,7 +50397,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         clearRequests: function clearRequests() {
             var _this = this;
 
-            axios.delete(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests').then(function (response) {
+            axios.delete(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/requests').then(function (response) {
                 _this.requests = [];
                 _this.currentRequest = '';
             });
@@ -49501,8 +50410,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getCurrentRequest: function getCurrentRequest() {
             var _this2 = this;
 
-            axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests/current').then(function (response) {
-                console.log(response);
+            axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/requests/current').then(function (response) {
                 if (!_.isEmpty(response.data)) {
                     _this2.currentRequest = response.data;
                 }
@@ -49516,7 +50424,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getRequests: function getRequests() {
             var _this3 = this;
 
-            axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests').then(function (response) {
+            axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/requests').then(function (response) {
                 _this3.requests = response.data;
             }).catch(function (error) {
                 console.log(error);
@@ -49529,17 +50437,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          *
          * @param integer channelId
          */
-        initList: function initList(auth) {
+        initList: function initList() {
             var _this4 = this;
-
-            this.channelId = auth.channelId;
 
             // Listen for new requests coming in.
             if (Twitch.ext) {
-                Twitch.ext.listen('whisper-U' + this.channelId, function (target, contentType, message) {
+                Twitch.ext.listen('whisper-U' + this.auth.channel_id, function (target, contentType, message) {
                     message = JSON.parse(message);
-                    console.log(message);
-                    axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + _this4.channelId + '/requests/' + message.id).then(function (response) {
+
+                    axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + _this4.auth.channel_id + '/requests/' + message.id).then(function (response) {
                         _this4.addRequest(response.data);
                     }).catch(function (error) {
                         console.log(error);
@@ -49563,7 +50469,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.lastPlayed = this.requests[index];
 
-            axios.post(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests/current', {
+            axios.post(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/requests/current', {
                 request_id: id
             }).then(function (response) {
                 _this5.requests.splice(index, 1);
@@ -49581,7 +50487,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         skipRequest: function skipRequest(index, id) {
             var _this6 = this;
 
-            axios.delete(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests/' + id).then(function (response) {
+            axios.delete(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/requests/' + id).then(function (response) {
                 _this6.requests.splice(index, 1);
             });
         }
@@ -49785,8 +50691,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(8);
 //
 //
 //
@@ -49816,8 +50723,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
+
 
 
 
@@ -49825,20 +50731,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
         __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$on('new-song-added', this.addSong);
-        __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$on('app-ready', this.initList);
+        __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$on('config-ready', this.getSongs);
     },
     data: function data() {
         return {
-            channelId: null, // Channel ID our frontend is being served on.
-            songs: [], // Artist's catalog of songs.
-            userId: null // ID of the currently auth'd user.
+            songs: [] // Artist's catalog of songs.
         };
     },
 
 
+    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['auth']),
+
     methods: {
         /**
-         * Add a song to the (beginning of) list.
+         * Add a song to (the beginning of) the list.
          *
          * @param Song songObject
          */
@@ -49853,22 +50759,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getSongs: function getSongs() {
             var _this = this;
 
-            axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/songs').then(function (response) {
+            axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/songs').then(function (response) {
                 _this.songs = response.data;
             }).catch(function (error) {
                 console.log(error);
             });
-        },
-
-
-        /**
-         * Set the channelId and get the list of songs on initialization.
-         *
-         * @param integer channelId
-         */
-        initList: function initList(channelId) {
-            this.channelId = channelId;
-            this.getSongs();
         },
 
 
@@ -49881,7 +50776,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         removeSong: function removeSong(index, id) {
             var _this2 = this;
 
-            axios.delete(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/songs/' + id).then(function (response) {
+            axios.delete(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/songs/' + id).then(function (response) {
                 _this2.songs.splice(index, 1);
                 __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('song-deleted', id);
             });

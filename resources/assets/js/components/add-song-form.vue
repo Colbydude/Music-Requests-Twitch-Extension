@@ -2,9 +2,9 @@
     <div class="form-group">
         <label for="songname">Song Name:</label>
         <div class="input-group">
-            <input type="text" name="songname" id="songname" class="form-control" v-model="songname" v-on:keyup="processForm" required>
+            <input type="text" name="songname" id="songname" class="form-control" v-model="songname" @keydown.enter="addSong" required>
             <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary" v-on:click="addSong">Add</button>
+                <button type="submit" class="btn btn-primary" @click="addSong">Add</button>
             </span>
         </div>
     </div>
@@ -13,18 +13,16 @@
 <script>
     import { Config } from './../config';
     import { EventBus } from './../event-bus';
+    import { mapState } from 'vuex';
 
     export default {
-        mounted () {
-            EventBus.$on('app-ready', this.setUser);
-        },
-
         data () {
             return {
-                channelId: null,    // Channel ID our frontend is being served on.
-                songname: ''        // Song Name input value.
+                songname: ''    // Song Name input value.
             };
         },
+
+        computed: mapState(['auth']),
 
         methods: {
             /**
@@ -36,31 +34,16 @@
                     return;
                 }
 
-                axios.post(Config.Url + '/artists/' + this.channelId + '/songs', {
-                    name: this.songname
+                axios.post(Config.Url + '/artists/' + this.auth.channel_id + '/songs', {
+                    name: this.songname.trim()
                 })
                 .then(response => {
                     this.songname = "";
                     EventBus.$emit('new-song-added', response.data);
+                })
+                .catch(error => {
+                    console.log(error);
                 });
-            },
-
-            /**
-             * Add a song on hitting "enter."
-             */
-            processForm (event) {
-                if (event.keyCode == 13) {
-                    this.addSong();
-                }
-            },
-
-            /**
-             * Set the channel ID on initialization.
-             *
-             * @param integer channelId
-             */
-            setUser (channelId) {
-                this.channelId = channelId;
             }
         }
     }

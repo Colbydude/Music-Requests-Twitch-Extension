@@ -31,7 +31,7 @@
 <script>
     import { Config } from './../config';
     import { EventBus } from './../event-bus';
-    import twitchExt from './../twitchExt';
+    import { mapState } from 'vuex';
     import VueTypeahead from 'vue-typeahead'
 
     export default {
@@ -57,6 +57,8 @@
                 queryParamName: 'search'    // Override the default value (`q`) of query parameter name.
             }
         },
+
+        computed: mapState(['auth']),
 
         methods: {
             /**
@@ -90,20 +92,20 @@
              * @param integer songId
              */
             requestSong (songId) {
-                axios.post(Config.Url + '/artists/' + this.channelId + '/requests', {
+                axios.post(Config.Url + '/artists/' + this.auth.channel_id + '/requests', {
                          song_id: songId,
-                         twitch_user_id: this.userId,
-                         twitch_user_name: this.userName
+                         twitch_user_id: this.auth.user_id,
+                         twitch_user_name: this.auth.username
                      })
                      .then(response => {
                          // Send whisper pubsub to update the broadcaster's request list in real-time.
-                         Twitch.ext.send('whisper-U' + this.channelId, 'application/json', response.data);
+                         Twitch.ext.send('whisper-U' + this.auth.channel_id, 'application/json', response.data);
 
                          this.reset();
 
                          swal({
-                             title: "Song Requested!",
-                             text: "The broadcaster will be notified shortly.",
+                             title: 'Song Requested!',
+                             text: 'The broadcaster will be notified shortly.',
                              type: 'success',
                              timer: 2000,
                              showConfirmButton: false
@@ -125,16 +127,7 @@
              * @param Auth auth
              */
             setInfo (auth) {
-                this.channelId = auth.channelId;
-                this.clientId = auth.clientId;
-                this.src = Config.Url + '/artists/' + this.channelId + '/songs';
-                this.userId = auth.userId;
-
-                if (auth.userId.charAt(0) == 'U') {
-                    this.userId = auth.userId.substr(1);
-                }
-
-                this.getUserData();
+                this.src = Config.Url + '/artists/' + this.auth.channel_id + '/songs';
             }
         }
     }
