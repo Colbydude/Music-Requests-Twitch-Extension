@@ -128,7 +128,11 @@
                 this.channelId = auth.channelId;
                 this.clientId = auth.clientId;
                 this.src = Config.Url + '/artists/' + this.channelId + '/songs';
-                this.userId = auth.userId.substr(1);
+                this.userId = auth.userId;
+
+                if (auth.userId.charAt(0) == 'U') {
+                    this.userId = auth.userId.substr(1);
+                }
 
                 this.getUserData();
             }

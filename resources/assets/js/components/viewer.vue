@@ -1,8 +1,6 @@
 <template>
-    <div>
-        <div class="container-fluid">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#request-modal"><span class="fa fa-music"></span></button>
-        </div>
+    <div style="height: 100%;">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#request-modal"><span class="fa fa-music"></span></button>
 
         <div class="modal fade" id="request-modal" tabindex="-1" role="dialog" aria-labelledby="request-modal-label">
             <div class="modal-dialog" role="document">

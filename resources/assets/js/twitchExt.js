@@ -16,5 +16,5 @@ export default function () {
         window.Twitch.ext.onError(function (err) {
             console.error(err);
         });
-  }
+    }
 }

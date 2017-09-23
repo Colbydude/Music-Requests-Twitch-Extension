@@ -15,7 +15,13 @@ html, body {
 
 .viewer {
     background-color: transparent;
-    padding-top: 100px;
+    height: 100%;
+
+    .btn-primary {
+        bottom: 80px;
+        left: 15px;
+        position: absolute;
+    }
 }
 
 .btn {

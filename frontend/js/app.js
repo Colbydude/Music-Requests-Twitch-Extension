@@ -47479,8 +47479,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
@@ -47492,7 +47490,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticStyle: { height: "100%" } }, [
     _vm._m(0),
     _vm._v(" "),
     _c(
@@ -47536,20 +47534,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container-fluid" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          attrs: {
-            type: "button",
-            "data-toggle": "modal",
-            "data-target": "#request-modal"
-          }
-        },
-        [_c("span", { staticClass: "fa fa-music" })]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-primary",
+        attrs: {
+          type: "button",
+          "data-toggle": "modal",
+          "data-target": "#request-modal"
+        }
+      },
+      [_c("span", { staticClass: "fa fa-music" })]
+    )
   },
   function() {
     var _vm = this
@@ -47971,7 +47967,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.channelId = auth.channelId;
             this.clientId = auth.clientId;
             this.src = __WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/songs';
-            this.userId = auth.userId.substr(1);
+            this.userId = auth.userId;
+
+            if (auth.userId.charAt(0) == 'U') {
+                this.userId = auth.userId.substr(1);
+            }
 
             this.getUserData();
         }
@@ -49442,6 +49442,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -49456,28 +49457,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             channelId: null, // Channel ID our frontend is being served on.
-            currentRequestValue: '', // Text value of the current request textbox.
+            currentRequest: '', // Value of the current request textbox.
             lastPlayed: null, // Last played request.
             requests: [] // Artist's recent requests.
         };
     },
 
 
-    computed: {
-        currentRequest: function currentRequest() {
-            if (this.currentRequestValue !== '') {
-                return this.currentRequestValue;
-            }
-
-            if (this.lastPlayed !== null) {
-                return this.lastPlayed.song.name + ' - ' + this.lastPlayed.twitch_user_name;
-            }
-
-            return '';
-        }
-    },
-
     methods: {
+        /**
+         * Add a request to the list (in real-time).
+         *
+         * @param Request requestObject
+         */
+        addRequest: function addRequest(requestObject) {
+            var result = this.requests.find(function (o) {
+                return o.id === requestObject.id;
+            });
+            console.log(result);
+
+            if (result === undefined) {
+                this.requests.unshift(requestObject);
+            }
+        },
+
+
         /**
          * Clear the entire request list.
          */
@@ -49486,6 +49490,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.delete(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests').then(function (response) {
                 _this.requests = [];
+                _this.currentRequest = '';
+            });
+        },
+
+
+        /**
+         * Get the artist's current request.
+         */
+        getCurrentRequest: function getCurrentRequest() {
+            var _this2 = this;
+
+            axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests/current').then(function (response) {
+                console.log(response);
+                if (!_.isEmpty(response.data)) {
+                    _this2.currentRequest = response.data;
+                }
             });
         },
 
@@ -49494,10 +49514,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * Get the artist's requests from our backend.
          */
         getRequests: function getRequests() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests').then(function (response) {
-                _this2.requests = response.data;
+                _this3.requests = response.data;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -49510,15 +49530,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * @param integer channelId
          */
         initList: function initList(auth) {
+            var _this4 = this;
+
             this.channelId = auth.channelId;
 
             // Listen for new requests coming in.
             if (Twitch.ext) {
                 Twitch.ext.listen('whisper-U' + this.channelId, function (target, contentType, message) {
+                    message = JSON.parse(message);
                     console.log(message);
+                    axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + _this4.channelId + '/requests/' + message.id).then(function (response) {
+                        _this4.addRequest(response.data);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
                 });
             }
 
+            this.getCurrentRequest();
             this.getRequests();
         },
 
@@ -49530,14 +49559,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * @param integer id
          */
         playRequest: function playRequest(index, id) {
-            var _this3 = this;
+            var _this5 = this;
 
             this.lastPlayed = this.requests[index];
 
-            axios.patch(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests/' + id, {
-                is_taken: true
+            axios.post(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests/current', {
+                request_id: id
             }).then(function (response) {
-                _this3.requests.splice(index, 1);
+                _this5.requests.splice(index, 1);
+                _this5.getCurrentRequest();
             });
         },
 
@@ -49549,10 +49579,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * @param integer id
          */
         skipRequest: function skipRequest(index, id) {
-            var _this4 = this;
+            var _this6 = this;
 
             axios.delete(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.channelId + '/requests/' + id).then(function (response) {
-                _this4.requests.splice(index, 1);
+                _this6.requests.splice(index, 1);
             });
         }
     }
@@ -49578,8 +49608,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.currentRequestValue,
-              expression: "currentRequestValue"
+              value: _vm.currentRequest,
+              expression: "currentRequest"
             }
           ],
           staticClass: "form-control",
@@ -49587,16 +49617,16 @@ var render = function() {
             type: "text",
             name: "current-request",
             id: "current-request",
-            placeholder: _vm.currentRequest,
+            placeholder: "No Request Currently",
             disabled: ""
           },
-          domProps: { value: _vm.currentRequestValue },
+          domProps: { value: _vm.currentRequest },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.currentRequestValue = $event.target.value
+              _vm.currentRequest = $event.target.value
             }
           }
         })
@@ -49660,9 +49690,13 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(request.song.name))]),
                   _vm._v(" "),
-                  _c("td", { staticClass: "text-right" }, [
-                    _vm._v(_vm._s(request.twitch_user_name))
-                  ])
+                  request.twitch_user_name == null
+                    ? _c("td", { staticClass: "text-right" }, [
+                        _vm._v("Unknown")
+                      ])
+                    : _c("td", { staticClass: "text-right" }, [
+                        _vm._v(_vm._s(request.twitch_user_name))
+                      ])
                 ])
               })
             )
