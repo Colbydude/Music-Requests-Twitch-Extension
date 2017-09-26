@@ -9,6 +9,13 @@
                 <song-list></song-list>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Current Request Widget</h3>
+                <p>You can add an automatically updating current request widget to your stream layout by adding a new BrowserSource plugin and setting the URL to the URL below and customizing the CSS to your liking.</p>
+                <p><code>{{ widgetUrl }}</code></p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -22,7 +29,13 @@
             EventBus.$on('authentication-verified', this.verifyArtist);
         },
 
-        computed: mapState(['auth']),
+        computed: {
+            widgetUrl () {
+                return Config.Url.replace('api', '') + this.auth.username + '/requests/current';
+            },
+
+            ...mapState(['auth'])
+        },
 
         methods: {
             /**
@@ -39,7 +52,7 @@
                          EventBus.$emit('config-ready', this.channelId);
                      })
                      .catch(error => {
-                         console.log(error);
+                         //console.log(error);
                      });
             },
 

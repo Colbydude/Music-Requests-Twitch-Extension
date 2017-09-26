@@ -117,7 +117,7 @@
                          this.requests = response.data;
                      })
                      .catch(error => {
-                         console.log(error);
+                         //console.log(error);
                      });
             },
 
@@ -137,7 +137,7 @@
                                  this.addRequest(response.data);
                              })
                              .catch(error => {
-                                 console.log(error);
+                                 //console.log(error);
                              });
                     });
                 }

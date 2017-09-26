@@ -43,11 +43,6 @@
 
         data () {
             return {
-                channelId: null,            // Channel ID our frontend is being served on.
-                clientId: null,             // Twitch Extension's Client ID.
-                userId: null,               // ID of the currently auth'd user.
-                userName: null,             // Username of the currently auth'd user.
-
                 // Type Ahead.
                 src: null,                  // The source url. Updated on setInfo.
                 data: {},                   // The data that would be sent by request.
@@ -61,22 +56,6 @@
         computed: mapState(['auth']),
 
         methods: {
-            /**
-             * Gets user data from the Twitch API then call to create the request.
-             */
-            getUserData () {
-                axios.create({
-                    headers: {'Client-ID': this.clientId}
-                }).get(Config.TwitchApi + '/helix/users?id=' + this.userId)
-                  .then(response => {
-                      this.userName = response.data.data[0].display_name;
-                  })
-                  .catch(error => {
-                      console.log(error);
-                      //alert('Twitch API error.');
-                  });
-            },
-
             /**
              * The callback function which is triggered when the user hits on an item
              *
@@ -98,9 +77,6 @@
                          twitch_user_name: this.auth.username
                      })
                      .then(response => {
-                         // Send whisper pubsub to update the broadcaster's request list in real-time.
-                         Twitch.ext.send('whisper-U' + this.auth.channel_id, 'application/json', response.data);
-
                          this.reset();
 
                          swal({
@@ -117,7 +93,7 @@
                         );
                      })
                      .catch(error => {
-                         console.log(error);
+                         //console.log(error);
                      })
             },
 

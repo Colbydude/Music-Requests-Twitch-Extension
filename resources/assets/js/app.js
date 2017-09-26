@@ -27,6 +27,7 @@ let store = new Vuex.Store({
             channelname: null,
             client_id: null,
             opaque_user_id: null,
+            token: null,
             user_id: null,
             username: null
         }
@@ -65,7 +66,7 @@ if (window.Twitch.ext) {
     window.Twitch.ext.onAuthorized(function (auth) {
         var parts = auth.token.split(".");
         var payload = JSON.parse(window.atob(parts[1]));
-        console.log({payload, auth});
+        //console.log({payload, auth});
 
         if (payload.user_id) {
             // User has granted permissions.
@@ -74,6 +75,7 @@ if (window.Twitch.ext) {
                 channel_id: payload.channel_id,
                 client_id: auth.clientId,
                 opaque_user_id: payload.opaque_user_id,
+                token: auth.token,
                 user_id: payload.user_id
             });
 
@@ -92,9 +94,13 @@ if (window.Twitch.ext) {
             store.commit('setAuth', {
                 channel_id: payload.channel_id,
                 client_id: auth.clientId,
-                opaque_user_id: payload.opaque_user_id
+                opaque_user_id: payload.opaque_user_id,
+                token: auth.token
             });
         }
+
+        // Set the token to be used in the header of all axios requests.
+        window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
 
         // Initialize the components.
         EventBus.$emit('authentication-verified');
@@ -112,27 +118,34 @@ if (window.Twitch.ext) {
     });
 
     window.Twitch.ext.onContext(function (context, contextFields) {
-        console.log(context);
-        console.log(contextFields);
+        //console.log(context);
+        //console.log(contextFields);
     });
 
     window.Twitch.ext.onError(function (err) {
-        console.error(err);
+        //console.error(err);
     });
 }
 
 // Spoof Twitch.ext auth if we're testing locally.
 if (process.env.APP_DEBUG == 'true') {
+    var jwt = require('jsonwebtoken');
+    var expiration = Math.floor(Date.now() / 1000) + (60 * 60 * 24);
+    var token = jwt.sign({exp: expiration, debug: 'yes'}, new Buffer(process.env.JWT_SECRET, 'base64'));
+
     let auth = {
         channel_id: process.env.TWITCH_CHANNEL_ID,
         channelname: process.env.TWITCH_USERNAME,
-        client_id: process.env.TWITCH_CHANNEL_ID,
+        client_id: process.env.TWITCH_CLIENT_ID,
+        token: token,
         user_id: process.env.TWITCH_USER_ID,
         username: process.env.TWITCH_USERNAME
     };
 
+    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
+
     console.log('DEBUG AUTH BEING USED');
-    console.log(auth);
+    //console.log(auth);
 
     // Set global auth object.
     store.commit('setAuth', auth);

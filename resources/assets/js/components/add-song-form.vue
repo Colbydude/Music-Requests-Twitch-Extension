@@ -35,15 +35,15 @@
                 }
 
                 axios.post(Config.Url + '/artists/' + this.auth.channel_id + '/songs', {
-                    name: this.songname.trim()
-                })
-                .then(response => {
-                    this.songname = "";
-                    EventBus.$emit('new-song-added', response.data);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+                         name: this.songname.trim()
+                     })
+                     .then(response => {
+                         this.songname = "";
+                         EventBus.$emit('new-song-added', response.data);
+                     })
+                     .catch(error => {
+                         //console.log(error);
+                     });
             }
         }
     }

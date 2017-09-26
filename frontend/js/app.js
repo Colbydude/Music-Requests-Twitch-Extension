@@ -12915,6 +12915,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_5_vuex__["a" /* default */].Store({
             channelname: null,
             client_id: null,
             opaque_user_id: null,
+            token: null,
             user_id: null,
             username: null
         }
@@ -12953,7 +12954,7 @@ if (window.Twitch.ext) {
     window.Twitch.ext.onAuthorized(function (auth) {
         var parts = auth.token.split(".");
         var payload = JSON.parse(window.atob(parts[1]));
-        console.log({ payload: payload, auth: auth });
+        //console.log({payload, auth});
 
         if (payload.user_id) {
             // User has granted permissions.
@@ -12962,6 +12963,7 @@ if (window.Twitch.ext) {
                 channel_id: payload.channel_id,
                 client_id: auth.clientId,
                 opaque_user_id: payload.opaque_user_id,
+                token: auth.token,
                 user_id: payload.user_id
             });
 
@@ -12978,9 +12980,13 @@ if (window.Twitch.ext) {
             store.commit('setAuth', {
                 channel_id: payload.channel_id,
                 client_id: auth.clientId,
-                opaque_user_id: payload.opaque_user_id
+                opaque_user_id: payload.opaque_user_id,
+                token: auth.token
             });
         }
+
+        // Set the token to be used in the header of all axios requests.
+        window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
 
         // Initialize the components.
         __WEBPACK_IMPORTED_MODULE_2__event_bus__["a" /* EventBus */].$emit('authentication-verified');
@@ -12996,33 +13002,13 @@ if (window.Twitch.ext) {
     });
 
     window.Twitch.ext.onContext(function (context, contextFields) {
-        console.log(context);
-        console.log(contextFields);
+        //console.log(context);
+        //console.log(contextFields);
     });
 
     window.Twitch.ext.onError(function (err) {
-        console.error(err);
+        //console.error(err);
     });
-}
-
-// Spoof Twitch.ext auth if we're testing locally.
-if (false) {
-    var auth = {
-        channel_id: process.env.TWITCH_CHANNEL_ID,
-        channelname: process.env.TWITCH_USERNAME,
-        client_id: process.env.TWITCH_CHANNEL_ID,
-        user_id: process.env.TWITCH_USER_ID,
-        username: process.env.TWITCH_USERNAME
-    };
-
-    console.log('DEBUG AUTH BEING USED');
-    console.log(auth);
-
-    // Set global auth object.
-    store.commit('setAuth', auth);
-
-    // Initialize the components.
-    EventBus.$emit('authentication-verified');
 }
 
 /***/ }),
@@ -48247,6 +48233,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(8);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48272,7 +48267,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
-    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['auth']),
+    computed: _extends({
+        widgetUrl: function widgetUrl() {
+            return __WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url.replace('api', '') + this.auth.username + '/requests/current';
+        }
+    }, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['auth'])),
 
     methods: {
         /**
@@ -48289,7 +48288,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('config-ready', _this.channelId);
             }).catch(function (error) {
-                console.log(error);
+                //console.log(error);
             });
         },
 
@@ -48329,6 +48328,20 @@ var render = function() {
         [_c("add-song-form"), _vm._v(" "), _c("song-list")],
         1
       )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c("h3", [_vm._v("Current Request Widget")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "You can add an automatically updating current request widget to your stream layout by adding a new BrowserSource plugin and setting the URL to the URL below and customizing the CSS to your liking."
+          )
+        ]),
+        _vm._v(" "),
+        _c("p", [_c("code", [_vm._v(_vm._s(_vm.widgetUrl))])])
+      ])
     ])
   ])
 }
@@ -48624,7 +48637,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.songname = "";
                 __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('new-song-added', response.data);
             }).catch(function (error) {
-                console.log(error);
+                //console.log(error);
             });
         }
     }
@@ -48795,11 +48808,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            channelId: null, // Channel ID our frontend is being served on.
-            clientId: null, // Twitch Extension's Client ID.
-            userId: null, // ID of the currently auth'd user.
-            userName: null, // Username of the currently auth'd user.
-
             // Type Ahead.
             src: null, // The source url. Updated on setInfo.
             data: {}, // The data that would be sent by request.
@@ -48814,23 +48822,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['auth']),
 
     methods: {
-        /**
-         * Gets user data from the Twitch API then call to create the request.
-         */
-        getUserData: function getUserData() {
-            var _this = this;
-
-            axios.create({
-                headers: { 'Client-ID': this.clientId }
-            }).get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].TwitchApi + '/helix/users?id=' + this.userId).then(function (response) {
-                _this.userName = response.data.data[0].display_name;
-            }).catch(function (error) {
-                console.log(error);
-                //alert('Twitch API error.');
-            });
-        },
-
-
         /**
          * The callback function which is triggered when the user hits on an item
          *
@@ -48847,17 +48838,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * @param integer songId
          */
         requestSong: function requestSong(songId) {
-            var _this2 = this;
+            var _this = this;
 
             axios.post(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/requests', {
                 song_id: songId,
                 twitch_user_id: this.auth.user_id,
                 twitch_user_name: this.auth.username
             }).then(function (response) {
-                // Send whisper pubsub to update the broadcaster's request list in real-time.
-                Twitch.ext.send('whisper-U' + _this2.auth.channel_id, 'application/json', response.data);
-
-                _this2.reset();
+                _this.reset();
 
                 swal({
                     title: 'Song Requested!',
@@ -48869,7 +48857,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     //
                 });
             }).catch(function (error) {
-                console.log(error);
+                //console.log(error);
             });
         },
 
@@ -50427,7 +50415,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/requests').then(function (response) {
                 _this3.requests = response.data;
             }).catch(function (error) {
-                console.log(error);
+                //console.log(error);
             });
         },
 
@@ -50448,7 +50436,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + _this4.auth.channel_id + '/requests/' + message.id).then(function (response) {
                         _this4.addRequest(response.data);
                     }).catch(function (error) {
-                        console.log(error);
+                        //console.log(error);
                     });
                 });
             }
@@ -50762,7 +50750,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/songs').then(function (response) {
                 _this.songs = response.data;
             }).catch(function (error) {
-                console.log(error);
+                //console.log(error);
             });
         },
 
