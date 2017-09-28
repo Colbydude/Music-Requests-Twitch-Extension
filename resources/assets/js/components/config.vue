@@ -52,7 +52,11 @@
                          EventBus.$emit('config-ready', this.channelId);
                      })
                      .catch(error => {
-                         //console.log(error);
+                         if (error.response.status == 401) {
+                             return swal('Error.', 'Invalid Token!', 'error');
+                         }
+
+                         return swal('Error.', 'An unexpected error occurred.', 'error');
                      });
             },
 
@@ -65,9 +69,15 @@
                          EventBus.$emit('config-ready', this.channel_id);
                      })
                      .catch(error => {
-                         if (error.response.status == 404) {
-                             this.createArtist();
+                         if (error.response.status == 401) {
+                             return swal('Error.', 'Invalid Token!', 'error');
                          }
+
+                         if (error.response.status == 404) {
+                             return this.createArtist();
+                         }
+
+                         return swal('Error.', 'An unexpected error occurred.', 'error');
                      });
             }
         }

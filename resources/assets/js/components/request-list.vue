@@ -93,6 +93,13 @@
                      .then(response => {
                          this.requests = [];
                          this.currentRequest = '';
+                     })
+                     .catch(error => {
+                         if (error.response.status == 401) {
+                             return swal('Error.', 'Invalid Token!', 'error');
+                         }
+
+                         return swal('Error.', 'An unexpected error occurred.', 'error');
                      });
             },
 
@@ -106,6 +113,13 @@
                              this.currentRequest = response.data;
                          }
                      })
+                     .catch(error => {
+                         if (error.response.status == 401) {
+                             return swal('Error.', 'Invalid Token!', 'error');
+                         }
+
+                         return swal('Error.', 'An unexpected error occurred.', 'error');
+                     });
             },
 
             /**
@@ -117,7 +131,11 @@
                          this.requests = response.data;
                      })
                      .catch(error => {
-                         //console.log(error);
+                         if (error.response.status == 401) {
+                             return swal('Error.', 'Invalid Token!', 'error');
+                         }
+
+                         return swal('Error.', 'An unexpected error occurred.', 'error');
                      });
             },
 
@@ -137,7 +155,11 @@
                                  this.addRequest(response.data);
                              })
                              .catch(error => {
-                                 //console.log(error);
+                                 if (error.response.status == 401) {
+                                     return swal('Error.', 'Invalid Token!', 'error');
+                                 }
+
+                                 return swal('Error.', 'An unexpected error occurred.', 'error');
                              });
                     });
                 }
@@ -161,6 +183,13 @@
                      .then(response => {
                          this.requests.splice(index, 1);
                          this.getCurrentRequest();
+                     })
+                     .catch(error => {
+                         if (error.response.status == 401) {
+                             return swal('Error.', 'Invalid Token!', 'error');
+                         }
+
+                         return swal('Error.', 'An unexpected error occurred.', 'error');
                      });
             },
 
@@ -174,6 +203,13 @@
                 axios.delete(Config.Url + '/artists/' + this.auth.channel_id + '/requests/' + id)
                      .then(response => {
                          this.requests.splice(index, 1);
+                     })
+                     .catch(error => {
+                         if (error.response.status == 401) {
+                             return swal('Error.', 'Invalid Token!', 'error');
+                         }
+
+                         return swal('Error.', 'An unexpected error occurred.', 'error');
                      });
             }
         }

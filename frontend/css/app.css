@@ -12127,6 +12127,13 @@ body {
   position: absolute;
 }
 
+.viewer .access-tooltip {
+  bottom: 80px;
+  opacity: 1;
+  position: absolute;
+  right: 15px;
+}
+
 .btn {
   border-radius: 0;
 }

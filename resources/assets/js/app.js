@@ -87,7 +87,11 @@ if (window.Twitch.ext) {
                   store.commit('setAuthUsername', response.data.data[0].display_name);
               })
               .catch(error => {
-                  console.log(error);
+                  if (error.response.status == 401) {
+                      return swal('Error.', 'Invalid Token!', 'error');
+                  }
+
+                  return swal('Error.', 'An unexpected error occurred.', 'error');
               });
         } else {
             // User has not granted permissions.
@@ -113,7 +117,11 @@ if (window.Twitch.ext) {
               store.commit('setChannelUsername', response.data.data[0].display_name);
           })
           .catch(error => {
-              console.log(error);
+              if (error.response.status == 401) {
+                  return swal('Error.', 'Invalid Token!', 'error');
+              }
+
+              return swal('Error.', 'An unexpected error occurred.', 'error');
           });
     });
 

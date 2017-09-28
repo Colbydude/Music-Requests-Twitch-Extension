@@ -38,7 +38,7 @@
         extends: VueTypeahead,
 
         mounted () {
-            EventBus.$on('authentication-verified', this.setInfo);
+            this.src = Config.Url + '/artists/' + this.auth.channel_id + '/songs';
         },
 
         data () {
@@ -93,17 +93,12 @@
                         );
                      })
                      .catch(error => {
-                         //console.log(error);
-                     })
-            },
+                         if (error.response.status == 401) {
+                             return swal('Error.', 'Invalid Token!', 'error');
+                         }
 
-            /**
-             * Sets the info from the auth object on initialization.
-             *
-             * @param Auth auth
-             */
-            setInfo (auth) {
-                this.src = Config.Url + '/artists/' + this.auth.channel_id + '/songs';
+                         return swal('Error.', 'An unexpected error occurred.', 'error');
+                     })
             }
         }
     }

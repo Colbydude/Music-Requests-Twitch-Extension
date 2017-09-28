@@ -509,47 +509,13 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__(13);
-module.exports = function (it) {
-  if (!isObject(it)) throw TypeError(it + ' is not an object!');
-  return it;
-};
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Config; });
-var Config = {
-    ExtensionSecret: Object({"NODE_ENV":"development"}).TWITCH_EXTENSION_SECRET,
-    TwitchApi: "https://api.twitch.tv",
-    Url: "https://twitch.colbydude.com/api"
-};
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EventBus; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-
-var EventBus = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a();
-
-/***/ }),
-/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export Store */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return mapState; });
 /* unused harmony export mapMutations */
-/* unused harmony export mapGetters */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapGetters; });
 /* unused harmony export mapActions */
 /* unused harmony export createNamespacedHelpers */
 /**
@@ -1436,6 +1402,40 @@ var index_esm = {
 
 
 /***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(13);
+module.exports = function (it) {
+  if (!isObject(it)) throw TypeError(it + ' is not an object!');
+  return it;
+};
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Config; });
+var Config = {
+    ExtensionSecret: Object({"NODE_ENV":"development"}).TWITCH_EXTENSION_SECRET,
+    TwitchApi: "https://api.twitch.tv",
+    Url: "https://twitch.colbydude.com/api"
+};
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EventBus; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+
+var EventBus = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a();
+
+/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1530,7 +1530,7 @@ module.exports = !__webpack_require__(23)(function () {
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(5);
+var anObject = __webpack_require__(6);
 var IE8_DOM_DEFINE = __webpack_require__(104);
 var toPrimitive = __webpack_require__(105);
 var dP = Object.defineProperty;
@@ -12731,7 +12731,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
-var anObject = __webpack_require__(5);
+var anObject = __webpack_require__(6);
 var aFunction = __webpack_require__(17);
 var SPECIES = __webpack_require__(2)('species');
 module.exports = function (O, D) {
@@ -12848,7 +12848,7 @@ module.exports = function (exec) {
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(5);
+var anObject = __webpack_require__(6);
 var isObject = __webpack_require__(13);
 var newPromiseCapability = __webpack_require__(28);
 
@@ -12878,12 +12878,12 @@ module.exports = __webpack_require__(148);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_app__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_app__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__event_bus__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__event_bus__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__router__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuex__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuex__ = __webpack_require__(5);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 // Load in our JavaScript dependencies.
@@ -12973,7 +12973,11 @@ if (window.Twitch.ext) {
             }).get(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* Config */].TwitchApi + '/helix/users?id=' + payload.user_id).then(function (response) {
                 store.commit('setAuthUsername', response.data.data[0].display_name);
             }).catch(function (error) {
-                console.log(error);
+                if (error.response.status == 401) {
+                    return swal('Error.', 'Invalid Token!', 'error');
+                }
+
+                return swal('Error.', 'An unexpected error occurred.', 'error');
             });
         } else {
             // User has not granted permissions.
@@ -12997,7 +13001,11 @@ if (window.Twitch.ext) {
         }).get(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* Config */].TwitchApi + '/helix/users?id=' + payload.channel_id).then(function (response) {
             store.commit('setChannelUsername', response.data.data[0].display_name);
         }).catch(function (error) {
-            console.log(error);
+            if (error.response.status == 401) {
+                return swal('Error.', 'Invalid Token!', 'error');
+            }
+
+            return swal('Error.', 'An unexpected error occurred.', 'error');
         });
     });
 
@@ -48230,9 +48238,9 @@ if (inBrowser && window.Vue) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(5);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -48271,7 +48279,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         widgetUrl: function widgetUrl() {
             return __WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url.replace('api', '') + this.auth.username + '/requests/current';
         }
-    }, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['auth'])),
+    }, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapState */])(['auth'])),
 
     methods: {
         /**
@@ -48288,7 +48296,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }).then(function (response) {
                 __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('config-ready', _this.channelId);
             }).catch(function (error) {
-                //console.log(error);
+                if (error.response.status == 401) {
+                    return swal('Error.', 'Invalid Token!', 'error');
+                }
+
+                return swal('Error.', 'An unexpected error occurred.', 'error');
             });
         },
 
@@ -48302,9 +48314,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id).then(function (response) {
                 __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('config-ready', _this2.channel_id);
             }).catch(function (error) {
-                if (error.response.status == 404) {
-                    _this2.createArtist();
+                if (error.response.status == 401) {
+                    return swal('Error.', 'Invalid Token!', 'error');
                 }
+
+                if (error.response.status == 404) {
+                    return _this2.createArtist();
+                }
+
+                return swal('Error.', 'An unexpected error occurred.', 'error');
             });
         }
     }
@@ -48394,6 +48412,15 @@ if (false) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(5);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48420,7 +48447,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['isAuthenticated'])
+});
 
 /***/ }),
 /* 92 */
@@ -48431,42 +48462,46 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticStyle: { height: "100%" } }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "request-modal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "request-modal-label"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "div",
-                  { staticClass: "form-group" },
-                  [_c("request-form")],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _vm._m(2)
-            ])
-          ]
-        )
-      ]
-    )
+    _vm.isAuthenticated
+      ? _c("div", [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                id: "request-modal",
+                tabindex: "-1",
+                role: "dialog",
+                "aria-labelledby": "request-modal-label"
+              }
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "modal-dialog", attrs: { role: "document" } },
+                [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [_c("request-form")],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(2)
+                  ])
+                ]
+              )
+            ]
+          )
+        ])
+      : _c("div", [_vm._m(3)])
   ])
 }
 var staticRenderFns = [
@@ -48526,6 +48561,24 @@ var staticRenderFns = [
         [_vm._v("Cancel")]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "access-tooltip tooltip top", attrs: { role: "tooltip" } },
+      [
+        _c("div", { staticClass: "tooltip-arrow" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "tooltip-inner" }, [
+          _vm._v(" Grant access in "),
+          _c("span", { staticClass: "fa fa-puzzle-piece" }),
+          _vm._v(" to make requests!")
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -48589,9 +48642,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(5);
 //
 //
 //
@@ -48617,7 +48670,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
-    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['auth']),
+    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapState */])(['auth']),
 
     methods: {
         /**
@@ -48637,7 +48690,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.songname = "";
                 __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('new-song-added', response.data);
             }).catch(function (error) {
-                //console.log(error);
+                if (error.response.status == 401) {
+                    return swal('Error.', 'Invalid Token!', 'error');
+                }
+
+                return swal('Error.', 'An unexpected error occurred.', 'error');
             });
         }
     }
@@ -48759,9 +48816,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_typeahead__ = __webpack_require__(98);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_typeahead___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_typeahead__);
 //
@@ -48804,7 +48861,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     extends: __WEBPACK_IMPORTED_MODULE_3_vue_typeahead___default.a,
 
     mounted: function mounted() {
-        __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$on('authentication-verified', this.setInfo);
+        this.src = __WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/songs';
     },
     data: function data() {
         return {
@@ -48819,7 +48876,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
-    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['auth']),
+    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapState */])(['auth']),
 
     methods: {
         /**
@@ -48857,18 +48914,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     //
                 });
             }).catch(function (error) {
-                //console.log(error);
+                if (error.response.status == 401) {
+                    return swal('Error.', 'Invalid Token!', 'error');
+                }
+
+                return swal('Error.', 'An unexpected error occurred.', 'error');
             });
-        },
-
-
-        /**
-         * Sets the info from the auth object on initialization.
-         *
-         * @param Auth auth
-         */
-        setInfo: function setInfo(auth) {
-            this.src = __WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/songs';
         }
     }
 });
@@ -49150,7 +49201,7 @@ module.exports = function (Constructor, NAME, next) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __webpack_require__(5);
+var anObject = __webpack_require__(6);
 var dPs = __webpack_require__(109);
 var enumBugKeys = __webpack_require__(47);
 var IE_PROTO = __webpack_require__(26)('IE_PROTO');
@@ -49197,7 +49248,7 @@ module.exports = Object.create || function create(O, Properties) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(12);
-var anObject = __webpack_require__(5);
+var anObject = __webpack_require__(6);
 var getKeys = __webpack_require__(42);
 
 module.exports = __webpack_require__(11) ? Object.defineProperties : function defineProperties(O, Properties) {
@@ -49682,7 +49733,7 @@ module.exports = function (it, Constructor, name, forbiddenField) {
 var ctx = __webpack_require__(16);
 var call = __webpack_require__(121);
 var isArrayIter = __webpack_require__(122);
-var anObject = __webpack_require__(5);
+var anObject = __webpack_require__(6);
 var toLength = __webpack_require__(44);
 var getIterFn = __webpack_require__(123);
 var BREAK = {};
@@ -49711,7 +49762,7 @@ exports.RETURN = RETURN;
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
-var anObject = __webpack_require__(5);
+var anObject = __webpack_require__(6);
 module.exports = function (iterator, fn, value, entries) {
   try {
     return entries ? fn(anObject(value)[0], value[1]) : fn(value);
@@ -50286,9 +50337,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(5);
 //
 //
 //
@@ -50360,7 +50411,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
-    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['auth']),
+    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapState */])(['auth']),
 
     methods: {
         /**
@@ -50388,6 +50439,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.delete(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/requests').then(function (response) {
                 _this.requests = [];
                 _this.currentRequest = '';
+            }).catch(function (error) {
+                if (error.response.status == 401) {
+                    return swal('Error.', 'Invalid Token!', 'error');
+                }
+
+                return swal('Error.', 'An unexpected error occurred.', 'error');
             });
         },
 
@@ -50402,6 +50459,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (!_.isEmpty(response.data)) {
                     _this2.currentRequest = response.data;
                 }
+            }).catch(function (error) {
+                if (error.response.status == 401) {
+                    return swal('Error.', 'Invalid Token!', 'error');
+                }
+
+                return swal('Error.', 'An unexpected error occurred.', 'error');
             });
         },
 
@@ -50415,7 +50478,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/requests').then(function (response) {
                 _this3.requests = response.data;
             }).catch(function (error) {
-                //console.log(error);
+                if (error.response.status == 401) {
+                    return swal('Error.', 'Invalid Token!', 'error');
+                }
+
+                return swal('Error.', 'An unexpected error occurred.', 'error');
             });
         },
 
@@ -50436,7 +50503,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + _this4.auth.channel_id + '/requests/' + message.id).then(function (response) {
                         _this4.addRequest(response.data);
                     }).catch(function (error) {
-                        //console.log(error);
+                        if (error.response.status == 401) {
+                            return swal('Error.', 'Invalid Token!', 'error');
+                        }
+
+                        return swal('Error.', 'An unexpected error occurred.', 'error');
                     });
                 });
             }
@@ -50462,6 +50533,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 _this5.requests.splice(index, 1);
                 _this5.getCurrentRequest();
+            }).catch(function (error) {
+                if (error.response.status == 401) {
+                    return swal('Error.', 'Invalid Token!', 'error');
+                }
+
+                return swal('Error.', 'An unexpected error occurred.', 'error');
             });
         },
 
@@ -50477,6 +50554,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.delete(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/requests/' + id).then(function (response) {
                 _this6.requests.splice(index, 1);
+            }).catch(function (error) {
+                if (error.response.status == 401) {
+                    return swal('Error.', 'Invalid Token!', 'error');
+                }
+
+                return swal('Error.', 'An unexpected error occurred.', 'error');
             });
         }
     }
@@ -50679,9 +50762,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__event_bus__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(5);
 //
 //
 //
@@ -50728,7 +50811,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
-    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['auth']),
+    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapState */])(['auth']),
 
     methods: {
         /**
@@ -50750,7 +50833,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/songs').then(function (response) {
                 _this.songs = response.data;
             }).catch(function (error) {
-                //console.log(error);
+                if (error.response.status == 401) {
+                    return swal('Error.', 'Invalid Token!', 'error');
+                }
+
+                return swal('Error.', 'An unexpected error occurred.', 'error');
             });
         },
 
@@ -50767,6 +50854,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.delete(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* Config */].Url + '/artists/' + this.auth.channel_id + '/songs/' + id).then(function (response) {
                 _this2.songs.splice(index, 1);
                 __WEBPACK_IMPORTED_MODULE_1__event_bus__["a" /* EventBus */].$emit('song-deleted', id);
+            }).catch(function (error) {
+                if (error.response.status == 401) {
+                    return swal('Error.', 'Invalid Token!', 'error');
+                }
+
+                return swal('Error.', 'An unexpected error occurred.', 'error');
             });
         }
     }

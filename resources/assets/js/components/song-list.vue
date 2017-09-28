@@ -65,7 +65,11 @@
                          this.songs = response.data;
                      })
                      .catch(error => {
-                         //console.log(error);
+                         if (error.response.status == 401) {
+                             return swal('Error.', 'Invalid Token!', 'error');
+                         }
+
+                         return swal('Error.', 'An unexpected error occurred.', 'error');
                      });
             },
 
@@ -80,6 +84,13 @@
                      .then(response => {
                          this.songs.splice(index, 1);
                          EventBus.$emit('song-deleted', id);
+                     })
+                     .catch(error => {
+                         if (error.response.status == 401) {
+                             return swal('Error.', 'Invalid Token!', 'error');
+                         }
+
+                         return swal('Error.', 'An unexpected error occurred.', 'error');
                      });
             }
         }
