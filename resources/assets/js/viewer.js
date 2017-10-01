@@ -11,11 +11,9 @@ Vue.prototype.$http = axios;
 Vue.use(Vuex);
 
 // Register components.
-Vue.component('add-song-form', require('./components/add-song-form.vue'));
 Vue.component('app', require('./components/app.vue'));
-Vue.component('config', require('./components/config.vue'));
-Vue.component('request-list', require('./components/request-list.vue'));
-Vue.component('song-list', require('./components/song-list.vue'));
+Vue.component('request-form', require('./components/request-form.vue'));
+Vue.component('viewer', require('./components/viewer.vue'));
 
 // Create a fresh Vue instance and attach it to the page.
 new Vue({

@@ -11,8 +11,8 @@
 </template>
 
 <script>
-    import { Config } from './../config';
     import { EventBus } from './../event-bus';
+    import { Urls } from './../urls';
     import { mapState } from 'vuex';
 
     export default {
@@ -34,7 +34,7 @@
                     return;
                 }
 
-                axios.post(Config.Url + '/artists/' + this.auth.channel_id + '/songs', {
+                axios.post(Urls.Ebs + '/artists/' + this.auth.channel_id + '/songs', {
                          name: this.songname.trim()
                      })
                      .then(response => {

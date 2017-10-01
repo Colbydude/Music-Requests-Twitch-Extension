@@ -28,8 +28,8 @@
 </template>
 
 <script>
-    import { Config } from './../config';
     import { EventBus } from './../event-bus';
+    import { Urls } from './../urls';
     import { mapState } from 'vuex';
 
     export default {
@@ -60,7 +60,7 @@
              * Get the artist's song catalog from our backend.
              */
             getSongs () {
-                axios.get(Config.Url + '/artists/' + this.auth.channel_id + '/songs')
+                axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id + '/songs')
                      .then(response => {
                          this.songs = response.data;
                      })
@@ -80,7 +80,7 @@
              * @param integer id
              */
             removeSong (index, id) {
-                axios.delete(Config.Url + '/artists/' + this.auth.channel_id + '/songs/' + id)
+                axios.delete(Urls.Ebs + '/artists/' + this.auth.channel_id + '/songs/' + id)
                      .then(response => {
                          this.songs.splice(index, 1);
                          EventBus.$emit('song-deleted', id);

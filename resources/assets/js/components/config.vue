@@ -20,8 +20,8 @@
 </template>
 
 <script>
-    import { Config } from './../config';
     import { EventBus } from './../event-bus';
+    import { Urls } from './../urls';
     import { mapState } from 'vuex';
 
     export default {
@@ -31,7 +31,7 @@
 
         computed: {
             widgetUrl () {
-                return Config.Url.replace('api', '') + this.auth.username + '/requests/current';
+                return Urls.Ebs.replace('api', '') + this.auth.username + '/requests/current';
             },
 
             ...mapState(['auth'])
@@ -44,7 +44,7 @@
              * @param string name
              */
             createArtist () {
-                axios.post(Config.Url + '/artists', {
+                axios.post(Urls.Ebs + '/artists', {
                         twitch_channel_id: this.auth.channel_id,
                         name: this.auth.channelname
                      })
@@ -64,7 +64,7 @@
              * Verifies the artist exists on our backend. If it doesn't, call to create it.
              */
             verifyArtist () {
-                axios.get(Config.Url + '/artists/' + this.auth.channel_id)
+                axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id)
                      .then(response => {
                          EventBus.$emit('config-ready', this.channel_id);
                      })

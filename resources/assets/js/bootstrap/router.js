@@ -1,9 +1,9 @@
 import Router from 'vue-router';
 import Vue from 'vue';
 
-import config from './components/config';
-import live_config from './components/live_config';
-import viewer from './components/viewer';
+import Config from './../components/config';
+import LiveConfig from './../components/live-config';
+import Viewer from './../components/viewer';
 
 Vue.use(Router)
 
@@ -12,17 +12,17 @@ export default new Router({
         {
             path: '*/config.html',
             name: 'Config',
-            component: config
+            component: Config
         },
         {
             path: '*/live_config.html',
             name: 'Live Config',
-            component: live_config
+            component: LiveConfig
         },
         {
             path: '*/viewer.html',
             name: 'Viewer',
-            component: viewer
+            component: Viewer
         }
     ],
     mode: 'history'

@@ -49,8 +49,8 @@
 </template>
 
 <script>
-    import { Config } from './../config';
     import { EventBus } from './../event-bus';
+    import { Urls } from './../urls';
     import { mapState } from 'vuex';
 
     export default {
@@ -89,7 +89,7 @@
              * Clear the entire request list.
              */
             clearRequests() {
-                axios.delete(Config.Url + '/artists/' + this.auth.channel_id + '/requests')
+                axios.delete(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests')
                      .then(response => {
                          this.requests = [];
                          this.currentRequest = '';
@@ -107,7 +107,7 @@
              * Get the artist's current request.
              */
             getCurrentRequest() {
-                axios.get(Config.Url + '/artists/' + this.auth.channel_id + '/requests/current')
+                axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests/current')
                      .then(response => {
                          if (!_.isEmpty(response.data)) {
                              this.currentRequest = response.data;
@@ -126,7 +126,7 @@
              * Get the artist's requests from our backend.
              */
             getRequests () {
-                axios.get(Config.Url + '/artists/' + this.auth.channel_id + '/requests')
+                axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests')
                      .then(response => {
                          this.requests = response.data;
                      })
@@ -150,7 +150,7 @@
                     Twitch.ext.listen('whisper-U' + this.auth.channel_id, (target, contentType, message) => {
                         message = JSON.parse(message);
 
-                        axios.get(Config.Url + '/artists/' + this.auth.channel_id + '/requests/' + message.id)
+                        axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests/' + message.id)
                              .then(response => {
                                  this.addRequest(response.data);
                              })
@@ -177,7 +177,7 @@
             playRequest (index, id) {
                 this.lastPlayed = this.requests[index];
 
-                axios.post(Config.Url + '/artists/' + this.auth.channel_id + '/requests/current', {
+                axios.post(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests/current', {
                          request_id: id
                      })
                      .then(response => {
@@ -200,7 +200,7 @@
              * @param integer id
              */
             skipRequest (index, id) {
-                axios.delete(Config.Url + '/artists/' + this.auth.channel_id + '/requests/' + id)
+                axios.delete(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests/' + id)
                      .then(response => {
                          this.requests.splice(index, 1);
                      })

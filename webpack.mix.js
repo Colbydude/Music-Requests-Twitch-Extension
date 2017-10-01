@@ -15,10 +15,20 @@ const Dotenv = require('dotenv-webpack');
 mix.webpackConfig({
     plugins: [
         new Dotenv()
-    ]
+    ],
 });
 
 mix.setPublicPath('frontend')
    .setResourceRoot('../')
-   .js('resources/assets/js/app.js', 'frontend/js')
-   .sass('resources/assets/sass/app.scss', 'frontend/css');
+   .js('resources/assets/js/config.js', 'frontend/js')
+   .js('resources/assets/js/live-config.js', 'frontend/js')
+   .js('resources/assets/js/viewer.js', 'frontend/js')
+   .js('resources/assets/js/plugins/jquery-bootstrap.js', 'frontend/js')
+   .options({
+       uglify: false
+   })
+   .sass('resources/assets/sass/app.scss', 'frontend/css')
+   .extract([
+       'babel-plugin-transform-object-rest-spread', 'axios', 'vue', 'vue-router', 'vuex',
+       'js-beautify', 'jsonwebtoken', 'lodash', 'sweetalert2', 'vue-typeahead'
+   ]);
