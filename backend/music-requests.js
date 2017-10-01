@@ -17,8 +17,8 @@ app.use((req, res, next) => {
 app.use(express.static('../frontend'));
 
 let options = {
-    key  : fs.readFileSync('/music-requests-twitch-ext/certs/testing.key'),
-    cert : fs.readFileSync('/music-requests-twitch-ext/certs/testing.crt')
+    key  : fs.readFileSync('/music-requests/certs/testing.key'),
+    cert : fs.readFileSync('/music-requests/certs/testing.crt')
 };
 
 const PORT = 8080;

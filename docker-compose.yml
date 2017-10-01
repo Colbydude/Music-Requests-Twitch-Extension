@@ -3,10 +3,10 @@ version: '2'
 services:
     musicrequestsbackend:
         volumes:
-            - .:/music-requests-twitch-ext
+            - .:/music-requests
 
             # necessary to prevent OS X node_modules being loaded in:
-            - /music-requests-twitch-ext/backend/node_modules
+            - /music-requests/backend/node_modules
 
         build:
             context: ./backend
