@@ -1,13 +1,10 @@
 # Twitch Music Request Extension
 
-**Goal:** Provide a quick an intuitive way for Twitch Musicians to take requests to perform their own music during a
-live stream.
-
-# What we're going to build:
-- A RESTful API for a music catalog.
-- A configuration panel (on Twitch) for the broadcaster/musician to manage a catalog of their music.
-- A dashboard panel (on Twitch) for the broadcaster/musician to handle incoming music requests.
-- A video overlay (on Twitch) for viewers to request music.
+A way for your audience to request music for you to perform during your stream!
+ 
+This extension is intended for musicians who perform on Twitch and wish to be able to intuitively accept requests during their live streams.
+ 
+**Not for requesting songs via YouTube, Spotify, iTunes, etc.**
 
 ## Dependencies
 
