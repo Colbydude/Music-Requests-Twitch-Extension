@@ -6,7 +6,7 @@
                 <input type="text" name="current-request" id="current-request" class="form-control" placeholder="No Request Currently" v-model="currentRequest" disabled>
             </div>
         </div>
-        <div class="panel panel-default">
+        <div class="panel panel-twitch">
             <div class="panel-heading">
                 <div class="pull-right">
                     <button class="btn btn-danger btn-xs" @click="clearRequests">Clear</button>
@@ -81,7 +81,7 @@
                 let result = this.requests.find(o => o.id === requestObject.id);
 
                 if (result === undefined) {
-                    this.requests.unshift(requestObject);
+                    this.requests.push(requestObject);
                 }
             },
 

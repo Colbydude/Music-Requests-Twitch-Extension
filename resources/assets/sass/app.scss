@@ -32,6 +32,7 @@ html, body {
 }
 
 .btn {
+    border: none;
     border-radius: 0;
 
     &:focus, &.focus,
@@ -42,12 +43,14 @@ html, body {
 }
 
 .form-control {
+    border: none;
     border-radius: 0;
-    box-shadow: none;
-    color: $twitch-text-color;
+    box-shadow: inset 0 0 0 1px #dad8de, 0 0 0 transparent;
+    color: #433f4a;
+    transition: box-shadow .12s ease-in;
 
     &:focus {
-        box-shadow: none;
+        box-shadow: inset 0 0 0 1px #7d5bbe, 0 0 6px -2px #7d5bbe;
     }
 }
 
@@ -58,8 +61,22 @@ html, body {
     width: auto;
 }
 
-.panel, .panel-heading, .panel-body, .panel-footer {
+.input-group-btn {
+    & > .btn {
+        border: 1px solid transparent;
+    }
+}
+
+.panel-twitch {
+    background-color: white;
+    border: none;
     border-radius: 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+    .panel-heading {
+        background-color: white;
+        box-shadow: 0 1px 0 #dad8de;
+    }
 }
 
 .scrollable {

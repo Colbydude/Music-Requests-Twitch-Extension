@@ -15,6 +15,11 @@
                 <p>You can add an automatically updating current request widget to your stream layout by adding a new BrowserSource plugin and setting the URL to the URL below and customizing the CSS to your liking.</p>
                 <p><code>{{ widgetUrl }}</code></p>
             </div>
+            <div class="col-sm-6">
+                <h3>Requesting Songs Externally</h3>
+                <p>Twitch Extensions are currently not available on all platforms. Until they are, viewers can visit the link below to requests songs on an external site. This is particularly useful for mobile users.</p>
+                <p><code>{{ externalUrl }}</code></p>
+            </div>
         </div>
     </div>
 </template>
@@ -30,6 +35,10 @@
         },
 
         computed: {
+            externalUrl () {
+                return Urls.Ebs.replace('api', '') + this.auth.username + '/requests';
+            },
+
             widgetUrl () {
                 return Urls.Ebs.replace('api', '') + this.auth.username + '/requests/current';
             },

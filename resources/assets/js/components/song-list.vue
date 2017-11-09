@@ -1,5 +1,5 @@
 <template>
-    <div class="panel panel-default">
+    <div class="panel panel-twitch">
         <div class="panel-heading"><h4 class="panel-title">Songs</h4></div>
         <div class="scrollable">
             <table class="table table-condensed table-striped">
