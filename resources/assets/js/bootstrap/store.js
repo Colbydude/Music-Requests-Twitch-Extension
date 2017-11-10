@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         auth: {
+            auth_id: null,
             channel_id: null,
             channelname: null,
             client_id: null,

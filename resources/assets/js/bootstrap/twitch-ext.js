@@ -13,6 +13,7 @@ if (window.Twitch.ext) {
             // User has granted permissions.
             // NOTE: User needs to grant permissions in order to submit requests.
             store.commit('setAuth', {
+                auth_id: auth.userId,
                 channel_id: payload.channel_id,
                 client_id: auth.clientId,
                 opaque_user_id: payload.opaque_user_id,
@@ -23,20 +24,22 @@ if (window.Twitch.ext) {
             // Fetch the username from the Twitch API via the user_id.
             axios.create({
                 headers: {'Client-ID': auth.clientId}
-            }).get(Urls.TwitchApi + '/helix/users?id=' + payload.user_id)
-              .then(response => {
-                  store.commit('setAuthUsername', response.data.data[0].display_name);
-              })
-              .catch(error => {
-                  if (error.response.status == 401) {
-                      return swal('Error.', 'Invalid Token!', 'error');
-                  }
+            })
+            .get(Urls.TwitchApi + '/helix/users?id=' + payload.user_id)
+            .then(response => {
+                store.commit('setAuthUsername', response.data.data[0].display_name);
+            })
+            .catch(error => {
+                if (error.response.status == 401) {
+                    return swal('Error.', 'Invalid Token!', 'error');
+                }
 
-                  return swal('Error.', 'An unexpected error occurred.', 'error');
-              });
+                return swal('Error.', 'An unexpected error occurred.', 'error');
+            });
         } else {
             // User has not granted permissions.
             store.commit('setAuth', {
+                auth_id: auth.userId,
                 channel_id: payload.channel_id,
                 client_id: auth.clientId,
                 opaque_user_id: payload.opaque_user_id,
@@ -44,26 +47,27 @@ if (window.Twitch.ext) {
             });
         }
 
-        // Set the token to be used in the header of all axios requests.
-        window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
-
-        // Initialize the components.
-        EventBus.$emit('authentication-verified');
-
         // Fetch the channel's username from the Twitch API via the channel_id.
         axios.create({
             headers: {'Client-ID': auth.clientId}
-        }).get(Urls.TwitchApi + '/helix/users?id=' + payload.channel_id)
-          .then(response => {
-              store.commit('setChannelUsername', response.data.data[0].display_name);
-          })
-          .catch(error => {
-              if (error.response.status == 401) {
-                  return swal('Error.', 'Invalid Token!', 'error');
-              }
+        })
+        .get(Urls.TwitchApi + '/helix/users?id=' + payload.channel_id)
+        .then(response => {
+            store.commit('setChannelUsername', response.data.data[0].display_name);
 
-              return swal('Error.', 'An unexpected error occurred.', 'error');
-          });
+            // Set the token to be used in the header of all axios requests.
+            window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
+
+            // Initialize the components.
+            EventBus.$emit('authentication-verified');
+        })
+        .catch(error => {
+            if (error.response.status == 401) {
+                return swal('Error.', 'Invalid Token!', 'error');
+            }
+
+            return swal('Error.', 'An unexpected error occurred.', 'error');
+        });
     });
 
     window.Twitch.ext.onContext(function (context, contextFields) {

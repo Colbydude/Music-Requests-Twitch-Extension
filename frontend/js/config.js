@@ -58,7 +58,6 @@ __webpack_require__(41);
 /***/ 18:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(32)
@@ -77,25 +76,6 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/app.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] app.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-060a41b1", Component.options)
-  } else {
-    hotAPI.reload("data-v-060a41b1", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
 
 module.exports = Component.exports
 
@@ -105,7 +85,6 @@ module.exports = Component.exports
 /***/ 181:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(182)
@@ -124,25 +103,6 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/add-song-form.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] add-song-form.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-dbb4f340", Component.options)
-  } else {
-    hotAPI.reload("data-v-dbb4f340", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
 
 module.exports = Component.exports
 
@@ -215,74 +175,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ }),
 
 /***/ 183:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-group" }, [
-    _c("label", { attrs: { for: "songname" } }, [_vm._v("Song Name:")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "input-group" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.songname,
-            expression: "songname"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: { type: "text", name: "songname", id: "songname", required: "" },
-        domProps: { value: _vm.songname },
-        on: {
-          keydown: function($event) {
-            if (!("button" in $event) && _vm._k($event.keyCode, "enter", 13)) {
-              return null
-            }
-            _vm.addSong($event)
-          },
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.songname = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("span", { staticClass: "input-group-btn" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary",
-            attrs: { type: "submit" },
-            on: { click: _vm.addSong }
-          },
-          [_vm._v("Add")]
-        )
-      ])
-    ])
-  ])
-}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"songname"}},[_vm._v("Song Name:")]),_vm._v(" "),_c('div',{staticClass:"input-group"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.songname),expression:"songname"}],staticClass:"form-control",attrs:{"type":"text","name":"songname","id":"songname","required":""},domProps:{"value":(_vm.songname)},on:{"keydown":function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"enter",13)){ return null; }_vm.addSong($event)},"input":function($event){if($event.target.composing){ return; }_vm.songname=$event.target.value}}}),_vm._v(" "),_c('span',{staticClass:"input-group-btn"},[_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit"},on:{"click":_vm.addSong}},[_vm._v("Add")])])])])}
 var staticRenderFns = []
-render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-dbb4f340", module.exports)
-  }
-}
 
 /***/ }),
 
 /***/ 184:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(185)
@@ -301,25 +204,6 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/song-list.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] song-list.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f2892534", Component.options)
-  } else {
-    hotAPI.reload("data-v-f2892534", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
 
 module.exports = Component.exports
 
@@ -437,80 +321,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ }),
 
 /***/ 186:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "panel panel-twitch" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "scrollable" }, [
-      _vm._m(1),
-      _vm._v(" "),
-      _c("div", { staticClass: "body" }, [
-        _c("table", { staticClass: "table table-condensed table-striped" }, [
-          _c(
-            "tbody",
-            _vm._l(_vm.songs, function(song, index) {
-              return _c("tr", [
-                _c("td", [_vm._v(_vm._s(song.name))]),
-                _vm._v(" "),
-                _c("td", { staticClass: "text-right" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-danger btn-xs",
-                      on: {
-                        click: function($event) {
-                          _vm.removeSong(index, song.id)
-                        }
-                      }
-                    },
-                    [_c("span", { staticClass: "fa fa-trash" })]
-                  )
-                ])
-              ])
-            })
-          )
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading" }, [
-      _c("h4", { staticClass: "panel-title" }, [_vm._v("Songs")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "table table-condensed table-striped" }, [
-      _c("thead", [
-        _c("tr", [
-          _c("th", [_vm._v("Song")]),
-          _vm._v(" "),
-          _c("th", [_vm._v(" ")])
-        ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"panel panel-twitch"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"scrollable"},[_vm._m(1),_vm._v(" "),_c('div',{staticClass:"body"},[_c('table',{staticClass:"table table-condensed table-striped"},[_c('tbody',_vm._l((_vm.songs),function(song,index){return _c('tr',[_c('td',[_vm._v(_vm._s(song.name))]),_vm._v(" "),_c('td',{staticClass:"text-right"},[_c('button',{staticClass:"btn btn-danger btn-xs",on:{"click":function($event){_vm.removeSong(index, song.id)}}},[_c('span',{staticClass:"fa fa-trash"})])])])}))])])])])}
+var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"panel-heading"},[_c('h4',{staticClass:"panel-title"},[_vm._v("Songs")])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('table',{staticClass:"table table-condensed table-striped"},[_c('thead',[_c('tr',[_c('th',[_vm._v("Song")]),_vm._v(" "),_c('th',[_vm._v(" ")])])])])}]
 module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-f2892534", module.exports)
-  }
-}
 
 /***/ }),
 
@@ -538,6 +353,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["default"].Store({
     state: {
         auth: {
+            auth_id: null,
             channel_id: null,
             channelname: null,
             client_id: null,
@@ -572,7 +388,6 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /***/ 24:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(35)
@@ -591,25 +406,6 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/config.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] config.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-391fb73c", Component.options)
-  } else {
-    hotAPI.reload("data-v-391fb73c", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
 
 module.exports = Component.exports
 
@@ -619,7 +415,6 @@ module.exports = Component.exports
 /***/ 25:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(37)
@@ -638,25 +433,6 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/live-config.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] live-config.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7649ec5a", Component.options)
-  } else {
-    hotAPI.reload("data-v-7649ec5a", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
 
 module.exports = Component.exports
 
@@ -666,7 +442,6 @@ module.exports = Component.exports
 /***/ 26:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(39)
@@ -685,25 +460,6 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/viewer.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] viewer.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-616feb32", Component.options)
-  } else {
-    hotAPI.reload("data-v-616feb32", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
 
 module.exports = Component.exports
 
@@ -742,23 +498,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ }),
 
 /***/ 33:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("router-view")
-}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('router-view')}
 var staticRenderFns = []
-render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-060a41b1", module.exports)
-  }
-}
 
 /***/ }),
 
@@ -870,6 +614,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
             axios.post(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists', {
                 twitch_channel_id: this.auth.channel_id,
+                auth_id: this.auth.auth_id,
                 name: this.auth.channelname
             }).then(function (response) {
                 __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$emit('config-ready', _this.channelId);
@@ -889,7 +634,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         verifyArtist: function verifyArtist() {
             var _this2 = this;
 
-            axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id).then(function (response) {
+            axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id, {
+                params: {
+                    auth_id: this.auth.auth_id
+                }
+            }).then(function (response) {
                 __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$emit('config-ready', _this2.channel_id);
             }).catch(function (error) {
                 if (error.response.status == 401) {
@@ -909,60 +658,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /***/ }),
 
 /***/ 36:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-sm-6" }, [_c("request-list")], 1),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-sm-6" },
-        [_c("add-song-form"), _vm._v(" "), _c("song-list")],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-sm-6" }, [
-        _c("h3", [_vm._v("Current Request Widget")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "You can add an automatically updating current request widget to your stream layout by adding a new BrowserSource plugin and setting the URL to the URL below and customizing the CSS to your liking."
-          )
-        ]),
-        _vm._v(" "),
-        _c("p", [_c("code", [_vm._v(_vm._s(_vm.widgetUrl))])])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-6" }, [
-        _c("h3", [_vm._v("Requesting Songs Externally")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "Twitch Extensions are currently not available on all platforms. Until they are, viewers can visit the link below to requests songs on an external site. This is particularly useful for mobile users."
-          )
-        ]),
-        _vm._v(" "),
-        _c("p", [_c("code", [_vm._v(_vm._s(_vm.externalUrl))])])
-      ])
-    ])
-  ])
-}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container-fluid"},[_c('div',{staticClass:"row"},[_c('div',{staticClass:"col-sm-6"},[_c('request-list')],1),_vm._v(" "),_c('div',{staticClass:"col-sm-6"},[_c('add-song-form'),_vm._v(" "),_c('song-list')],1)]),_vm._v(" "),_c('div',{staticClass:"row"},[_c('div',{staticClass:"col-sm-6"},[_c('h3',[_vm._v("Current Request Widget")]),_vm._v(" "),_c('p',[_vm._v("You can add an automatically updating current request widget to your stream layout by adding a new BrowserSource plugin and setting the URL to the URL below and customizing the CSS to your liking.")]),_vm._v(" "),_c('p',[_c('code',[_vm._v(_vm._s(_vm.widgetUrl))])])]),_vm._v(" "),_c('div',{staticClass:"col-sm-6"},[_c('h3',[_vm._v("Requesting Songs Externally")]),_vm._v(" "),_c('p',[_vm._v("Twitch Extensions are currently not available on all platforms. Until they are, viewers can visit the link below to requests songs on an external site. This is particularly useful for mobile users.")]),_vm._v(" "),_c('p',[_c('code',[_vm._v(_vm._s(_vm.externalUrl))])])])])])}
 var staticRenderFns = []
-render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-391fb73c", module.exports)
-  }
-}
 
 /***/ }),
 
@@ -981,23 +681,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ }),
 
 /***/ 38:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("request-list", { attrs: { "is-dashboard": true } })
-}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('request-list',{attrs:{"is-dashboard":true}})}
 var staticRenderFns = []
-render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-7649ec5a", module.exports)
-  }
-}
 
 /***/ }),
 
@@ -1148,140 +836,11 @@ module.exports = function normalizeComponent (
 /***/ }),
 
 /***/ 40:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticStyle: { height: "100%" } }, [
-    _vm.isAuthenticated
-      ? _c("div", [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "modal fade",
-              attrs: {
-                id: "request-modal",
-                tabindex: "-1",
-                role: "dialog",
-                "aria-labelledby": "request-modal-label"
-              }
-            },
-            [
-              _c(
-                "div",
-                { staticClass: "modal-dialog", attrs: { role: "document" } },
-                [
-                  _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "modal-body" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [_c("request-form")],
-                        1
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(2)
-                  ])
-                ]
-              )
-            ]
-          )
-        ])
-      : _c("div", [_vm._m(3)])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "btn btn-primary",
-        attrs: {
-          type: "button",
-          "data-toggle": "modal",
-          "data-target": "#request-modal"
-        }
-      },
-      [_c("span", { staticClass: "fa fa-music" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      ),
-      _vm._v(" "),
-      _c(
-        "h4",
-        { staticClass: "modal-title", attrs: { id: "request-modal-label" } },
-        [_vm._v("Request A Song!")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-default",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Cancel")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "access-tooltip tooltip top", attrs: { role: "tooltip" } },
-      [
-        _c("div", { staticClass: "tooltip-arrow" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "tooltip-inner" }, [
-          _vm._v(" Grant access in "),
-          _c("span", { staticClass: "fa fa-puzzle-piece" }),
-          _vm._v(" to make requests!")
-        ])
-      ]
-    )
-  }
-]
-render._withStripped = true
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticStyle:{"height":"100%"}},[(_vm.isAuthenticated)?_c('div',[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"modal fade",attrs:{"id":"request-modal","tabindex":"-1","role":"dialog","aria-labelledby":"request-modal-label"}},[_c('div',{staticClass:"modal-dialog",attrs:{"role":"document"}},[_c('div',{staticClass:"modal-content"},[_vm._m(1),_vm._v(" "),_c('div',{staticClass:"modal-body"},[_c('div',{staticClass:"form-group"},[_c('request-form')],1)]),_vm._v(" "),_vm._m(2)])])])]):_c('div',[_vm._m(3)])])}
+var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('button',{staticClass:"btn btn-primary",attrs:{"type":"button","data-toggle":"modal","data-target":"#request-modal"}},[_c('span',{staticClass:"fa fa-music"})])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"modal-header"},[_c('button',{staticClass:"close",attrs:{"type":"button","data-dismiss":"modal","aria-label":"Close"}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("×")])]),_vm._v(" "),_c('h4',{staticClass:"modal-title",attrs:{"id":"request-modal-label"}},[_vm._v("Request A Song!")])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"modal-footer"},[_c('button',{staticClass:"btn btn-default",attrs:{"type":"button","data-dismiss":"modal"}},[_vm._v("Cancel")])])},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"access-tooltip tooltip top",attrs:{"role":"tooltip"}},[_c('div',{staticClass:"tooltip-arrow"}),_vm._v(" "),_c('div',{staticClass:"tooltip-inner"},[_vm._v(" Grant access in "),_c('span',{staticClass:"fa fa-puzzle-piece"}),_vm._v(" to make requests!")])])}]
 module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-616feb32", module.exports)
-  }
-}
 
 /***/ }),
 
@@ -1308,6 +867,7 @@ if (window.Twitch.ext) {
             // User has granted permissions.
             // NOTE: User needs to grant permissions in order to submit requests.
             __WEBPACK_IMPORTED_MODULE_2__store__["a" /* default */].commit('setAuth', {
+                auth_id: auth.userId,
                 channel_id: payload.channel_id,
                 client_id: auth.clientId,
                 opaque_user_id: payload.opaque_user_id,
@@ -1330,6 +890,7 @@ if (window.Twitch.ext) {
         } else {
             // User has not granted permissions.
             __WEBPACK_IMPORTED_MODULE_2__store__["a" /* default */].commit('setAuth', {
+                auth_id: auth.userId,
                 channel_id: payload.channel_id,
                 client_id: auth.clientId,
                 opaque_user_id: payload.opaque_user_id,
@@ -1337,17 +898,17 @@ if (window.Twitch.ext) {
             });
         }
 
-        // Set the token to be used in the header of all axios requests.
-        window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
-
-        // Initialize the components.
-        __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$emit('authentication-verified');
-
         // Fetch the channel's username from the Twitch API via the channel_id.
         axios.create({
             headers: { 'Client-ID': auth.clientId }
         }).get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].TwitchApi + '/helix/users?id=' + payload.channel_id).then(function (response) {
             __WEBPACK_IMPORTED_MODULE_2__store__["a" /* default */].commit('setChannelUsername', response.data.data[0].display_name);
+
+            // Set the token to be used in the header of all axios requests.
+            window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
+
+            // Initialize the components.
+            __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$emit('authentication-verified');
         }).catch(function (error) {
             if (error.response.status == 401) {
                 return swal('Error.', 'Invalid Token!', 'error');
@@ -1372,7 +933,6 @@ if (window.Twitch.ext) {
 /***/ 69:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(70)
@@ -1391,25 +951,6 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/request-list.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] request-list.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-47df0188", Component.options)
-  } else {
-    hotAPI.reload("data-v-47df0188", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
 
 module.exports = Component.exports
 
@@ -1489,6 +1030,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             currentRequest: '', // Value of the current request textbox.
+            isListening: false, // Whether or not we're listening for PubSub events.
             lastPlayed: null, // Last played request.
             requests: [] // Artist's recent requests.
         };
@@ -1580,8 +1122,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             // Listen for new requests coming in.
-            if (Twitch.ext) {
-                Twitch.ext.listen('whisper-U' + this.auth.channel_id, function (target, contentType, message) {
+            if (Twitch.ext && this.isListening === false) {
+                Twitch.ext.listen('whisper-' + this.auth.auth_id, function (target, contentType, message) {
                     message = JSON.parse(message);
 
                     axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + _this4.auth.channel_id + '/requests/' + message.id).then(function (response) {
@@ -1652,148 +1194,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ }),
 
 /***/ 71:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { class: { "request-wrapper": _vm.isDashboard } }, [
-    _c("div", { class: { "container-fluid": _vm.isDashboard } }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "current-request" } }, [
-          _vm._v("Current Request:")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.currentRequest,
-              expression: "currentRequest"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            name: "current-request",
-            id: "current-request",
-            placeholder: "No Request Currently",
-            disabled: ""
-          },
-          domProps: { value: _vm.currentRequest },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.currentRequest = $event.target.value
-            }
-          }
-        })
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "panel panel-twitch" }, [
-      _c("div", { staticClass: "panel-heading" }, [
-        _c("div", { staticClass: "pull-right" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-danger btn-xs",
-              on: { click: _vm.clearRequests }
-            },
-            [_vm._v("Clear")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("h4", { staticClass: "panel-title" }, [_vm._v("Requests")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "scrollable" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "body" }, [
-          _c("table", { staticClass: "table table-condensed table-striped" }, [
-            _c(
-              "tbody",
-              _vm._l(_vm.requests, function(request, index) {
-                return _c("tr", [
-                  _c("td", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary btn-xs",
-                        on: {
-                          click: function($event) {
-                            _vm.playRequest(index, request.id)
-                          }
-                        }
-                      },
-                      [_c("span", { staticClass: "fa fa-play" })]
-                    ),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger btn-xs",
-                        on: {
-                          click: function($event) {
-                            _vm.skipRequest(index, request.id)
-                          }
-                        }
-                      },
-                      [_c("span", { staticClass: "fa fa-remove" })]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(request.song.name))]),
-                  _vm._v(" "),
-                  request.twitch_user_name == null
-                    ? _c("td", { staticClass: "text-right" }, [
-                        _vm._v("Unknown")
-                      ])
-                    : _c("td", { staticClass: "text-right" }, [
-                        _vm._v(_vm._s(request.twitch_user_name))
-                      ])
-                ])
-              })
-            )
-          ])
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "table table-condensed table-striped" }, [
-      _c("thead", [
-        _c("tr", [
-          _c("th", [_vm._v(" ")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Song")]),
-          _vm._v(" "),
-          _c("th", { staticClass: "text-right" }, [_vm._v("Requested By")])
-        ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:{'request-wrapper': _vm.isDashboard}},[_c('div',{class:{'container-fluid': _vm.isDashboard}},[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"current-request"}},[_vm._v("Current Request:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.currentRequest),expression:"currentRequest"}],staticClass:"form-control",attrs:{"type":"text","name":"current-request","id":"current-request","placeholder":"No Request Currently","disabled":""},domProps:{"value":(_vm.currentRequest)},on:{"input":function($event){if($event.target.composing){ return; }_vm.currentRequest=$event.target.value}}})])]),_vm._v(" "),_c('div',{staticClass:"panel panel-twitch"},[_c('div',{staticClass:"panel-heading"},[_c('div',{staticClass:"pull-right"},[_c('button',{staticClass:"btn btn-danger btn-xs",on:{"click":_vm.clearRequests}},[_vm._v("Clear")])]),_vm._v(" "),_c('h4',{staticClass:"panel-title"},[_vm._v("Requests")])]),_vm._v(" "),_c('div',{staticClass:"scrollable"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"body"},[_c('table',{staticClass:"table table-condensed table-striped"},[_c('tbody',_vm._l((_vm.requests),function(request,index){return _c('tr',[_c('td',[_c('button',{staticClass:"btn btn-primary btn-xs",on:{"click":function($event){_vm.playRequest(index, request.id)}}},[_c('span',{staticClass:"fa fa-play"})]),_vm._v(" "),_c('br'),_vm._v(" "),_c('button',{staticClass:"btn btn-danger btn-xs",on:{"click":function($event){_vm.skipRequest(index, request.id)}}},[_c('span',{staticClass:"fa fa-remove"})])]),_vm._v(" "),_c('td',[_vm._v(_vm._s(request.song.name))]),_vm._v(" "),(request.twitch_user_name == null)?_c('td',{staticClass:"text-right"},[_vm._v("Unknown")]):_c('td',{staticClass:"text-right"},[_vm._v(_vm._s(request.twitch_user_name))])])}))])])])])])}
+var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('table',{staticClass:"table table-condensed table-striped"},[_c('thead',[_c('tr',[_c('th',[_vm._v(" ")]),_vm._v(" "),_c('th',[_vm._v("Song")]),_vm._v(" "),_c('th',{staticClass:"text-right"},[_vm._v("Requested By")])])])])}]
 module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-47df0188", module.exports)
-  }
-}
 
 /***/ }),
 

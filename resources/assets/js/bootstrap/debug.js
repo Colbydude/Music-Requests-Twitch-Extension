@@ -8,6 +8,7 @@ if (process.env.APP_DEBUG == 'true') {
     var token = jwt.sign({exp: expiration, debug: 'yes'}, new Buffer(process.env.JWT_SECRET, 'base64'));
 
     let auth = {
+        auth_id: process.env.TWITCH_CHANNEL_ID,
         channel_id: process.env.TWITCH_CHANNEL_ID,
         channelname: process.env.TWITCH_USERNAME,
         client_id: process.env.TWITCH_CLIENT_ID,

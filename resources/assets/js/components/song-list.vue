@@ -61,16 +61,16 @@
              */
             getSongs () {
                 axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id + '/songs')
-                     .then(response => {
-                         this.songs = response.data;
-                     })
-                     .catch(error => {
-                         if (error.response.status == 401) {
-                             return swal('Error.', 'Invalid Token!', 'error');
-                         }
+                .then(response => {
+                    this.songs = response.data;
+                })
+                .catch(error => {
+                    if (error.response.status == 401) {
+                        return swal('Error.', 'Invalid Token!', 'error');
+                    }
 
-                         return swal('Error.', 'An unexpected error occurred.', 'error');
-                     });
+                    return swal('Error.', 'An unexpected error occurred.', 'error');
+                });
             },
 
             /**
@@ -81,17 +81,17 @@
              */
             removeSong (index, id) {
                 axios.delete(Urls.Ebs + '/artists/' + this.auth.channel_id + '/songs/' + id)
-                     .then(response => {
-                         this.songs.splice(index, 1);
-                         EventBus.$emit('song-deleted', id);
-                     })
-                     .catch(error => {
-                         if (error.response.status == 401) {
-                             return swal('Error.', 'Invalid Token!', 'error');
-                         }
+                .then(response => {
+                    this.songs.splice(index, 1);
+                    EventBus.$emit('song-deleted', id);
+                })
+                .catch(error => {
+                    if (error.response.status == 401) {
+                        return swal('Error.', 'Invalid Token!', 'error');
+                    }
 
-                         return swal('Error.', 'An unexpected error occurred.', 'error');
-                     });
+                    return swal('Error.', 'An unexpected error occurred.', 'error');
+                });
             }
         }
     }

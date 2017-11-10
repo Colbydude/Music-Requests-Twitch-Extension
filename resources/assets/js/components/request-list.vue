@@ -64,6 +64,7 @@
         data () {
             return {
                 currentRequest: '',         // Value of the current request textbox.
+                isListening: false,         // Whether or not we're listening for PubSub events.
                 lastPlayed: null,           // Last played request.
                 requests: [],               // Artist's recent requests.
             };
@@ -90,17 +91,17 @@
              */
             clearRequests() {
                 axios.delete(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests')
-                     .then(response => {
-                         this.requests = [];
-                         this.currentRequest = '';
-                     })
-                     .catch(error => {
-                         if (error.response.status == 401) {
-                             return swal('Error.', 'Invalid Token!', 'error');
-                         }
+                .then(response => {
+                    this.requests = [];
+                    this.currentRequest = '';
+                })
+                .catch(error => {
+                    if (error.response.status == 401) {
+                        return swal('Error.', 'Invalid Token!', 'error');
+                    }
 
-                         return swal('Error.', 'An unexpected error occurred.', 'error');
-                     });
+                    return swal('Error.', 'An unexpected error occurred.', 'error');
+                });
             },
 
             /**
@@ -108,18 +109,18 @@
              */
             getCurrentRequest() {
                 axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests/current')
-                     .then(response => {
-                         if (!_.isEmpty(response.data)) {
-                             this.currentRequest = response.data;
-                         }
-                     })
-                     .catch(error => {
-                         if (error.response.status == 401) {
-                             return swal('Error.', 'Invalid Token!', 'error');
-                         }
+                .then(response => {
+                    if (!_.isEmpty(response.data)) {
+                        this.currentRequest = response.data;
+                    }
+                })
+                .catch(error => {
+                    if (error.response.status == 401) {
+                        return swal('Error.', 'Invalid Token!', 'error');
+                    }
 
-                         return swal('Error.', 'An unexpected error occurred.', 'error');
-                     });
+                    return swal('Error.', 'An unexpected error occurred.', 'error');
+                });
             },
 
             /**
@@ -127,16 +128,16 @@
              */
             getRequests () {
                 axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests')
-                     .then(response => {
-                         this.requests = response.data;
-                     })
-                     .catch(error => {
-                         if (error.response.status == 401) {
-                             return swal('Error.', 'Invalid Token!', 'error');
-                         }
+                .then(response => {
+                    this.requests = response.data;
+                })
+                .catch(error => {
+                    if (error.response.status == 401) {
+                        return swal('Error.', 'Invalid Token!', 'error');
+                    }
 
-                         return swal('Error.', 'An unexpected error occurred.', 'error');
-                     });
+                    return swal('Error.', 'An unexpected error occurred.', 'error');
+                });
             },
 
             /**
@@ -146,21 +147,21 @@
              */
             initList () {
                 // Listen for new requests coming in.
-                if (Twitch.ext) {
-                    Twitch.ext.listen('whisper-U' + this.auth.channel_id, (target, contentType, message) => {
+                if (Twitch.ext && this.isListening === false) {
+                    Twitch.ext.listen('whisper-' + this.auth.auth_id, (target, contentType, message) => {
                         message = JSON.parse(message);
 
                         axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests/' + message.id)
-                             .then(response => {
-                                 this.addRequest(response.data);
-                             })
-                             .catch(error => {
-                                 if (error.response.status == 401) {
-                                     return swal('Error.', 'Invalid Token!', 'error');
-                                 }
+                        .then(response => {
+                            this.addRequest(response.data);
+                        })
+                        .catch(error => {
+                            if (error.response.status == 401) {
+                                return swal('Error.', 'Invalid Token!', 'error');
+                            }
 
-                                 return swal('Error.', 'An unexpected error occurred.', 'error');
-                             });
+                            return swal('Error.', 'An unexpected error occurred.', 'error');
+                        });
                     });
                 }
 
@@ -178,19 +179,19 @@
                 this.lastPlayed = this.requests[index];
 
                 axios.post(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests/current', {
-                         request_id: id
-                     })
-                     .then(response => {
-                         this.requests.splice(index, 1);
-                         this.getCurrentRequest();
-                     })
-                     .catch(error => {
-                         if (error.response.status == 401) {
-                             return swal('Error.', 'Invalid Token!', 'error');
-                         }
+                    request_id: id
+                })
+                .then(response => {
+                    this.requests.splice(index, 1);
+                    this.getCurrentRequest();
+                })
+                .catch(error => {
+                    if (error.response.status == 401) {
+                        return swal('Error.', 'Invalid Token!', 'error');
+                    }
 
-                         return swal('Error.', 'An unexpected error occurred.', 'error');
-                     });
+                    return swal('Error.', 'An unexpected error occurred.', 'error');
+                });
             },
 
             /**
@@ -201,16 +202,16 @@
              */
             skipRequest (index, id) {
                 axios.delete(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests/' + id)
-                     .then(response => {
-                         this.requests.splice(index, 1);
-                     })
-                     .catch(error => {
-                         if (error.response.status == 401) {
-                             return swal('Error.', 'Invalid Token!', 'error');
-                         }
+                .then(response => {
+                    this.requests.splice(index, 1);
+                })
+                .catch(error => {
+                    if (error.response.status == 401) {
+                        return swal('Error.', 'Invalid Token!', 'error');
+                    }
 
-                         return swal('Error.', 'An unexpected error occurred.', 'error');
-                     });
+                    return swal('Error.', 'An unexpected error occurred.', 'error');
+                });
             }
         }
     }

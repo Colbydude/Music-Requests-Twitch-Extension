@@ -54,40 +54,45 @@
              */
             createArtist () {
                 axios.post(Urls.Ebs + '/artists', {
-                        twitch_channel_id: this.auth.channel_id,
-                        name: this.auth.channelname
-                     })
-                     .then(response => {
-                         EventBus.$emit('config-ready', this.channelId);
-                     })
-                     .catch(error => {
-                         if (error.response.status == 401) {
-                             return swal('Error.', 'Invalid Token!', 'error');
-                         }
+                    twitch_channel_id: this.auth.channel_id,
+                    auth_id: this.auth.auth_id,
+                    name: this.auth.channelname
+                })
+                .then(response => {
+                    EventBus.$emit('config-ready', this.channelId);
+                })
+                .catch(error => {
+                    if (error.response.status == 401) {
+                        return swal('Error.', 'Invalid Token!', 'error');
+                    }
 
-                         return swal('Error.', 'An unexpected error occurred.', 'error');
-                     });
+                    return swal('Error.', 'An unexpected error occurred.', 'error');
+                });
             },
 
             /**
              * Verifies the artist exists on our backend. If it doesn't, call to create it.
              */
             verifyArtist () {
-                axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id)
-                     .then(response => {
-                         EventBus.$emit('config-ready', this.channel_id);
-                     })
-                     .catch(error => {
-                         if (error.response.status == 401) {
-                             return swal('Error.', 'Invalid Token!', 'error');
-                         }
+                axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id, {
+                    params: {
+                        auth_id: this.auth.auth_id
+                    }
+                })
+                .then(response => {
+                    EventBus.$emit('config-ready', this.channel_id);
+                })
+                .catch(error => {
+                    if (error.response.status == 401) {
+                        return swal('Error.', 'Invalid Token!', 'error');
+                    }
 
-                         if (error.response.status == 404) {
-                             return this.createArtist();
-                         }
+                    if (error.response.status == 404) {
+                        return this.createArtist();
+                    }
 
-                         return swal('Error.', 'An unexpected error occurred.', 'error');
-                     });
+                    return swal('Error.', 'An unexpected error occurred.', 'error');
+                });
             }
         }
     }

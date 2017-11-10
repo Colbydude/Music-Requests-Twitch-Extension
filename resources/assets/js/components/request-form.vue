@@ -72,33 +72,33 @@
              */
             requestSong (songId) {
                 axios.post(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests', {
-                         song_id: songId,
-                         twitch_user_id: this.auth.user_id,
-                         twitch_user_name: this.auth.username
-                     })
-                     .then(response => {
-                         this.reset();
+                    song_id: songId,
+                    twitch_user_id: this.auth.user_id,
+                    twitch_user_name: this.auth.username
+                })
+                .then(response => {
+                    this.reset();
 
-                         swal({
-                             title: 'Song Requested!',
-                             text: 'The broadcaster will be notified shortly.',
-                             type: 'success',
-                             timer: 2000,
-                             showConfirmButton: false
-                         }).then(
-                            function () {},
-                            function (dismiss) {
-                                //
-                            }
-                        );
-                     })
-                     .catch(error => {
-                         if (error.response.status == 401) {
-                             return swal('Error.', 'Invalid Token!', 'error');
-                         }
+                    swal({
+                        title: 'Song Requested!',
+                        text: 'The broadcaster will be notified shortly.',
+                        type: 'success',
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(
+                        function () {},
+                        function (dismiss) {
+                            //
+                        }
+                    );
+                })
+                .catch(error => {
+                    if (error.response.status == 401) {
+                        return swal('Error.', 'Invalid Token!', 'error');
+                    }
 
-                         return swal('Error.', 'An unexpected error occurred.', 'error');
-                     })
+                    return swal('Error.', 'An unexpected error occurred.', 'error');
+                });
             }
         }
     }
