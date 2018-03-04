@@ -7,7 +7,6 @@ if (window.Twitch.ext) {
     window.Twitch.ext.onAuthorized(function (auth) {
         var parts = auth.token.split(".");
         var payload = JSON.parse(window.atob(parts[1]));
-        //console.log({payload, auth});
 
         if (payload.user_id) {
             // User has granted permissions.
@@ -56,7 +55,7 @@ if (window.Twitch.ext) {
             store.commit('setChannelUsername', response.data.data[0].display_name);
 
             // Set the token to be used in the header of all axios requests.
-            window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
+            window.axios.defaults.headers.common.Authorization = 'Bearer ' + auth.token;
 
             // Initialize the components.
             EventBus.$emit('authentication-verified');
@@ -71,11 +70,10 @@ if (window.Twitch.ext) {
     });
 
     window.Twitch.ext.onContext(function (context, contextFields) {
-        //console.log(context);
-        //console.log(contextFields);
+        //
     });
 
     window.Twitch.ext.onError(function (err) {
-        //console.error(err);
+        //
     });
 }

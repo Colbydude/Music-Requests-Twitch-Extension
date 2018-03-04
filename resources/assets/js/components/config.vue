@@ -31,7 +31,7 @@
 
     export default {
         mounted () {
-            EventBus.$on('authentication-verified', this.verifyArtist);
+            EventBus.$on('authentication-verified', this.authenticateUser);
         },
 
         computed: {
@@ -48,47 +48,22 @@
 
         methods: {
             /**
-             * Creates an artist on our backend.
-             *
-             * @param string name
+             * Register/update the user in our database.
              */
-            createArtist () {
-                axios.post(Urls.Ebs + '/artists', {
-                    twitch_channel_id: this.auth.channel_id,
-                    auth_id: this.auth.auth_id,
-                    name: this.auth.channelname
-                })
-                .then(response => {
-                    EventBus.$emit('config-ready', this.channelId);
-                })
-                .catch(error => {
-                    if (error.response.status == 401) {
-                        return swal('Error.', 'Invalid Token!', 'error');
-                    }
-
-                    return swal('Error.', 'An unexpected error occurred.', 'error');
-                });
-            },
-
-            /**
-             * Verifies the artist exists on our backend. If it doesn't, call to create it.
-             */
-            verifyArtist () {
-                axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id, {
+            authenticateUser () {
+                axios.get(Urls.Ebs + '/music-requests/authenticate', {
                     params: {
-                        auth_id: this.auth.auth_id
+                        twitch_channel_id: this.auth.channel_id,
+                        twitch_auth_id: this.auth.auth_id,
+                        name: this.auth.channelname
                     }
                 })
                 .then(response => {
-                    EventBus.$emit('config-ready', this.channel_id);
+                    EventBus.$emit('config-ready', this.auth.channel_id);
                 })
                 .catch(error => {
                     if (error.response.status == 401) {
                         return swal('Error.', 'Invalid Token!', 'error');
-                    }
-
-                    if (error.response.status == 404) {
-                        return this.createArtist();
                     }
 
                     return swal('Error.', 'An unexpected error occurred.', 'error');

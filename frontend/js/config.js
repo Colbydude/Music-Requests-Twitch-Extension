@@ -146,7 +146,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         /**
-         * Add a song to the artist's catalog on our backend.
+         * Add a song to the catalogue on our backend.
          */
         addSong: function addSong() {
             var _this = this;
@@ -156,7 +156,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return;
             }
 
-            axios.post(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id + '/songs', {
+            axios.post(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/music-requests/' + this.auth.channel_id + '/songs', {
                 name: this.songname.trim()
             }).then(function (response) {
                 _this.songname = "";
@@ -259,7 +259,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            songs: [] // Artist's catalog of songs.
+            songs: [] // Catalogue of songs.
         };
     },
 
@@ -278,12 +278,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
         /**
-         * Get the artist's song catalog from our backend.
+         * Get the song catalogue from our backend.
          */
         getSongs: function getSongs() {
             var _this = this;
 
-            axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id + '/songs').then(function (response) {
+            axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/music-requests/' + this.auth.channel_id + '/songs').then(function (response) {
                 _this.songs = response.data;
             }).catch(function (error) {
                 if (error.response.status == 401) {
@@ -296,7 +296,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
         /**
-         * Remove a song from the artist's catalog.
+         * Remove a song from the catalogue.
          *
          * @param integer index
          * @param integer id
@@ -304,7 +304,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         removeSong: function removeSong(index, id) {
             var _this2 = this;
 
-            axios.delete(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id + '/songs/' + id).then(function (response) {
+            axios.delete(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/music-requests/' + this.auth.channel_id + '/songs/' + id).then(function (response) {
                 _this2.songs.splice(index, 1);
                 __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$emit('song-deleted', id);
             }).catch(function (error) {
@@ -590,7 +590,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$on('authentication-verified', this.verifyArtist);
+        __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$on('authentication-verified', this.authenticateUser);
     },
 
 
@@ -605,48 +605,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     methods: {
         /**
-         * Creates an artist on our backend.
-         *
-         * @param string name
+         * Register/update the user in our database.
          */
-        createArtist: function createArtist() {
+        authenticateUser: function authenticateUser() {
             var _this = this;
 
-            axios.post(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists', {
-                twitch_channel_id: this.auth.channel_id,
-                auth_id: this.auth.auth_id,
-                name: this.auth.channelname
-            }).then(function (response) {
-                __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$emit('config-ready', _this.channelId);
-            }).catch(function (error) {
-                if (error.response.status == 401) {
-                    return swal('Error.', 'Invalid Token!', 'error');
-                }
-
-                return swal('Error.', 'An unexpected error occurred.', 'error');
-            });
-        },
-
-
-        /**
-         * Verifies the artist exists on our backend. If it doesn't, call to create it.
-         */
-        verifyArtist: function verifyArtist() {
-            var _this2 = this;
-
-            axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id, {
+            axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/music-requests/authenticate', {
                 params: {
-                    auth_id: this.auth.auth_id
+                    twitch_channel_id: this.auth.channel_id,
+                    twitch_auth_id: this.auth.auth_id,
+                    name: this.auth.channelname
                 }
             }).then(function (response) {
-                __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$emit('config-ready', _this2.channel_id);
+                __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$emit('config-ready', _this.auth.channel_id);
             }).catch(function (error) {
                 if (error.response.status == 401) {
                     return swal('Error.', 'Invalid Token!', 'error');
-                }
-
-                if (error.response.status == 404) {
-                    return _this2.createArtist();
                 }
 
                 return swal('Error.', 'An unexpected error occurred.', 'error');
@@ -861,7 +835,6 @@ if (window.Twitch.ext) {
     window.Twitch.ext.onAuthorized(function (auth) {
         var parts = auth.token.split(".");
         var payload = JSON.parse(window.atob(parts[1]));
-        //console.log({payload, auth});
 
         if (payload.user_id) {
             // User has granted permissions.
@@ -905,7 +878,7 @@ if (window.Twitch.ext) {
             __WEBPACK_IMPORTED_MODULE_2__store__["a" /* default */].commit('setChannelUsername', response.data.data[0].display_name);
 
             // Set the token to be used in the header of all axios requests.
-            window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
+            window.axios.defaults.headers.common.Authorization = 'Bearer ' + auth.token;
 
             // Initialize the components.
             __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$emit('authentication-verified');
@@ -919,12 +892,11 @@ if (window.Twitch.ext) {
     });
 
     window.Twitch.ext.onContext(function (context, contextFields) {
-        //console.log(context);
-        //console.log(contextFields);
+        //
     });
 
     window.Twitch.ext.onError(function (err) {
-        //console.error(err);
+        //
     });
 }
 
@@ -1032,7 +1004,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             currentRequest: '', // Value of the current request textbox.
             isListening: false, // Whether or not we're listening for PubSub events.
             lastPlayed: null, // Last played request.
-            requests: [] // Artist's recent requests.
+            requests: [] // Catalogue's recent requests.
         };
     },
 
@@ -1062,7 +1034,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         clearRequests: function clearRequests() {
             var _this = this;
 
-            axios.delete(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id + '/requests').then(function (response) {
+            axios.delete(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/music-requests/' + this.auth.channel_id + '/requests').then(function (response) {
                 _this.requests = [];
                 _this.currentRequest = '';
             }).catch(function (error) {
@@ -1076,12 +1048,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
         /**
-         * Get the artist's current request.
+         * Get the current request.
          */
         getCurrentRequest: function getCurrentRequest() {
             var _this2 = this;
 
-            axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id + '/requests/current').then(function (response) {
+            axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/music-requests/' + this.auth.channel_id + '/requests/current').then(function (response) {
                 if (!_.isEmpty(response.data)) {
                     _this2.currentRequest = response.data;
                 }
@@ -1096,12 +1068,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
         /**
-         * Get the artist's requests from our backend.
+         * Get the requests from our backend.
          */
         getRequests: function getRequests() {
             var _this3 = this;
 
-            axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id + '/requests').then(function (response) {
+            axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/music-requests/' + this.auth.channel_id + '/requests').then(function (response) {
                 _this3.requests = response.data;
             }).catch(function (error) {
                 if (error.response.status == 401) {
@@ -1126,7 +1098,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 Twitch.ext.listen('whisper-' + this.auth.auth_id, function (target, contentType, message) {
                     message = JSON.parse(message);
 
-                    axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + _this4.auth.channel_id + '/requests/' + message.id).then(function (response) {
+                    axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/music-requests/' + _this4.auth.channel_id + '/requests/' + message.id).then(function (response) {
                         _this4.addRequest(response.data);
                     }).catch(function (error) {
                         if (error.response.status == 401) {
@@ -1154,7 +1126,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.lastPlayed = this.requests[index];
 
-            axios.post(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id + '/requests/current', {
+            axios.post(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/music-requests/' + this.auth.channel_id + '/requests/current', {
                 request_id: id
             }).then(function (response) {
                 _this5.requests.splice(index, 1);
@@ -1178,7 +1150,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         skipRequest: function skipRequest(index, id) {
             var _this6 = this;
 
-            axios.delete(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id + '/requests/' + id).then(function (response) {
+            axios.delete(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/music-requests/' + this.auth.channel_id + '/requests/' + id).then(function (response) {
                 _this6.requests.splice(index, 1);
             }).catch(function (error) {
                 if (error.response.status == 401) {

@@ -17,10 +17,9 @@ if (process.env.APP_DEBUG == 'true') {
         username: process.env.TWITCH_USERNAME
     };
 
-    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
+    window.axios.defaults.headers.common.Authorization = 'Bearer ' + auth.token;
 
     console.log('DEBUG AUTH BEING USED');
-    //console.log(auth);
 
     // Set global auth object.
     store.commit('setAuth', auth);

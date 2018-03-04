@@ -26,7 +26,7 @@
 
         methods: {
             /**
-             * Add a song to the artist's catalog on our backend.
+             * Add a song to the catalogue on our backend.
              */
             addSong () {
                 if (this.songname.trim() === "") {
@@ -34,7 +34,7 @@
                     return;
                 }
 
-                axios.post(Urls.Ebs + '/artists/' + this.auth.channel_id + '/songs', {
+                axios.post(Urls.Ebs + '/music-requests/' + this.auth.channel_id + '/songs', {
                     name: this.songname.trim()
                 })
                 .then(response => {

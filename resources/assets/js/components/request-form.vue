@@ -38,7 +38,7 @@
         extends: VueTypeahead,
 
         mounted () {
-            this.src = Urls.Ebs + '/artists/' + this.auth.channel_id + '/songs';
+            this.src = Urls.Ebs + '/music-requests/' + this.auth.channel_id + '/songs';
         },
 
         data () {
@@ -71,7 +71,7 @@
              * @param integer songId
              */
             requestSong (songId) {
-                axios.post(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests', {
+                axios.post(Urls.Ebs + '/music-requests/' + this.auth.channel_id + '/requests', {
                     song_id: songId,
                     twitch_user_id: this.auth.user_id,
                     twitch_user_name: this.auth.username

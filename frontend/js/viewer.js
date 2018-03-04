@@ -205,7 +205,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     extends: __WEBPACK_IMPORTED_MODULE_3_vue_typeahead___default.a,
 
     mounted: function mounted() {
-        this.src = __WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id + '/songs';
+        this.src = __WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/music-requests/' + this.auth.channel_id + '/songs';
     },
     data: function data() {
         return {
@@ -241,7 +241,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         requestSong: function requestSong(songId) {
             var _this = this;
 
-            axios.post(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id + '/requests', {
+            axios.post(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/music-requests/' + this.auth.channel_id + '/requests', {
                 song_id: songId,
                 twitch_user_id: this.auth.user_id,
                 twitch_user_name: this.auth.username
@@ -484,7 +484,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$on('authentication-verified', this.verifyArtist);
+        __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$on('authentication-verified', this.authenticateUser);
     },
 
 
@@ -499,48 +499,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     methods: {
         /**
-         * Creates an artist on our backend.
-         *
-         * @param string name
+         * Register/update the user in our database.
          */
-        createArtist: function createArtist() {
+        authenticateUser: function authenticateUser() {
             var _this = this;
 
-            axios.post(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists', {
-                twitch_channel_id: this.auth.channel_id,
-                auth_id: this.auth.auth_id,
-                name: this.auth.channelname
-            }).then(function (response) {
-                __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$emit('config-ready', _this.channelId);
-            }).catch(function (error) {
-                if (error.response.status == 401) {
-                    return swal('Error.', 'Invalid Token!', 'error');
-                }
-
-                return swal('Error.', 'An unexpected error occurred.', 'error');
-            });
-        },
-
-
-        /**
-         * Verifies the artist exists on our backend. If it doesn't, call to create it.
-         */
-        verifyArtist: function verifyArtist() {
-            var _this2 = this;
-
-            axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/artists/' + this.auth.channel_id, {
+            axios.get(__WEBPACK_IMPORTED_MODULE_1__urls__["a" /* Urls */].Ebs + '/music-requests/authenticate', {
                 params: {
-                    auth_id: this.auth.auth_id
+                    twitch_channel_id: this.auth.channel_id,
+                    twitch_auth_id: this.auth.auth_id,
+                    name: this.auth.channelname
                 }
             }).then(function (response) {
-                __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$emit('config-ready', _this2.channel_id);
+                __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$emit('config-ready', _this.auth.channel_id);
             }).catch(function (error) {
                 if (error.response.status == 401) {
                     return swal('Error.', 'Invalid Token!', 'error');
-                }
-
-                if (error.response.status == 404) {
-                    return _this2.createArtist();
                 }
 
                 return swal('Error.', 'An unexpected error occurred.', 'error');
@@ -755,7 +729,6 @@ if (window.Twitch.ext) {
     window.Twitch.ext.onAuthorized(function (auth) {
         var parts = auth.token.split(".");
         var payload = JSON.parse(window.atob(parts[1]));
-        //console.log({payload, auth});
 
         if (payload.user_id) {
             // User has granted permissions.
@@ -799,7 +772,7 @@ if (window.Twitch.ext) {
             __WEBPACK_IMPORTED_MODULE_2__store__["a" /* default */].commit('setChannelUsername', response.data.data[0].display_name);
 
             // Set the token to be used in the header of all axios requests.
-            window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
+            window.axios.defaults.headers.common.Authorization = 'Bearer ' + auth.token;
 
             // Initialize the components.
             __WEBPACK_IMPORTED_MODULE_0__event_bus__["a" /* EventBus */].$emit('authentication-verified');
@@ -813,12 +786,11 @@ if (window.Twitch.ext) {
     });
 
     window.Twitch.ext.onContext(function (context, contextFields) {
-        //console.log(context);
-        //console.log(contextFields);
+        //
     });
 
     window.Twitch.ext.onError(function (err) {
-        //console.error(err);
+        //
     });
 }
 

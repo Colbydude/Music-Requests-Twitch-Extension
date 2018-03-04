@@ -66,7 +66,7 @@
                 currentRequest: '',         // Value of the current request textbox.
                 isListening: false,         // Whether or not we're listening for PubSub events.
                 lastPlayed: null,           // Last played request.
-                requests: [],               // Artist's recent requests.
+                requests: [],               // Catalogue's recent requests.
             };
         },
 
@@ -90,7 +90,7 @@
              * Clear the entire request list.
              */
             clearRequests() {
-                axios.delete(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests')
+                axios.delete(Urls.Ebs + '/music-requests/' + this.auth.channel_id + '/requests')
                 .then(response => {
                     this.requests = [];
                     this.currentRequest = '';
@@ -105,10 +105,10 @@
             },
 
             /**
-             * Get the artist's current request.
+             * Get the current request.
              */
             getCurrentRequest() {
-                axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests/current')
+                axios.get(Urls.Ebs + '/music-requests/' + this.auth.channel_id + '/requests/current')
                 .then(response => {
                     if (!_.isEmpty(response.data)) {
                         this.currentRequest = response.data;
@@ -124,10 +124,10 @@
             },
 
             /**
-             * Get the artist's requests from our backend.
+             * Get the requests from our backend.
              */
             getRequests () {
-                axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests')
+                axios.get(Urls.Ebs + '/music-requests/' + this.auth.channel_id + '/requests')
                 .then(response => {
                     this.requests = response.data;
                 })
@@ -151,7 +151,7 @@
                     Twitch.ext.listen('whisper-' + this.auth.auth_id, (target, contentType, message) => {
                         message = JSON.parse(message);
 
-                        axios.get(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests/' + message.id)
+                        axios.get(Urls.Ebs + '/music-requests/' + this.auth.channel_id + '/requests/' + message.id)
                         .then(response => {
                             this.addRequest(response.data);
                         })
@@ -178,7 +178,7 @@
             playRequest (index, id) {
                 this.lastPlayed = this.requests[index];
 
-                axios.post(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests/current', {
+                axios.post(Urls.Ebs + '/music-requests/' + this.auth.channel_id + '/requests/current', {
                     request_id: id
                 })
                 .then(response => {
@@ -201,7 +201,7 @@
              * @param integer id
              */
             skipRequest (index, id) {
-                axios.delete(Urls.Ebs + '/artists/' + this.auth.channel_id + '/requests/' + id)
+                axios.delete(Urls.Ebs + '/music-requests/' + this.auth.channel_id + '/requests/' + id)
                 .then(response => {
                     this.requests.splice(index, 1);
                 })
