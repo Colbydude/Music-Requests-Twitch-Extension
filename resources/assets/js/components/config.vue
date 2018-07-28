@@ -1,74 +1,9 @@
 <template>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-6">
-                <request-list></request-list>
-            </div>
-            <div class="col-sm-6">
-                <add-song-form></add-song-form>
-                <song-list></song-list>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <h3>Current Request Widget</h3>
-                <p>You can add an automatically updating current request widget to your stream layout by adding a new BrowserSource plugin and setting the URL to the URL below and customizing the CSS to your liking.</p>
-                <p><code>{{ widgetUrl }}</code></p>
-            </div>
-            <div class="col-sm-6">
-                <h3>Requesting Songs Externally</h3>
-                <p>Twitch Extensions are currently not available on all platforms. Until they are, viewers can visit the link below to requests songs on an external site. This is particularly useful for mobile users.</p>
-                <p><code>{{ externalUrl }}</code></p>
-            </div>
-        </div>
-    </div>
+
 </template>
 
 <script>
-    import { EventBus } from './../event-bus';
-    import { Urls } from './../urls';
-    import { mapState } from 'vuex';
-
     export default {
-        mounted () {
-            EventBus.$on('authentication-verified', this.authenticateUser);
-        },
 
-        computed: {
-            externalUrl () {
-                return Urls.Ebs.replace('api', '') + this.auth.username + '/requests';
-            },
-
-            widgetUrl () {
-                return Urls.Ebs.replace('api', '') + this.auth.username + '/requests/current';
-            },
-
-            ...mapState(['auth'])
-        },
-
-        methods: {
-            /**
-             * Register/update the user in our database.
-             */
-            authenticateUser () {
-                axios.get(Urls.Ebs + '/music-requests/authenticate', {
-                    params: {
-                        twitch_channel_id: this.auth.channel_id,
-                        twitch_auth_id: this.auth.auth_id,
-                        name: this.auth.channelname
-                    }
-                })
-                .then(response => {
-                    EventBus.$emit('config-ready', this.auth.channel_id);
-                })
-                .catch(error => {
-                    if (error.response.status == 401) {
-                        return swal('Error.', 'Invalid Token!', 'error');
-                    }
-
-                    return swal('Error.', 'An unexpected error occurred.', 'error');
-                });
-            }
-        }
     }
 </script>
