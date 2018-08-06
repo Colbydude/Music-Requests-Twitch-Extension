@@ -3,7 +3,7 @@ import Vue from 'vue';
 
 import Config from './../components/config';
 import LiveConfig from './../components/live-config';
-import Overlay from './../components/overlay';
+import VideoComponent from './../components/video-component';
 
 Vue.use(Router);
 
@@ -16,13 +16,13 @@ export default new Router({
         },
         {
             path: '*/live_config.html',
-            name: 'Live Config',
+            name: 'LiveConfig',
             component: LiveConfig
         },
         {
-            path: '*/overlay.html',
-            name: 'Overlay',
-            component: Overlay
+            path: '*/video_component.html',
+            name: 'VideoComponent',
+            component: VideoComponent
         }
     ],
     mode: 'history'
