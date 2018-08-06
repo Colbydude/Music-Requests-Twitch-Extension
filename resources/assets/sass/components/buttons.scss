@@ -1,0 +1,21 @@
+.btn {
+    @apply text-center font-bold px-4 py-3 rounded;
+}
+
+.btn-blue-dark {
+    @apply bg-blue-dark text-white;
+
+    &:hover, &:focus {
+        @apply bg-blue-darker;
+    }
+}
+
+.btn-transparent {
+    @apply bg-transparent text-grey-dark;
+
+    &:hover, &:focus {
+        @apply text-white;
+
+        background: hsla(0, 0%, 100%, 0.1);
+    }
+}

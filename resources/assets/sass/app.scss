@@ -1,62 +1,51 @@
-/**
- * This injects Tailwind's base styles, which is a combination of
- * Normalize.css and some additional base styles.
- *
- * You can see the styles here:
- * https://github.com/tailwindcss/tailwindcss/blob/master/css/preflight.css
- *
- * If using `postcss-import`, use this import instead:
- *
- * @import "tailwindcss/preflight";
- */
-@tailwind preflight;
+$fa-font-path: "/fonts/vendor/fontawesome";
 
-/**
- * This injects any component classes registered by plugins.
- *
- * If using `postcss-import`, use this import instead:
- *
- * @import "tailwindcss/components";
- */
-@tailwind components;
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import 'tailwind';
 
-/**
- * Here you would add any of your custom component classes; stuff that you'd
- * want loaded *before* the utilities so that the utilities could still
- * override them.
- *
- * Example:
- *
- * .btn { ... }
- * .form-input { ... }
- *
- * Or if using a preprocessor or `postcss-import`:
- *
- * @import "components/buttons";
- * @import "components/forms";
- */
+body {
+    @apply font-sans;
+}
 
-/**
- * This injects all of Tailwind's utility classes, generated based on your
- * config file.
- *
- * If using `postcss-import`, use this import instead:
- *
- * @import "tailwindcss/utilities";
- */
-@tailwind utilities;
+#extension-overlay {
+    @apply absolute pin;
+}
 
-/**
- * Here you would add any custom utilities you need that don't come out of the
- * box with Tailwind.
- *
- * Example :
- *
- * .bg-pattern-graph-paper { ... }
- * .skew-45 { ... }
- *
- * Or if using a preprocessor or `postcss-import`:
- *
- * @import "utilities/background-patterns";
- * @import "utilities/skew-transforms";
- */
+.btn-container {
+    @apply absolute z-50;
+
+    bottom: 85px;
+    left: 60px;
+}
+
+.btn-menu {
+    @apply relative float-left;
+
+    box-shadow: 0 0 3px rgba(0, 0, 0, .7);
+}
+
+.modal-shim {
+    @apply absolute pin-t pin-l flex items-center justify-center h-full w-full z-100;
+
+    background: rgba(69, 79, 84, .5);
+
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+.modal {
+    @apply p-8 w-128 rounded;
+
+    background: rgba(9, 22, 29, .85);
+    box-shadow: 0 0 3px rgba(0, 0, 0, .7);
+}
+
+.modal-title {
+    @apply font-semibold text-center text-white text-2xl leading-none mb-2;
+}
+
+.modal-footer {
+    @apply flex justify-end;
+}
