@@ -1,5 +1,7 @@
 .btn {
-    @apply text-center font-bold px-4 py-3 rounded;
+    @apply text-center font-bold px-3 py-2 rounded;
+
+    -webkit-font-smoothing: antialiased;
 }
 
 .btn-blue-dark {
@@ -8,6 +10,12 @@
     &:hover, &:focus {
         @apply bg-blue-darker;
     }
+}
+
+.btn-small {
+    @apply p-1 font-semibold tracking-wide;
+
+    font-size: 14px;
 }
 
 .btn-transparent {

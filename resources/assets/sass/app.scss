@@ -8,44 +8,105 @@ body {
     @apply font-sans;
 }
 
+section {
+    @apply p-2 flex flex-col overflow-y-auto;
+
+    box-sizing: border-box;
+    min-height: 12.5rem;
+    max-height: 16.25rem;
+}
+
+ul {
+    @apply list-reset my-2 overflow-y-auto;
+}
+
 #extension-overlay {
     @apply absolute pin;
 }
 
-.btn-container {
+.menu-container {
     @apply absolute z-50;
 
     bottom: 85px;
     left: 60px;
 }
 
+.menu {
+    @apply relative rounded w-64;
+
+    background: rgba(18, 28, 33, .95);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.panel {
+    h2 {
+        @apply text-white font-normal text-sm leading-tight p-2 m-0;
+    }
+}
+
+.tile {
+    @apply flex;
+
+    .tile-content {
+        @apply flex flex-col justify-center;
+    }
+
+    .tile-content {
+        @apply flex min-w-0;
+
+        &:not(:first-child) {
+            @apply ml-3;
+        }
+
+        &:not(:last-child) {
+            @apply mr-3;
+        }
+    }
+}
+
+.search-bar {
+    @apply p-2;
+
+    button {
+        @apply absolute w-auto;
+
+        top: 5px;
+        right: 5px;
+    }
+
+    form {
+        @apply relative;
+    }
+
+    input {
+        padding-right: 62px;
+    }
+
+    .clear {
+        @apply absolute cursor-pointer;
+
+        color: hsla(0, 0%, 100%, .8);
+        top: 9px;
+        right: 36px;
+    }
+}
+
+.form-control {
+    @apply bg-transparent rounded py-2 px-1 w-full text-sm text-white;
+
+    border: 1px solid hsla(0, 0%, 100%, .3);
+    box-sizing: border-box;
+
+    &:focus {
+        background-color: hsla(0, 0%, 100%, .05);
+        border-color: hsla(0, 0%, 100%, .5);
+    }
+}
+
 .btn-menu {
-    @apply relative float-left;
+    @apply relative float-left mt-2;
 
     box-shadow: 0 0 3px rgba(0, 0, 0, .7);
-}
-
-.modal-shim {
-    @apply absolute pin-t pin-l flex items-center justify-center h-full w-full z-100;
-
-    background: rgba(69, 79, 84, .5);
-
-    text-rendering: optimizeLegibility;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-}
-
-.modal {
-    @apply p-8 w-128 rounded;
-
-    background: rgba(9, 22, 29, .85);
-    box-shadow: 0 0 3px rgba(0, 0, 0, .7);
-}
-
-.modal-title {
-    @apply font-semibold text-center text-white text-2xl leading-none mb-2;
-}
-
-.modal-footer {
-    @apply flex justify-end;
 }
