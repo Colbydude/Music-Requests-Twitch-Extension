@@ -1,0 +1,44 @@
+.config {
+    label {
+        @apply block text-grey-darker text-sm font-bold mb-2;
+    }
+
+    .card {
+        @apply rounded overflow-hidden shadow-md;
+    }
+
+    .card-header {
+        @apply mb-2;
+
+        h3 {
+            @apply font-bold text-xl;
+        }
+    }
+
+    .card-interior {
+        @apply px-6 py-4;
+    }
+
+    .form-control {
+        @apply appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight;
+
+        &:focus {
+            @apply outline-none shadow-outline;
+        }
+    }
+
+    .list-item {
+        @apply border-b;
+    }
+
+    .list-wrap {
+        @apply overflow-y-scroll;
+
+        max-height: 264px;
+        min-height: 264px;
+
+        .list-item:last-child {
+            @apply border-none;
+        }
+    }
+}

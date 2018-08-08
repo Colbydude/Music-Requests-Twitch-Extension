@@ -9,7 +9,7 @@
                     <div class="search-bar">
                         <form @submit="search">
                             <input type="text" v-model="input" class="form-control" placeholder="Search user's library">
-                            <button class="btn btn-blue-dark btn-small">
+                            <button class="btn btn-blue-dark btn-sm">
                                 <i class="fa fa-search"></i>
                             </button>
                             <i class="clear fas fa-times-circle" @click="clear" v-if="input.length > 0"></i>

@@ -1,6 +1,6 @@
 // Load in our JavaScript dependencies.
 require('./bootstrap/bootstrap');
-import app from './components/app';
+import App from './components/App';
 import store from './bootstrap/store';
 import router from './bootstrap/router';
 import Vue from 'vue';
@@ -14,7 +14,7 @@ new Vue({
     el: '#app',
     router,
     store,
-    render: h => h(app)
+    render: h => h(App)
 });
 
 // Setup for Twitch Extension auth stuff.

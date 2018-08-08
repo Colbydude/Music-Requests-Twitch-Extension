@@ -12,10 +12,16 @@
     }
 }
 
-.btn-small {
-    @apply p-1 font-semibold tracking-wide;
+.btn-red-dark {
+    @apply bg-red-dark text-white;
 
-    font-size: 14px;
+    &:hover, &:focus {
+        @apply bg-red-darker;
+    }
+}
+
+.btn-sm {
+    @apply p-1 font-semibold text-sm tracking-wide;
 }
 
 .btn-transparent {

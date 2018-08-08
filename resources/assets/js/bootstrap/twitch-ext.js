@@ -28,6 +28,7 @@ if (Twitch.ext) {
 
         // Store the client information.
         store.commit('setClient', {
+            channel_id: payload.channel_id,
             id: auth.clientId,
             platform: 'Twitch'
         });
@@ -53,6 +54,9 @@ if (Twitch.ext) {
                 store.commit('setAuthUsername', payload.user_id);
             }
         }
+
+        // Emit authentication event.
+        EventBus.$emit('authenticated');
     });
 
     // On context event.

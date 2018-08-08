@@ -11,6 +11,7 @@ export default new Vuex.Store({
             username: null
         },
         client: {                   // Client information object.
+            channel_id: null,
             id: null,
             language: "en",
             platform: null
