@@ -9,7 +9,7 @@
                     <label for="current_request">
                         Current Request
                     </label>
-                    <input v-model="currentRequest" class="form-control" type="text" placeholder="No Request Currently" disabled>
+                    <input v-model="currentRequestText" class="form-control" type="text" placeholder="No Request Currently" disabled>
                 </div>
                 <div class="border-t border-b rounded sm:border">
                     <div class="border-b">
@@ -31,10 +31,10 @@
                                 <div class="flex px-4 py-2 items-center">
                                     <div class="w-full text-sm">{{ request.song.name }}</div>
                                     <div class="flex-no-shrink text-sm font-semibold ml-2 mr-1">{{ request.twitch_username }}</div>
-                                    <button @click="playRequest(index, request.id)" class="flex-no-shrink btn btn-sm btn-blue-dark ml-1">
+                                    <button @click="playRequest(request.id)" class="flex-no-shrink btn btn-sm btn-blue-dark ml-1">
                                         <i class="fas fa-fw fa-check"></i>
                                     </button>
-                                    <button @click="skipRequest(index, request.id)" class="flex-no-shrink btn btn-sm btn-red-dark ml-1">
+                                    <button @click="skipRequest(request.id)" class="flex-no-shrink btn btn-sm btn-red-dark ml-1">
                                         <i class="fas fa-fw fa-times"></i>
                                     </button>
                                 </div>
@@ -53,43 +53,14 @@
 </template>
 
 <script>
+    import RequestQueue from './../common/RequestQueue';
     import { Urls } from './../../urls';
-    import { mapState } from 'vuex';
 
     export default {
         name: 'RequestCard',
-
-        data () {
-            return {
-                currentRequest: '', // Value of the current request textbox.
-                lastPlayed: null,   // The last played request,
-                requests: []        // The request queue.
-            };
-        },
-
-        computed: mapState(['client']),
-
-        created () {
-            this.getCurrentRequest();
-            this.getRequests();
-            this.listen();
-        },
-
-        beforeDestroy () {
-            this.unlisten();
-        },
+        extends: RequestQueue,
 
         methods: {
-            /**
-             * Add a request to the list.
-             *
-             * @param  {Object}  request
-             * @return {void}
-             */
-            addRequest (request) {
-                this.requests.push(request);
-            },
-
             /**
              * Clear the entire request list.
              *
@@ -97,55 +68,7 @@
              */
             clearRequests () {
                 this.$http.delete(Urls.Ebs + this.client.channel_id + '/requests')
-                .then(response => {
-                    this.requests = [];
-                    this.currentRequest = '';
-                })
                 .catch(error => this.error(error));
-            },
-
-            /**
-             * Get the current request.
-             *
-             * @return {void}
-             */
-            getCurrentRequest () {
-                this.$http.get(Urls.Ebs + this.client.channel_id + '/requests/current')
-                .then(response => {
-                    if (!_.isEmpty(response.data)) {
-                        this.currentRequest = response.data;
-                    }
-                })
-                .catch(error => this.error(error));
-            },
-
-            /**
-             * Get the requests from our backend.
-             *
-             * @return {void}
-             */
-            getRequests () {
-                this.$http.get(Urls.Ebs + this.client.channel_id + '/requests')
-                .then(response => this.requests = response.data)
-                .catch(error => this.error(error));
-            },
-
-            /**
-             * Begin listening for Twitch PubSub events.
-             *
-             * @return {void}
-             */
-            listen () {
-                if (Twitch.ext && !this.isListening) {
-                    this.isListening = true;
-
-                    Twitch.ext.listen('broadcast', (target, contentType, message) => {
-                        message = JSON.parse(message);
-                        logger(message);
-
-                        this.addRequest(message);
-                    });
-                }
             },
 
             /**
@@ -154,15 +77,11 @@
              * @param  {Number}  index
              * @param  {Number}  id
              */
-            playRequest (index, id) {
-                this.lastPlayed = this.requests[index];
+            playRequest (id) {
+                this.lastPlayed = this.currentRequest;
 
                 this.$http.post(Urls.Ebs + this.client.channel_id + '/requests/current', {
                     request_id: id
-                })
-                .then(response => {
-                    this.requests.splice(index, 1);
-                    this.getCurrentRequest();
                 })
                 .catch(error => this.error(error));
             },
@@ -174,22 +93,9 @@
              * @param  {Number}  id
              * @return {void}
              */
-            skipRequest (index, id) {
+            skipRequest (id) {
                 this.$http.delete(Urls.Ebs + this.client.channel_id + '/requests/' + id)
-                .then(response => this.requests.splice(index, 1))
                 .catch(error => this.error(error));
-            },
-
-            /**
-             * Stop listening for Twitch PubSub events.
-             *
-             * @return {void}
-             */
-            unlisten () {
-                if (Twitch.ext && this.isListening) {
-                    this.isListening = false;
-                    Twitch.ext.unlisten('broadcast');
-                }
             }
         }
     }

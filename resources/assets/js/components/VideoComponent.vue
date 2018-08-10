@@ -1,17 +1,9 @@
 <template>
-    <div id="extension-overlay" @mouseover="buttonActive = true" @mouseleave="buttonActive = false">
-        <div class="menu-container">
-            <div class="menu" v-if="menuActive && client.channel_id">
+    <div id="extension-overlay" @mouseover="buttonActive = true" @mouseleave="buttonActive = false" v-if="booted">
+        <div class="menu-container" :class="settings.menu_position">
+            <div class="menu" v-show="menuActive">
                 <request-form></request-form>
-                <div class="panel">
-                    <h2 class="tile">
-                        <div class="tile-content">Current Queue:</div>
-                    </h2>
-                    <section class="queue">
-                        <ul>
-                        </ul>
-                    </section>
-                </div>
+                <queue-panel></queue-panel>
             </div>
 
             <button class="btn btn-blue-dark btn-menu" @click="toggleMenu">
@@ -23,26 +15,50 @@
 </template>
 
 <script>
+    import QueuePanel from './video-component/QueuePanel';
     import RequestForm from './video-component/RequestForm';
+    import { Urls } from './../urls';
     import { mapState } from 'vuex';
 
     export default {
         name: 'VideoComponent',
 
         components: {
+            QueuePanel,
             RequestForm
         },
 
         data () {
             return {
-                buttonActive: false,
-                menuActive: false
+                booted: false,          // Whether or not the config has booted.
+                buttonActive: false,    // Whether or not the button is visible.
+                menuActive: false,      // Whether or not the menu is visible.
+                settings: null          // The broadcaster's extension settings.
             };
         },
 
         computed: mapState(['client']),
 
+        created () {
+            EventBus.$on('authenticated', this.fetchSettings);
+        },
+
         methods: {
+            /**
+             * Fetch settings.
+             *
+             * @return {void}
+             */
+            fetchSettings () {
+                this.$http.get(Urls.Ebs + this.client.channel_id)
+                .then(response => {
+                    this.settings = response.data.settings;
+                    logger(this.settings);
+                    this.booted = true;
+                })
+                .catch(error => this.error(error));
+            },
+
             /**
              * Toggles the menu.
              *

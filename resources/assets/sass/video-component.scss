@@ -3,7 +3,7 @@
         @apply px-1 flex flex-col overflow-y-auto;
 
         box-sizing: border-box;
-        min-height: 50px;
+        min-height: 40px;
         max-height: 108px;
     }
 
@@ -27,28 +27,6 @@
         }
     }
 
-    .marquee {
-        @apply overflow-hidden;
-
-        text-overflow: hidden;
-
-        .inner {
-            display: inline-block;
-            white-space: nowrap;
-            position: relative;
-            transition-property: display;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -webkit-font-smoothing: subpixel-antialiased;
-            image-rendering: optimizeSpeed;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: -o-crisp-edges;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: optimize-contrast;
-            -ms-interpolation-mode: nearest-neighbor;
-        }
-    }
-
     #extension-overlay {
         @apply absolute pin;
     }
@@ -57,13 +35,30 @@
         @apply absolute z-50;
 
         bottom: 85px;
-        left: 15px;
+
+        &.left {
+            left: 15px;
+        }
+
+        &.right {
+            right: 15px;
+
+            .btn-menu, .menu {
+                right: 0;
+                transform-origin: bottom right;
+            }
+
+            .menu {
+
+            }
+        }
     }
 
     .menu {
-        @apply relative rounded;
+        @apply relative rounded overflow-hidden absolute;
 
         background: rgba(18, 28, 33, .95);
+        bottom: 42px;
         height: 224px;
         width: 256px;
 
@@ -137,8 +132,18 @@
     }
 
     .btn-menu {
-        @apply relative float-left mt-2;
+        @apply pin-b absolute;
 
         box-shadow: 0 0 3px rgba(0, 0, 0, .7);
+    }
+
+    .queue {
+        li {
+            cursor: unset;
+
+            &.active {
+                @apply bg-blue-dark;
+            }
+        }
     }
 }

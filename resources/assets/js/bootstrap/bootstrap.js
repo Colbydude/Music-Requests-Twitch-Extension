@@ -1,4 +1,3 @@
-window._ = require('lodash');
 import { EventBus } from './event-bus';
 
 // Debug Mode.

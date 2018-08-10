@@ -16,9 +16,9 @@
                     @keydown.up="up"
                     @keydown.enter="hit"
                     @keydown.esc="reset"
-                    @input="update"
+                    @input="search"
                 >
-                <button class="btn btn-blue-dark btn-sm" type="button" @click="update">
+                <button class="btn btn-blue-dark btn-sm" type="button" @click="search">
                     <i class="fa fa-search"></i>
                 </button>
                 <i class="clear fas fa-times-circle" @click="reset" v-if="query.length > 0"></i>
@@ -40,10 +40,19 @@
                 </ul>
             </section>
         </div>
+        <div class="results" v-show="!hasItems && query.length >= 3">
+            <h2 class="tile">
+                <div class="tile-content">Search Results:</div>
+            </h2>
+            <section class="text-white">
+                <p class="text-center py-2">No results found.</p>
+            </section>
+        </div>
     </div>
 </template>
 
 <script>
+    import _ from 'lodash';
     import VueTypeahead from 'vue-typeahead';
     import { Urls } from './../../urls';
     import { mapState } from 'vuex';
@@ -88,18 +97,24 @@
              * @return {void}
              */
             requestSong (id) {
+                this.reset();
+
                 this.$http.post(Urls.Ebs + this.client.channel_id + '/requests', {
                     song_id: id,
                     twitch_user_id: this.auth.user_id,
                     twitch_username: this.auth.username
                 })
-                .then(response => {
-                    this.reset();
-
-                    // TODO: Show confirmation.
-                })
                 .catch(error => this.error(error));
             },
+
+            /**
+             * Run the vue-typeahead method after debouncing.
+             *
+             * @return {void}
+             */
+            search: _.debounce(function (e) {
+                this.update();
+            }, 300, { 'maxWait': 1000 }),
 
             /**
              * Quick wrapper around submit so the form won't cause a refresh.
