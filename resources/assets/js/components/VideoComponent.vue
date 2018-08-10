@@ -53,7 +53,6 @@
                 this.$http.get(Urls.Ebs + this.client.channel_id)
                 .then(response => {
                     this.settings = response.data.settings;
-                    logger(this.settings);
                     this.booted = true;
                 })
                 .catch(error => this.error(error));

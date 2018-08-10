@@ -4,6 +4,14 @@
     -webkit-font-smoothing: antialiased;
 }
 
+.btn-outline-blue-dark {
+    @apply bg-transparent text-blue-dark border border-blue-dark;
+
+    &.active, &:hover, &:focus {
+        @apply bg-blue-dark text-white border-transparent;
+    }
+}
+
 .btn-blue-dark {
     @apply bg-blue-dark text-white;
 

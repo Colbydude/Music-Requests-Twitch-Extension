@@ -40,7 +40,7 @@
                 </ul>
             </section>
         </div>
-        <div class="results" v-show="!hasItems && query.length >= 3">
+        <div class="results" v-show="!hasItems && query.length >= minChars">
             <h2 class="tile">
                 <div class="tile-content">Search Results:</div>
             </h2>
@@ -63,7 +63,7 @@
 
         data () {
             return {
-                // Type Ahead.
+                // vue-typeahead.
                 src: null,                  // The source url. Updated on setInfo.
                 data: {},                   // The data that would be sent by request.
                 limit: 5,                   // Limit the number of items which is shown at the list.
@@ -108,7 +108,7 @@
             },
 
             /**
-             * Run the vue-typeahead method after debouncing.
+             * Debounce update so we're not spamming on input/submit.
              *
              * @return {void}
              */

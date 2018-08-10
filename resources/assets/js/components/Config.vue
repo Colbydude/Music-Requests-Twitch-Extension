@@ -1,11 +1,60 @@
 <template>
-    <div class="px-4">
+    <div class="bg-grey-dark px-4">
         <div class="flex flex-wrap p-4 -mx-4" v-if="client.channel_id && booted">
-            <!-- Current Request -->
-            <request-card class="w-full lg:w-1/2 px-4"></request-card>
+            <request-card class="w-full lg:w-1/2 px-4 mb-6"></request-card>
+            <library-card class="w-full lg:w-1/2 px-4 mb-6"></library-card>
 
-            <!-- Song Library -->
-            <library-card class="w-full lg:w-1/2 px-4"></library-card>
+            <div class="w-full lg:w-1/2 px-4 mb-6">
+                <div class="card">
+                    <div class="card-interior">
+                        <div class="card-header">
+                            <h3>Extension Settings</h3>
+                        </div>
+                        <div class="mb-4">
+                            <label for="rate_limit">Rate Limit</label>
+                            <div class="flex items-center">
+                                <p class="w-full text-sm">How often the viewer will be able to submit a request.</p>
+                                <input
+                                    type="number"
+                                    id="rate_limit"
+                                    name="rate_limit"
+                                    class="flex-no-shrink form-control ml-2 mr-1"
+                                    style="width: 92px;"
+                                    v-model="settings.rate_limit"
+                                    min="10"
+                                    max="3600"
+                                >
+                                <span class="flex-no-shrink text-xs">seconds</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="rate_limit">Button and window placement</label>
+                            <div class="flex items-center">
+                                <p class="w-full text-sm">Choose which side the button and menu should show within the extension so it doesn't interfere with other elements on screen.</p>
+                                <button
+                                    class="flex-no-shrink btn btn-outline-blue-dark w-1 ml-2 mr-1"
+                                    :class="{active: settings.menu_position == 'left'}"
+                                    style="width: 68px;"
+                                    @click="settings.menu_position = 'left'"
+                                >
+                                    Left
+                                </button>
+                                <button
+                                    class="flex-no-shrink btn btn-outline-blue-dark w-1 ml-1"
+                                    :class="{active: settings.menu_position == 'right'}"
+                                    style="width: 68px;"
+                                    @click="settings.menu_position = 'right'"
+                                >
+                                    Right
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <button class="btn btn-blue-dark" @click="saveSettings">Save Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -87,6 +136,9 @@
              */
             saveSettings () {
                 this.$http.put(Urls.Ebs + this.client.channel_id, this.settings)
+                .then(response => {
+                    // TODO: User feedback.
+                })
                 .catch(error => this.error(error));
             }
         }
