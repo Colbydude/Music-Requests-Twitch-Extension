@@ -8,6 +8,7 @@ import Vuex from 'vuex';
 
 // Map global objects to Vue.
 Vue.prototype.$http = axios;
+Vue.mixin(require('./mixin'));
 
 // Create a fresh Vue instance and attach it to the page.
 new Vue({

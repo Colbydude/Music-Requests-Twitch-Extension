@@ -83,16 +83,6 @@
             },
 
             /**
-             * Display an error.
-             *
-             * @param  {mixed}  error
-             * @return {void}
-             */
-            error (error) {
-                logger(error);
-            },
-
-            /**
              * Fetch the list of songs.
              *
              * @return {void}

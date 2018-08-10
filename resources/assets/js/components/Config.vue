@@ -39,16 +39,6 @@
 
         methods: {
             /**
-             * Display an error.
-             *
-             * @param  {mixed}  error
-             * @return {void}
-             */
-            error (error) {
-                logger(error);
-            },
-
-            /**
              * Fetch settings.
              *
              * @return {void}

@@ -35,7 +35,7 @@
                                         <i class="fas fa-fw fa-check"></i>
                                     </button>
                                     <button @click="skipRequest(index, request.id)" class="flex-no-shrink btn btn-sm btn-red-dark ml-1">
-                                        <i class="fas fa-fw fa-remove"></i>
+                                        <i class="fas fa-fw fa-times"></i>
                                     </button>
                                 </div>
                             </div>
@@ -105,16 +105,6 @@
             },
 
             /**
-             * Display an error.
-             *
-             * @param  {mixed}  error
-             * @return {void}
-             */
-            error (error) {
-                logger(error);
-            },
-
-            /**
              * Get the current request.
              *
              * @return {void}
@@ -151,6 +141,9 @@
 
                     Twitch.ext.listen('broadcast', (target, contentType, message) => {
                         message = JSON.parse(message);
+                        logger(message);
+
+                        this.addRequest(message);
                     });
                 }
             },
