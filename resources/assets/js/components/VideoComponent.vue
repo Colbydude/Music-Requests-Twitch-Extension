@@ -2,7 +2,7 @@
     <div id="extension-overlay" @mouseover="buttonActive = true" @mouseleave="buttonActive = false" v-if="booted">
         <div class="menu-container" :class="settings.menu_position">
             <div class="menu" v-show="menuActive">
-                <request-form></request-form>
+                <request-form :rate-limit="rateLimit"></request-form>
                 <queue-panel></queue-panel>
             </div>
 
@@ -37,7 +37,18 @@
             };
         },
 
-        computed: mapState(['client']),
+        computed: {
+            /**
+             * How often the user can submit requests.
+             *
+             * @return {Number}
+             */
+            rateLimit () {
+                return parseInt(this.settings.rate_limit) * 1000;
+            },
+
+            ...mapState(['client'])
+        },
 
         created () {
             EventBus.$on('authenticated', this.fetchSettings);

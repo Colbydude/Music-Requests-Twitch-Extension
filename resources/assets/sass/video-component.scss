@@ -108,6 +108,11 @@
 
         input {
             padding-right: 62px;
+
+            &:disabled {
+                color: hsla(0, 0%, 100%, .3);
+                padding-right: .25rem;
+            }
         }
 
         .clear {
