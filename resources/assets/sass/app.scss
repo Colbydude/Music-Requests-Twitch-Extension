@@ -5,7 +5,7 @@ $fa-font-path: "/fonts/vendor/fontawesome";
 @import 'tailwind';
 
 @import "config";
-@import "video-component";
+@import "viewer";
 
 body {
     @apply font-sans;

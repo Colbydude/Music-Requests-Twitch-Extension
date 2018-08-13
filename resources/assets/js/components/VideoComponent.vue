@@ -17,8 +17,8 @@
 </template>
 
 <script>
-    import QueuePanel from './video-component/QueuePanel';
-    import RequestForm from './video-component/RequestForm';
+    import QueuePanel from './viewer/QueuePanel';
+    import RequestForm from './viewer/RequestForm';
     import { Urls } from './../urls';
     import { mapState } from 'vuex';
 
