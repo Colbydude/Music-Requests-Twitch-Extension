@@ -11,6 +11,8 @@
                 <i class="fas fa-fw fa-music" v-else></i>
             </button>
         </div>
+
+        <notifications group="video-notifications" position="bottom" :class="settings.menu_position"></notifications>
     </div>
 </template>
 

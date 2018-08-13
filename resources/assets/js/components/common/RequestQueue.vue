@@ -47,6 +47,12 @@
              * @return {void}
              */
             addRequest (request) {
+                this.$notify({
+                    group: 'video-notifications',
+                    title: request.song.name,
+                    text: `Requested by ${request.twitch_username}`
+                });
+
                 this.requests.push(request);
             },
 

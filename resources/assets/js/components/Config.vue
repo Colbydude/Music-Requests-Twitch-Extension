@@ -1,5 +1,7 @@
 <template>
     <div class="bg-grey-dark px-4">
+        <notifications position="bottom right"></notifications>
+
         <div class="flex flex-wrap p-4 -mx-4" v-if="client.channel_id && booted">
             <request-card class="w-full lg:w-1/2 px-4 mb-6"></request-card>
             <library-card class="w-full lg:w-1/2 px-4 mb-6"></library-card>
@@ -137,7 +139,7 @@
             saveSettings () {
                 this.$http.put(Urls.Ebs + this.client.channel_id, this.settings)
                 .then(response => {
-                    // TODO: User feedback.
+                    this.$notify('Settings saved successfully.');
                 })
                 .catch(error => this.error(error));
             }

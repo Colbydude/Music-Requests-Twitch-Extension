@@ -151,4 +151,21 @@
             }
         }
     }
+
+    .notifications {
+        bottom: 85px !important;
+        width: 206px !important;
+
+        &.left {
+            left: 65px;
+        }
+
+        &.right {
+            right: 65px;
+        }
+
+        .vue-notification {
+            margin: 0 !important;
+        }
+    }
 }

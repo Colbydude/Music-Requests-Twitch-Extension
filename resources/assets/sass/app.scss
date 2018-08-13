@@ -32,3 +32,10 @@ body {
         -ms-interpolation-mode: nearest-neighbor;
     }
 }
+
+.vue-notification {
+    @apply rounded;
+
+    background-color: #3490dc !important;
+    border-left-color: #2779bd !important;
+}

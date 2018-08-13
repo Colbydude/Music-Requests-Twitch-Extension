@@ -3,11 +3,14 @@ require('./bootstrap/bootstrap');
 import App from './components/App';
 import store from './bootstrap/store';
 import router from './bootstrap/router';
+
 import Vue from 'vue';
+import Notifications from 'vue-notification';
 import Vuex from 'vuex';
 
 // Map global objects to Vue.
 Vue.prototype.$http = axios;
+Vue.use(Notifications);
 Vue.mixin(require('./mixin'));
 
 // Create a fresh Vue instance and attach it to the page.
