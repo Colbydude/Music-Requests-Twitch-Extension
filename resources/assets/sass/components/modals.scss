@@ -1,0 +1,24 @@
+.modal-shim {
+    @apply absolute pin-t pin-l flex items-center justify-center h-full w-full z-100;
+
+    background: rgba(69, 79, 84, .5);
+
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+.modal {
+    @apply p-8 w-128 rounded;
+
+    background: rgba(9, 22, 29, .85);
+    box-shadow: 0 0 3px rgba(0, 0, 0, .7);
+}
+
+.modal-title {
+    @apply font-semibold text-center text-white text-2xl leading-none mb-2;
+}
+
+.modal-footer {
+    @apply flex justify-end;
+}

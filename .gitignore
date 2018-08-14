@@ -1,4 +1,7 @@
-/frontend/mix-manifest.json
+/public/css
+/public/fonts
+/public/js
+/public/mix-manifest.json
 /node_modules/
 npm-debug.log
 yarn-error.log

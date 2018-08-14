@@ -1,0 +1,43 @@
+.btn {
+    @apply text-center font-bold px-3 py-2 rounded;
+
+    -webkit-font-smoothing: antialiased;
+}
+
+.btn-outline-blue-dark {
+    @apply bg-transparent text-blue-dark border border-blue-dark;
+
+    &.active, &:hover, &:focus {
+        @apply bg-blue-dark text-white border-transparent;
+    }
+}
+
+.btn-blue-dark {
+    @apply bg-blue-dark text-white;
+
+    &:hover, &:focus {
+        @apply bg-blue-darker;
+    }
+}
+
+.btn-red-dark {
+    @apply bg-red-dark text-white;
+
+    &:hover, &:focus {
+        @apply bg-red-darker;
+    }
+}
+
+.btn-sm {
+    @apply p-1 font-semibold text-sm tracking-wide;
+}
+
+.btn-transparent {
+    @apply bg-transparent text-grey-dark;
+
+    &:hover, &:focus {
+        @apply text-white;
+
+        background: hsla(0, 0%, 100%, 0.1);
+    }
+}

@@ -1,4 +1,4 @@
 export const Urls = {
-    Ebs: process.env.APP_EBS_URL,
-    TwitchApi: process.env.TWITCH_API_URL
-}
+    Ebs: process.env.MIX_APP_EBS_URL,
+    TwitchApi: process.env.MIX_TWITCH_API_URL
+};
