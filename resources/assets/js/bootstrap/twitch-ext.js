@@ -46,17 +46,21 @@ if (Twitch.ext) {
             if (!TwitchDevRig) {
                 axios.create({headers: {'Client-ID': auth.clientId}})
                 .get(`${Urls.TwitchApi}/helix/users?id=${payload.user_id}`)
-                .then((response) => store.commit('setAuthUsername', response.data.data[0].display_name))
+                .then((response) => {
+                    store.commit('setAuthUsername', response.data.data[0].display_name);
+                    EventBus.$emit('authenticated');
+                })
                 .catch((error) => logger(error));
             }
             // Otherwise, just store the user_id as the username as well.
             else {
                 store.commit('setAuthUsername', payload.user_id);
+                EventBus.$emit('authenticated');
             }
         }
-
-        // Emit authentication event.
-        EventBus.$emit('authenticated');
+        else {
+            EventBus.$emit('authenticated');
+        }
     });
 
     // On context event.

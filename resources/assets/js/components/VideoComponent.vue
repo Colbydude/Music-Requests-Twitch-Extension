@@ -1,15 +1,32 @@
 <template>
     <div id="extension-overlay" @mouseover="buttonActive = true" @mouseleave="buttonActive = false" v-if="booted">
-        <div class="menu-container" :class="settings.menu_position">
-            <div class="menu" v-show="menuActive">
-                <request-form :rate-limit="rateLimit"></request-form>
-                <queue-panel></queue-panel>
-            </div>
+        <div class="menu-container" :class="settings.menu_position" v-if="auth.user_id">
+            <transition name="fade">
+                <div class="menu" v-show="menuActive && buttonActive">
+                    <request-form :rate-limit="rateLimit"></request-form>
+                    <queue-panel></queue-panel>
+                </div>
+            </transition>
 
-            <button class="btn btn-blue-dark btn-menu" @click="toggleMenu">
-                <i class="fas fa-fw fa-times" v-if="menuActive"></i>
-                <i class="fas fa-fw fa-music" v-else></i>
-            </button>
+            <transition name="fade">
+                <button class="btn btn-blue-dark btn-menu" @click="toggleMenu" v-show="buttonActive">
+                    <i class="fas fa-fw fa-times" v-if="menuActive"></i>
+                    <i class="fas fa-fw fa-music" v-else></i>
+                </button>
+            </transition>
+        </div>
+        <div class="menu-container" :class="settings.menu_position" v-else>
+            <transition name="fade">
+                <div class="menu flex items-center p-4" style="height: 64px;" v-show="buttonActive">
+                    <p class="text-white text-center">Grant access in <i class="fas fa-puzzle-piece"></i> to make requests!</p>
+                </div>
+            </transition>
+
+            <transition name="fade">
+                <button class="btn btn-blue-dark btn-menu" v-show="buttonActive" disabled>
+                    <i class="fas fa-fw fa-music"></i>
+                </button>
+            </transition>
         </div>
 
         <notifications group="video-notifications" position="bottom" :class="settings.menu_position"></notifications>
@@ -49,7 +66,7 @@
                 return parseInt(this.settings.rate_limit) * 1000;
             },
 
-            ...mapState(['client'])
+            ...mapState(['auth', 'client'])
         },
 
         created () {
@@ -66,6 +83,14 @@
                 this.$http.get(Urls.Ebs + this.client.channel_id)
                 .then(response => {
                     this.settings = response.data.settings;
+
+                    if (this.settings == null) {
+                        this.settings = {
+                            rate_limit: 600,
+                            menu_position: 'left'
+                        }
+                    }
+
                     this.booted = true;
                 })
                 .catch(error => this.error(error));

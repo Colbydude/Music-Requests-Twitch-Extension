@@ -145,7 +145,17 @@
                     twitch_username: this.auth.username
                 })
                 .then(response => this.startCooldown())
-                .catch(error => this.error(error));
+                .catch(error => {
+                    if (error.response.status == 429) {
+                        this.$notify({
+                            group: 'video-notifications',
+                            title: 'Too Many Requests',
+                            text: `You must wait at least ${this.rateLimit / 1000} seconds until you can request again.`
+                        });
+                    }
+
+                    this.error(error);
+                });
             },
 
             /**

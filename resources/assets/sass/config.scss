@@ -1,4 +1,8 @@
 .config {
+    code {
+        @apply bg-red-lightest text-red-dark rounded text-sm;
+    }
+
     label {
         @apply block text-grey-darker text-sm font-bold mb-2;
     }

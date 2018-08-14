@@ -57,6 +57,20 @@
                     </div>
                 </div>
             </div>
+
+            <div class="w-full lg:w-1/2 px-4 mb-6">
+                <div class="card">
+                    <div class="card-interior">
+                        <div class="card-header">
+                            <h3>Streamer Widget</h3>
+                        </div>
+                        <div class="mb-4">
+                            <p class="mb-2">You can add an automatically updating current request widget to your stream layout by adding a new BrowserSource plugin and setting the URL to the URL below and customizing the CSS to your liking.</p>
+                            <p><code>{{ widgetUrl }}</code></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -82,7 +96,18 @@
             };
         },
 
-        computed: mapState(['auth', 'client']),
+        computed: {
+            /**
+             * Displays the current request widget url.
+             *
+             * @return {String}
+             */
+            widgetUrl () {
+                return Urls.Ebs.replace('api/music-requests/', '') + this.auth.username + '/requests/current';
+            },
+
+            ...mapState(['auth', 'client'])
+        },
 
         created () {
             EventBus.$on('authenticated', this.fetchSettings);
@@ -102,6 +127,14 @@
                 })
                 .then(response => {
                     this.settings = response.data.settings;
+
+                    if (this.settings == null) {
+                        this.settings = {
+                            rate_limit: 600,
+                            menu_position: 'left'
+                        };
+                    }
+
                     this.booted = true;
                 })
                 .catch(error => {
