@@ -1,11 +1,11 @@
 import Router from 'vue-router';
 import Vue from 'vue';
 
-import Config from './../components/config';
-import LiveConfig from './../components/live-config';
-import Viewer from './../components/viewer';
+import Config from './../components/Config';
+import Mobile from './../components/Mobile';
+import VideoComponent from './../components/VideoComponent';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
     routes: [
@@ -15,15 +15,15 @@ export default new Router({
             component: Config
         },
         {
-            path: '*/live_config.html',
-            name: 'Live Config',
-            component: LiveConfig
+            path: '/*mobile.html',
+            name: 'Mobile',
+            component: Mobile
         },
         {
-            path: '*/viewer.html',
-            name: 'Viewer',
-            component: Viewer
+            path: '*/video_component.html',
+            name: 'VideoComponent',
+            component: VideoComponent
         }
     ],
     mode: 'history'
-})
+});
