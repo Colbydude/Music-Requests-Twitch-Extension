@@ -1,4 +1,4 @@
-# Twitch Music Request Extension
+# Music Requests Twitch Extension
 
 A way for your audience to request music for you to perform during your stream!
 
