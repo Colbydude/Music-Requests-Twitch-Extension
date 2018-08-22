@@ -14,8 +14,8 @@ let tailwindcss = require('tailwindcss');
 
  mix.setPublicPath('public')
     .setResourceRoot('../')
-    .js('resources/assets/js/app.js', 'js')
-    .sass('resources/assets/sass/app.scss', 'css')
+    .js('resources/js/app.js', 'js')
+    .sass('resources/sass/app.scss', 'css')
     .copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/fonts/vendor/fontawesome')
     .options({
         postCss: [ tailwindcss('./tailwind.js') ],
