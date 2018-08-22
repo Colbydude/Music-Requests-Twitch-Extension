@@ -18,7 +18,9 @@
         <div class="menu-container" :class="settings.menu_position" v-else>
             <transition name="fade">
                 <div class="menu flex items-center p-4" style="height: 64px;" v-show="buttonActive">
-                    <p class="text-white text-center">Grant access in <i class="fas fa-puzzle-piece"></i> to make requests!</p>
+                    <p class="text-white text-center">
+                        {{ $t('viewer.grant_permissions_1') }} <i class="fas fa-puzzle-piece"></i> {{ $t('viewer.grant_permissions_2') }}
+                    </p>
                 </div>
             </transition>
 

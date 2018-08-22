@@ -3,26 +3,26 @@
         <div class="card">
             <div class="card-interior">
                 <div class="card-header">
-                    <h3>Requests</h3>
+                    <h3>{{ $t('config.requests') }}</h3>
                 </div>
                 <div class="mb-4">
                     <label for="current_request">
-                        Current Request
+                        {{ $t('config.requests_current_request') }}
                     </label>
-                    <input v-model="currentRequestText" class="form-control" type="text" placeholder="No Request Currently" disabled>
+                    <input v-model="currentRequestText" class="form-control" type="text" :placeholder="$t('config.requests_current_request_placeholder')" disabled>
                 </div>
                 <div class="border-t border-b rounded sm:border">
                     <div class="border-b">
                         <div class="flex items-center px-4 -mb-px">
-                            <h4 class="w-full font-normal py-4 font-semibold text-lg">Queue</h4>
-                            <button @click="clearRequests" class="flex-no-shrink btn btn-sm btn-red-dark ml-2">Clear</button>
+                            <h4 class="w-full font-normal py-4 font-semibold text-lg">{{ $t('common.queue') }}</h4>
+                            <button @click="clearRequests" class="flex-no-shrink btn btn-sm btn-red-dark ml-2">{{ $t('common.clear') }}</button>
                         </div>
                     </div>
                     <div class="border-b">
                         <div class="flex px-4 py-2">
-                            <div class="w-full text-sm font-bold">Song</div>
-                            <div class="flex-no-shrink text-sm font-bold ml-2 mr-1">Requested By</div>
-                            <div class="flex-no-shrink text-sm font-bold ml-1">Actions</div>
+                            <div class="w-full text-sm font-bold">{{ $t('common.song') }}</div>
+                            <div class="flex-no-shrink text-sm font-bold ml-2 mr-1">{{ $t('common.requested_by') }}</div>
+                            <div class="flex-no-shrink text-sm font-bold ml-1">{{ $t('common.actions') }}</div>
                         </div>
                     </div>
                     <div v-if="requests.length > 0">
@@ -43,7 +43,7 @@
                     </div>
                     <div v-else>
                         <div class="list-wrap">
-                            <p class="text-center py-2">There are no requests in the queue.</p>
+                            <p class="text-center py-2">{{ $t('config.requests_empty') }}</p>
                         </div>
                     </div>
                 </div>

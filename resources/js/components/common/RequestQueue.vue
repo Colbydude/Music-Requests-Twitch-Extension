@@ -27,7 +27,7 @@
                     return '';
                 }
 
-                return this.currentRequest.song.name + ' | Requested By: ' + this.currentRequest.twitch_username;
+                return this.currentRequest.song.name + ' | ' + this.$t('common.requested_by') + ': ' + this.currentRequest.twitch_username;
             },
 
             ...mapState(['client'])
@@ -50,7 +50,7 @@
                 this.$notify({
                     group: 'video-notifications',
                     title: request.song.name,
-                    text: `Requested by ${request.twitch_username}`
+                    text: this.$t('common.requested_by') + ` ${request.twitch_username}`
                 });
 
                 this.requests.push(request);
