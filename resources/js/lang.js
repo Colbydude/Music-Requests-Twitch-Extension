@@ -1,5 +1,5 @@
 const supportedLangs = [
-    'en'
+    'en', 'es'
 ];
 
 // Build out the messages from files
@@ -11,4 +11,7 @@ supportedLangs.forEach(lang => {
 });
 
 // Add to vue-i18n.
-export const lang = messages;
+module.exports = {
+    lang: messages,
+    supportedLangs
+};

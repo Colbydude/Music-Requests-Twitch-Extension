@@ -17,6 +17,8 @@
     "config": {
         "extension_settings": "Extension Settings",
         "extension_settings_save": "Save Settings",
+        "extension_setting_language": "Extension Language",
+        "extension_setting_language_help_text": "This will change the primary langauge of the extension for your audience.",
         "extension_setting_menu_placement": "Button and window placement",
         "extension_setting_menu_placement_help_text": "Choose which side the button and menu should show within the extension so it doesn't interfere with other elements on screen.",
         "extension_setting_menu_placement_left": "Left",
