@@ -5,7 +5,9 @@
             <queue-panel></queue-panel>
         </template>
         <template v-else>
-            <p class="p-4 text-white text-center">Grant access in <i class="fas fa-puzzle-piece"></i> to make requests!</p>
+            <p class="p-4 text-white text-center">
+                {{ $t('viewer.grant_permissions_1') }} <i class="fas fa-puzzle-piece"></i> {{ $t('viewer.grant_permissions_2') }}
+            </p>
         </template>
 
         <notifications group="video-notifications" position="bottom left"></notifications>

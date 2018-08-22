@@ -10,12 +10,12 @@
                 <div class="card">
                     <div class="card-interior">
                         <div class="card-header">
-                            <h3>Extension Settings</h3>
+                            <h3>{{ $t('config.extension_settings') }}</h3>
                         </div>
                         <div class="mb-4">
-                            <label for="rate_limit">Rate Limit</label>
+                            <label for="rate_limit">{{ $t('config.extension_setting_rate_limit') }}</label>
                             <div class="flex items-center">
-                                <p class="w-full text-sm">How often the viewer will be able to submit a request.</p>
+                                <p class="w-full text-sm">{{ $t('config.extension_setting_rate_limit_help_text') }}</p>
                                 <input
                                     type="number"
                                     id="rate_limit"
@@ -26,20 +26,20 @@
                                     min="10"
                                     max="3600"
                                 >
-                                <span class="flex-no-shrink text-xs">seconds</span>
+                                <span class="flex-no-shrink text-xs">{{ $t('common.time.seconds') }}</span>
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label for="rate_limit">Button and window placement</label>
+                            <label for="rate_limit">{{ $t('config.extension_setting_menu_placement') }}</label>
                             <div class="flex items-center">
-                                <p class="w-full text-sm">Choose which side the button and menu should show within the extension so it doesn't interfere with other elements on screen.</p>
+                                <p class="w-full text-sm">{{ $t('config.extension_setting_menu_placement_help_text') }}</p>
                                 <button
                                     class="flex-no-shrink btn btn-outline-blue-dark w-1 ml-2 mr-1"
                                     :class="{active: settings.menu_position == 'left'}"
                                     style="width: 68px;"
                                     @click="settings.menu_position = 'left'"
                                 >
-                                    Left
+                                    {{ $t('config.extension_setting_menu_placement_left') }}
                                 </button>
                                 <button
                                     class="flex-no-shrink btn btn-outline-blue-dark w-1 ml-1"
@@ -47,12 +47,12 @@
                                     style="width: 68px;"
                                     @click="settings.menu_position = 'right'"
                                 >
-                                    Right
+                                    {{ $t('config.extension_setting_menu_placement_right') }}
                                 </button>
                             </div>
                         </div>
                         <div class="mb-4">
-                            <button class="btn btn-blue-dark" @click="saveSettings">Save Settings</button>
+                            <button class="btn btn-blue-dark" @click="saveSettings">{{ $t('config.extension_settings_save') }}</button>
                         </div>
                     </div>
                 </div>
@@ -62,10 +62,10 @@
                 <div class="card">
                     <div class="card-interior">
                         <div class="card-header">
-                            <h3>Streamer Widget</h3>
+                            <h3>{{ $t('config.streamer_widget') }}</h3>
                         </div>
                         <div class="mb-4">
-                            <p class="mb-2">You can add an automatically updating current request widget to your stream layout by adding a new BrowserSource plugin and setting the URL to the URL below and customizing the CSS to your liking.</p>
+                            <p class="mb-2">{{ $t('config.streamer_widget_help_text') }}</p>
                             <p><code>{{ widgetUrl }}</code></p>
                         </div>
                     </div>
@@ -172,7 +172,7 @@
             saveSettings () {
                 this.$http.put(Urls.Ebs + this.client.channel_id, this.settings)
                 .then(response => {
-                    this.$notify('Settings saved successfully.');
+                    this.$notify(this.$t('notifications.extension_settings_saved'));
                 })
                 .catch(error => this.error(error));
             }

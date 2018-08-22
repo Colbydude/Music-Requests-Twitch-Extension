@@ -3,29 +3,29 @@
         <div class="card">
             <div class="card-interior">
                 <div class="card-header">
-                    <h3>Library</h3>
+                    <h3>{{ $t('config.library') }}</h3>
                 </div>
                 <div class="mb-4">
                     <label for="current_request">
-                        Add a Song
+                        {{ $t('config.library_add_song') }}
                     </label>
                     <div class="flex">
                         <input @keydown.enter="submit" v-model="input" class="form-control w-full" type="text">
                         <button @click="submit" class="flex-no-shrink btn btn-blue-dark ml-2">
-                            Add
+                            {{ $t('common.add') }}
                         </button>
                     </div>
                 </div>
                 <div class="border-t border-b rounded sm:border">
                     <div class="border-b">
                         <div class="flex px-4 -mb-px">
-                            <h4 class="font-normal py-4 font-semibold text-lg">Songs</h4>
+                            <h4 class="font-normal py-4 font-semibold text-lg">{{ $t('common.songs') }}</h4>
                         </div>
                     </div>
                     <div class="border-b">
                         <div class="flex px-4 py-2">
-                            <div class="w-full text-sm font-bold">Song</div>
-                            <div class="flex-no-shrink text-sm font-bold ml-2">Actions</div>
+                            <div class="w-full text-sm font-bold">{{ $t('common.song') }}</div>
+                            <div class="flex-no-shrink text-sm font-bold ml-2">{{ $t('common.actions') }}</div>
                         </div>
                     </div>
                     <div v-if="library.length > 0">
@@ -42,7 +42,7 @@
                     </div>
                     <div v-else>
                         <div class="list-wrap">
-                            <p class="text-center py-2">There are no songs in your library.</p>
+                            <p class="text-center py-2">{{ $t('config.library_empty') }}</p>
                         </div>
                     </div>
                 </div>

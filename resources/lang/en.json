@@ -1,0 +1,61 @@
+{
+    "common": {
+        "actions": "Actions",
+        "add": "Add",
+        "clear": "Clear",
+        "queue": "Queue",
+        "requested_by": "Requested by",
+        "song": "Song",
+        "songs": "Songs",
+        "time": {
+            "minute": "minute",
+            "minutes": "minutes",
+            "second": "second",
+            "seconds": "seconds"
+        }
+    },
+    "config": {
+        "extension_settings": "Extension Settings",
+        "extension_settings_save": "Save Settings",
+        "extension_setting_menu_placement": "Button and window placement",
+        "extension_setting_menu_placement_help_text": "Choose which side the button and menu should show within the extension so it doesn't interfere with other elements on screen.",
+        "extension_setting_menu_placement_left": "Left",
+        "extension_setting_menu_placement_right": "Right",
+        "extension_setting_rate_limit": "Rate Limit",
+        "extension_setting_rate_limit_help_text": "How often the viewer will be able to submit a request.",
+
+        "library": "Library",
+        "library_add_song": "Add a Song",
+        "library_empty": "There are no songs in your library.",
+
+        "requests": "Requests",
+        "requests_current_request": "Current Request",
+        "requests_current_request_placeholder": "No Request Currently",
+        "requests_empty": "There are no requests in the queue.",
+
+        "streamer_widget": "Streamer Widget",
+        "streamer_widget_help_text": "You can add an automatically updating current request widget to your stream layout by adding a new BrowserSource plugin and setting the URL to the URL below and customizing the CSS to your liking."
+    },
+    "notifications": {
+        "extension_settings_saved": "Settings saved successfully.",
+        "too_many_requests_title": "Too Many Requests",
+        "too_many_requests_text": "You must wait at least {time} {units} until you can request again."
+    },
+    "viewer": {
+        "grant_permissions_1": "Grant access in",
+        "grant_permissions_2": "to make requests!",
+
+        "queue_panel": {
+            "current_queue": "Current Queue",
+            "empty_queue": "There are no requests in the queue."
+        },
+
+        "request_form": {
+            "title": "Request A Song",
+            "input_placeholder": "Search user's library",
+            "search_results": "Search Results",
+            "search_results_empty": "No results found.",
+            "wait_text": "Wait {time} {units} to request again."
+        }
+    }
+}

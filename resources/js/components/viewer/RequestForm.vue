@@ -1,13 +1,13 @@
 <template>
     <div id="song-request" class="panel">
         <h2 class="tile">
-            <div class="tile-content">Request A Song</div>
+            <div class="tile-content">{{ $t('viewer.request_form.title') }}</div>
         </h2>
         <div class="search-bar">
             <form @submit="submit">
                 <input type="text"
                     class="form-control"
-                    placeholder="Search user's library"
+                    :placeholder="$t('viewer.request_form.input_placeholder')"
                     name="search"
                     id="search"
                     autocomplete="off"
@@ -27,7 +27,7 @@
         </div>
         <div class="results" v-show="hasItems">
             <h2 class="tile">
-                <div class="tile-content">Search Results:</div>
+                <div class="tile-content">{{ $t('viewer.request_form.search_results') }}:</div>
             </h2>
             <section>
                 <ul>
@@ -43,10 +43,10 @@
         </div>
         <div class="results" v-show="!hasItems && !onCooldown && query.length >= minChars">
             <h2 class="tile">
-                <div class="tile-content">Search Results:</div>
+                <div class="tile-content">{{ $t('viewer.request_form.search_results') }}:</div>
             </h2>
             <section class="text-white">
-                <p class="text-center py-2">No results found.</p>
+                <p class="text-center py-2">{{ $t('viewer.request_form.search_results_empty') }}</p>
             </section>
         </div>
     </div>
@@ -113,7 +113,12 @@
                     units = units.substring(0, units.length - 1);
                 }
 
-                return `Wait ${time} ${units} to request again.`;
+                let translatedUnits = this.$t(`common.time.${units}`);
+
+                return this.$t('viewer.request_form.wait_text', {
+                    time,
+                    units: translatedUnits
+                });
             },
 
             /**
@@ -149,8 +154,11 @@
                     if (error.response.status == 429) {
                         this.$notify({
                             group: 'video-notifications',
-                            title: 'Too Many Requests',
-                            text: `You must wait at least ${this.rateLimit / 1000} seconds until you can request again.`
+                            title: this.$t('notifications.too_many_requests_title'),
+                            text: this.$t('notifications.too_many_requests_text', {
+                                time: this.rateLimit / 1000,
+                                units: this.$t('common.time.seconds')
+                            })
                         });
                     }
 
