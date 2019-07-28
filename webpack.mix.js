@@ -1,5 +1,5 @@
-let mix = require('laravel-mix');
-let tailwindcss = require('tailwindcss');
+const mix = require('laravel-mix');
+const tailwindcss = require('tailwindcss');
 
 /*
  |--------------------------------------------------------------------------
@@ -18,7 +18,7 @@ let tailwindcss = require('tailwindcss');
     .sass('resources/sass/app.scss', 'css')
     .copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/fonts/vendor/fontawesome')
     .options({
-        postCss: [ tailwindcss('./tailwind.js') ],
+        postCss: [ tailwindcss('./tailwind.config.js') ],
         processCssUrls: false,
         uglify: false
     })
