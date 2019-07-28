@@ -1,14 +1,18 @@
 .config {
     code {
-        @apply bg-red-lightest text-red-dark rounded text-sm;
+        @apply rounded text-sm;
+        background-color: theme('colors.red-lightest');
+        color: theme('colors.red-dark');
     }
 
     label {
-        @apply block text-grey-darker text-sm font-bold mb-2;
+        @apply block text-sm font-bold mb-2;
+        color: theme('colors.grey-darker');
     }
 
     .card {
-        @apply bg-white rounded overflow-hidden shadow-md;
+        @apply rounded overflow-hidden shadow-md;
+        background-color: theme('colors.white');
     }
 
     .card-header {
@@ -24,7 +28,8 @@
     }
 
     .form-control {
-        @apply appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight;
+        @apply appearance-none border rounded w-full py-2 px-3 leading-tight;
+        color: theme('colors.grey-darker');
 
         &:focus {
             @apply outline-none shadow-outline;

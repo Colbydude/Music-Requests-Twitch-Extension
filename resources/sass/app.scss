@@ -2,7 +2,10 @@ $fa-font-path: "/fonts/vendor/fontawesome";
 
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/solid";
-@import 'tailwind';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @import "config";
 @import "viewer";

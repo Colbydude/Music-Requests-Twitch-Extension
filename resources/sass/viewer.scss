@@ -6,7 +6,7 @@
     }
 
     ul {
-        @apply list-reset mb-2 overflow-y-auto;
+        @apply list-none mb-2 overflow-y-auto;
 
         li {
             @apply p-1;
@@ -18,20 +18,20 @@
             transition: background-color .15s ease-out;
 
             &:hover, &.active {
-                @apply text-white;
-
                 background: hsla(0, 0%, 100%, .1);
+                color: theme('colors.white');
             }
         }
     }
 
     #extension-overlay {
-        @apply absolute pin;
+        @apply absolute inset-0;
     }
 
     .panel {
         h2 {
-            @apply text-white font-normal text-sm leading-tight p-2 m-0;
+            @apply font-normal text-sm leading-tight p-2 m-0;
+            color: theme('colors.white');
         }
     }
 
@@ -88,7 +88,9 @@
     }
 
     .form-control {
-        @apply bg-transparent rounded py-2 px-1 w-full text-sm text-white;
+        @apply rounded py-2 px-1 w-full text-sm;
+        background-color: transparent;
+        color: theme('colors.white');
 
         border: 1px solid hsla(0, 0%, 100%, .3);
         box-sizing: border-box;
@@ -100,7 +102,7 @@
     }
 
     .btn-menu {
-        @apply pin-b absolute;
+        @apply bottom-0 absolute;
 
         box-shadow: 0 0 3px rgba(0, 0, 0, .7);
     }
@@ -110,7 +112,7 @@
             cursor: unset;
 
             &.active {
-                @apply bg-blue-dark;
+                background-color: theme('colors.blue-dark');
             }
         }
     }
@@ -146,10 +148,6 @@
             .btn-menu, .menu {
                 right: 0;
                 transform-origin: bottom right;
-            }
-
-            .menu {
-
             }
         }
     }

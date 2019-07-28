@@ -1,5 +1,5 @@
 .modal-shim {
-    @apply absolute pin-t pin-l flex items-center justify-center h-full w-full z-100;
+    @apply absolute top-0 left-0 flex items-center justify-center h-full w-full z-100;
 
     background: rgba(69, 79, 84, .5);
 
@@ -16,7 +16,8 @@
 }
 
 .modal-title {
-    @apply font-semibold text-center text-white text-2xl leading-none mb-2;
+    @apply font-semibold text-center text-2xl leading-none mb-2;
+    color: theme('colors.text-white');
 }
 
 .modal-footer {

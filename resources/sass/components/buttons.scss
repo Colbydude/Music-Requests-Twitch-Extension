@@ -5,26 +5,33 @@
 }
 
 .btn-outline-blue-dark {
-    @apply bg-transparent text-blue-dark border border-blue-dark;
+    @apply border;
+    background-color: transparent;
+    border-color: theme('colors.blue-dark');
+    color: theme('colors.blue-dark');
 
     &.active, &:hover, &:focus {
-        @apply bg-blue-dark text-white border-transparent;
+        background-color: theme('colors.blue-dark');
+        border-color: transparent;
+        color: theme('colors.white');
     }
 }
 
 .btn-blue-dark {
-    @apply bg-blue-dark text-white;
+    background-color: theme('colors.blue-dark');
+    color: theme('colors.white');
 
     &:hover, &:focus {
-        @apply bg-blue-darker;
+        background-color: theme('colors.blue-darker');
     }
 }
 
 .btn-red-dark {
-    @apply bg-red-dark text-white;
+    background-color: theme('colors.red-dark');
+    color: theme('colors.white');
 
     &:hover, &:focus {
-        @apply bg-red-darker;
+        background-color: theme('colors.red-darker');
     }
 }
 
@@ -33,11 +40,11 @@
 }
 
 .btn-transparent {
-    @apply bg-transparent text-grey-dark;
+    background-color: transparent;
+    color: theme('colors.grey-dark');
 
     &:hover, &:focus {
-        @apply text-white;
-
         background: hsla(0, 0%, 100%, 0.1);
+        color: theme('colors.white');
     }
 }
