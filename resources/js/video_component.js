@@ -1,3 +1,4 @@
+import './bootstrap';
 import VideoComponent from './views/VideoComponent';
 import Lang from './utils/Lang';
 import Notifications from 'vue-notification';

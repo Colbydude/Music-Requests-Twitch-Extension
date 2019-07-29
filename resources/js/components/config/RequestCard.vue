@@ -67,7 +67,7 @@
              */
             clearRequests () {
                 this.$api.Ebs.deleteRequests()
-                .catch(error => this.error(error));
+                .catch(error => this.log(error));
             },
 
             /**
@@ -80,7 +80,7 @@
                 this.lastPlayed = this.currentRequest;
 
                 this.$api.Ebs.postCurrentRequest(id)
-                .catch(error => this.error(error));
+                .catch(error => this.log(error));
             },
 
             /**
@@ -92,7 +92,7 @@
              */
             skipRequest (id) {
                 this.$api.Ebs.deleteRequest(id)
-                .catch(error => this.error(error));
+                .catch(error => this.log(error));
             }
         }
     }

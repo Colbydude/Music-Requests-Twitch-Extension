@@ -1,3 +1,4 @@
+import './bootstrap';
 import Api from './api';
 import Config from './views/Config';
 import Lang from './utils/Lang';
