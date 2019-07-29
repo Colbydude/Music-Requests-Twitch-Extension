@@ -33,5 +33,5 @@ const tailwindcss = require('tailwindcss');
         },
     })
     .extract([
-        'axios', 'vue', 'vue-router', 'vue-typeahead', 'vuex'
+        'axios', 'lodash', 'vue', 'vue-notification', 'vue-typeahead', 'vue-i18n'
     ]);

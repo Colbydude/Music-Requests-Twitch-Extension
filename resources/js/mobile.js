@@ -1,9 +1,12 @@
+import './bootstrap';
+import Api from './api';
 import Mobile from './views/Mobile';
 import Lang from './utils/Lang';
 import Notifications from 'vue-notification';
 import VueI18n from 'vue-i18n';
 import Vue from 'vue';
 
+Vue.prototype.$api = Api;
 Vue.use(Notifications);
 Vue.use(VueI18n);
 

@@ -1,6 +1,6 @@
 <script>
     import TwitchPubSub from './TwitchPubSub';
-    import { isEmpty } from 'lodash';
+    import isEmpty from 'lodash/isEmpty';
 
     export default {
         name: 'RequestQueue',
@@ -74,7 +74,7 @@
                         this.currentRequest = response.data;
                     }
                 })
-                .catch(error => this.error(error));
+                .catch(error => this.log(error));
             },
 
             /**
@@ -85,7 +85,7 @@
             getRequests () {
                 this.$api.Ebs.getRequests()
                 .then(response => this.requests = response.data)
-                .catch(error => this.error(error));
+                .catch(error => this.log(error));
             },
 
             /**

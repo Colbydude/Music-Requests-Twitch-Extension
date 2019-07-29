@@ -90,9 +90,6 @@
 
         data () {
             return {
-                loadingCallbacks: [
-                    this.fetchSettings
-                ],
                 settings: {
                     language: 'en',
                     rate_limit: 600
@@ -113,6 +110,16 @@
 
         methods: {
             /**
+             * Boot the component on authorization.
+             *
+             * @return {Void}
+             */
+            boot() {
+                this.fetchSettings()
+                .then(() => this.finishedLoading = true);
+            },
+
+            /**
              * Change the locale for the extension.
              *
              * @param  {String}  locale
@@ -128,7 +135,7 @@
              * @return {Void}
              */
             fetchSettings() {
-                this.$api.Ebs.getSettings({
+                return this.$api.Ebs.getSettings({
                     username: this.auth.username
                 })
                 .then(response => {
@@ -141,7 +148,7 @@
                         return this.register();
                     }
 
-                    console.log(error);
+                    this.log(error);
                 });
             },
 
@@ -151,11 +158,11 @@
              * @return {Void}
              */
             register() {
-                this.$api.Ebs.postSettings()
+                return this.$api.Ebs.postSettings()
                 .then(response => {
                     this.settings = { ...this.settings, ...response.data.settings };
                 })
-                .catch(error => console.log(error));
+                .catch(error => this.log(error));
             },
 
             /**
@@ -168,7 +175,7 @@
                 .then(response => {
                     this.$notify(this.$t('notifications.extension_settings_saved'));
                 })
-                .catch(error => console.log(error));
+                .catch(error => this.log(error));
             }
         }
     }

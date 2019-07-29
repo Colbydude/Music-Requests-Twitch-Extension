@@ -1,3 +1,4 @@
+import './bootstrap';
 import Dashboard from './views/Dashboard';
 import Lang from './utils/Lang';
 import Notifications from 'vue-notification';
