@@ -71,10 +71,6 @@
             ...mapState(['auth', 'client'])
         },
 
-        created () {
-            EventBus.$on('authenticated', this.fetchSettings);
-        },
-
         methods: {
             /**
              * Fetch settings.

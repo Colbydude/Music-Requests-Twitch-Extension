@@ -14,13 +14,23 @@ const tailwindcss = require('tailwindcss');
 
  mix.setPublicPath('public')
     .setResourceRoot('../')
-    .js('resources/js/app.js', 'js')
+    .js('resources/js/config.js', 'js')
+    .js('resources/js/dashboard.js', 'js')
+    .js('resources/js/mobile.js', 'js')
+    .js('resources/js/video_component.js', 'js')
     .sass('resources/sass/app.scss', 'css')
     .copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/fonts/vendor/fontawesome')
     .options({
         postCss: [ tailwindcss('./tailwind.config.js') ],
         processCssUrls: false,
         uglify: false
+    })
+    .webpackConfig({
+        resolve: {
+            alias: {
+                '@': path.resolve(__dirname, 'resources/js/'),
+            },
+        },
     })
     .extract([
         'axios', 'vue', 'vue-router', 'vue-typeahead', 'vuex'

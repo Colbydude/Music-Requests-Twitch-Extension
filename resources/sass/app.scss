@@ -7,6 +7,9 @@ $fa-font-path: "/fonts/vendor/fontawesome";
 @tailwind components;
 @tailwind utilities;
 
+@import "components/buttons";
+@import "components/modals";
+
 @import "config";
 @import "viewer";
 
