@@ -53,8 +53,7 @@
 </template>
 
 <script>
-    import RequestQueue from './../common/RequestQueue';
-    import { Urls } from './../../urls';
+    import RequestQueue from '@/components/common/RequestQueue';
 
     export default {
         name: 'RequestCard',
@@ -67,7 +66,7 @@
              * @return {void}
              */
             clearRequests () {
-                this.$http.delete(Urls.Ebs + this.client.channel_id + '/requests')
+                this.$api.Ebs.deleteRequests()
                 .catch(error => this.error(error));
             },
 
@@ -80,9 +79,7 @@
             playRequest (id) {
                 this.lastPlayed = this.currentRequest;
 
-                this.$http.post(Urls.Ebs + this.client.channel_id + '/requests/current', {
-                    request_id: id
-                })
+                this.$api.Ebs.postCurrentRequest(id)
                 .catch(error => this.error(error));
             },
 
@@ -94,7 +91,7 @@
              * @return {void}
              */
             skipRequest (id) {
-                this.$http.delete(Urls.Ebs + this.client.channel_id + '/requests/' + id)
+                this.$api.Ebs.deleteRequest(id)
                 .catch(error => this.error(error));
             }
         }

@@ -1,10 +1,10 @@
 <template>
-    <div class="bg-grey-dark px-4">
-        <notifications position="bottom right"></notifications>
+    <div class="bg-grey-dark px-4" v-if="finishedLoading">
+        <notifications position="bottom right" />
 
-        <div class="flex flex-wrap p-4 -mx-4" v-if="client.channel_id && booted">
-            <request-card class="w-full lg:w-1/2 px-4 mb-6"></request-card>
-            <library-card class="w-full lg:w-1/2 px-4 mb-6"></library-card>
+        <div class="flex flex-wrap p-4 -mx-4" v-if="finishedLoading">
+            <request-card class="w-full lg:w-1/2 px-4 mb-6" />
+            <library-card class="w-full lg:w-1/2 px-4 mb-6" />
 
             <div class="w-full lg:w-1/2 px-4 mb-6">
                 <div class="card">
@@ -30,25 +30,20 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label for="rate_limit">{{ $t('config.extension_setting_menu_placement') }}</label>
+                            <label for="language">{{ $t('config.extension_setting_language') }}</label>
                             <div class="flex items-center">
-                                <p class="w-full text-sm">{{ $t('config.extension_setting_menu_placement_help_text') }}</p>
-                                <button
-                                    class="flex-no-shrink btn btn-outline-blue-dark w-1 ml-2 mr-1"
-                                    :class="{active: settings.menu_position == 'left'}"
-                                    style="width: 68px;"
-                                    @click="settings.menu_position = 'left'"
+                                <p class="w-full text-sm">{{ $t('config.extension_setting_language_help_text') }}</p>
+                                <select
+                                    id="language"
+                                    name="language"
+                                    class="flex-no-shrink form-control ml-2 mr-1"
+                                    style="width: 151px;"
+                                    v-model="settings.language"
+                                    @change="e => changeLocale(e.target.value)"
                                 >
-                                    {{ $t('config.extension_setting_menu_placement_left') }}
-                                </button>
-                                <button
-                                    class="flex-no-shrink btn btn-outline-blue-dark w-1 ml-1"
-                                    :class="{active: settings.menu_position == 'right'}"
-                                    style="width: 68px;"
-                                    @click="settings.menu_position = 'right'"
-                                >
-                                    {{ $t('config.extension_setting_menu_placement_right') }}
-                                </button>
+                                    <option value="en">English</option>
+                                    <option value="es">Español</option>
+                                </select>
                             </div>
                         </div>
                         <div class="mb-4">
@@ -72,14 +67,14 @@
                 </div>
             </div>
         </div>
+        <h1 v-else>Loading...</h1>
     </div>
 </template>
 
 <script>
-    import LibraryCard from './config/LibraryCard';
-    import RequestCard from './config/RequestCard';
-    import { Urls } from './../urls';
-    import { mapState } from 'vuex';
+    import LibraryCard from '@/components/config/LibraryCard';
+    import RequestCard from '@/components/config/RequestCard';
+    import Twitch from '@/mixins/Twitch';
 
     export default {
         name: 'Config',
@@ -89,10 +84,19 @@
             RequestCard
         },
 
+        mixins: [
+            Twitch
+        ],
+
         data () {
             return {
-                booted: false,  // Whether or not the config has booted.
-                settings: {}    // Broadcaster's extension settings.
+                loadingCallbacks: [
+                    this.fetchSettings
+                ],
+                settings: {
+                    language: 'en',
+                    rate_limit: 600
+                }
             };
         },
 
@@ -102,40 +106,34 @@
              *
              * @return {String}
              */
-            widgetUrl () {
-                return Urls.Ebs.replace('api/music-requests/', '') + this.auth.username + '/requests/current';
-            },
-
-            ...mapState(['auth', 'client'])
-        },
-
-        created () {
-            EventBus.$on('authenticated', this.fetchSettings);
+            widgetUrl() {
+                return `https://twitch.colbydude.com/${this.auth.username}/requests/current`;
+            }
         },
 
         methods: {
             /**
-             * Fetch settings.
+             * Change the locale for the extension.
              *
-             * @return {void}
+             * @param  {String}  locale
+             * @return {Void}
              */
-            fetchSettings () {
-                this.$http.get(Urls.Ebs + this.client.channel_id, {
-                    params: {
-                        username: this.auth.username
-                    }
+            changeLocale(locale) {
+                this.$i18n.locale = locale;
+            },
+
+            /**
+             * Fetch settings from the EBS.
+             *
+             * @return {Void}
+             */
+            fetchSettings() {
+                this.$api.Ebs.getSettings({
+                    username: this.auth.username
                 })
                 .then(response => {
-                    this.settings = response.data.settings;
-
-                    if (this.settings == null) {
-                        this.settings = {
-                            rate_limit: 600,
-                            menu_position: 'left'
-                        };
-                    }
-
-                    this.booted = true;
+                    this.settings = { ...this.settings, ...response.data.settings };
+                    this.changeLocale(this.settings.language);
                 })
                 .catch(error => {
                     // If we can't find the user, register it.
@@ -143,38 +141,34 @@
                         return this.register();
                     }
 
-                    this.error(error);
+                    console.log(error);
                 });
             },
 
             /**
              * Register the user in our EBS.
              *
-             * @return {void}
+             * @return {Void}
              */
-            register () {
-                this.$http.post(Urls.Ebs, {
-                    channel_id: this.client.channel_id,
-                    username: this.auth.username
-                })
+            register() {
+                this.$api.Ebs.postSettings()
                 .then(response => {
-                    this.settings = response.data.settings;
-                    this.booted = true;
+                    this.settings = { ...this.settings, ...response.data.settings };
                 })
-                .catch(error => this.error(error));
+                .catch(error => console.log(error));
             },
 
             /**
              * Save the user's settings.
              *
-             * @return {void}
+             * @return {Void}
              */
-            saveSettings () {
-                this.$http.put(Urls.Ebs + this.client.channel_id, this.settings)
+            saveSettings() {
+                this.$api.Ebs.putSettings(this.settings)
                 .then(response => {
                     this.$notify(this.$t('notifications.extension_settings_saved'));
                 })
-                .catch(error => this.error(error));
+                .catch(error => console.log(error));
             }
         }
     }

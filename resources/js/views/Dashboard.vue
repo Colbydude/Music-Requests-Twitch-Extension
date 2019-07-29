@@ -1,9 +1,9 @@
 <template>
-    <router-view></router-view>
+    <h1>This is the dashboard view.</h1>
 </template>
 
 <script>
     export default {
-        name: 'App'
+        name: 'Dashboard',
     }
 </script>

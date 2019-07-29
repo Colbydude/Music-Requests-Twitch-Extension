@@ -52,13 +52,8 @@
 </template>
 
 <script>
-    import { Urls } from './../../urls';
-    import { mapState } from 'vuex';
-
     export default {
         name: 'LibraryCard',
-
-        computed: mapState(['client']),
 
         data () {
             return {
@@ -67,7 +62,7 @@
             };
         },
 
-        created () {
+        mounted () {
             this.fetch();
         },
 
@@ -88,7 +83,7 @@
              * @return {void}
              */
             fetch () {
-                axios.get(Urls.Ebs + this.client.channel_id + '/songs')
+                this.$api.Ebs.getSongs()
                 .then(response => this.library = response.data.data)
                 .catch(error => this.error(error));
             },
@@ -105,9 +100,7 @@
                     return;
                 }
 
-                axios.post(Urls.Ebs + this.client.channel_id + '/songs', {
-                    name: this.input
-                })
+                this.$api.Ebs.postSongs(this.input)
                 .then(response => {
                     this.input = '';
                     this.addSong(response.data);
@@ -121,11 +114,8 @@
              * @return {void}
              */
             removeSong (index, id) {
-                axios.delete(Urls.Ebs + this.client.channel_id + '/songs/' + id)
-                .then(response => {
-                    this.library.splice(index, 1);
-                    EventBus.$emit('song-deleted', id);
-                })
+                this.$api.Ebs.deleteSong(id)
+                .then(() => this.library.splice(index, 1))
                 .catch(error => this.error(error));
             }
         },

@@ -1,8 +1,6 @@
 <script>
-    import _ from 'lodash';
     import TwitchPubSub from './TwitchPubSub';
-    import { Urls } from './../../urls';
-    import { mapState } from 'vuex';
+    import { isEmpty } from 'lodash';
 
     export default {
         name: 'RequestQueue',
@@ -27,13 +25,11 @@
                     return '';
                 }
 
-                return this.currentRequest.song.name + ' | ' + this.$t('common.requested_by') + ': ' + this.currentRequest.twitch_username;
-            },
-
-            ...mapState(['client'])
+                return `${this.currentRequest.song.name} | ${this.$t('common.requested_by')}: ${this.currentRequest.twitch_username}`;
+            }
         },
 
-        created () {
+        mounted () {
             this.getCurrentRequest();
             this.getRequests();
             this.listen();
@@ -72,9 +68,9 @@
              * @return {void}
              */
             getCurrentRequest () {
-                this.$http.get(Urls.Ebs + this.client.channel_id + '/requests/current')
+                this.$api.Ebs.getCurrentRequest()
                 .then(response => {
-                    if (!_.isEmpty(response.data)) {
+                    if (!isEmpty(response.data)) {
                         this.currentRequest = response.data;
                     }
                 })
@@ -87,7 +83,7 @@
              * @return {void}
              */
             getRequests () {
-                this.$http.get(Urls.Ebs + this.client.channel_id + '/requests')
+                this.$api.Ebs.getRequests()
                 .then(response => this.requests = response.data)
                 .catch(error => this.error(error));
             },
