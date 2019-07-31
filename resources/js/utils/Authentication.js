@@ -22,6 +22,15 @@ export default class Authentication {
     }
 
     /**
+     * Fetch the currently active channel id.
+     *
+     * @return {String}
+     */
+    getChannelId() {
+        return this.channel_id;
+    }
+
+    /**
      * Fetch the auth'd opaque id.
      *
      * @return {String}
@@ -37,6 +46,15 @@ export default class Authentication {
      */
     getUserId() {
         return this.user_id;
+    }
+
+    /**
+     * Fetch the auth'd username.
+     *
+     * @return {String}
+     */
+    getUsername() {
+        return this.username;
     }
 
     /**

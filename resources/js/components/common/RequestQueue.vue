@@ -74,7 +74,7 @@
                         this.currentRequest = response.data;
                     }
                 })
-                .catch(error => this.log(error));
+                .catch(error => logger(error));
             },
 
             /**
@@ -85,7 +85,7 @@
             getRequests () {
                 this.$api.Ebs.getRequests()
                 .then(response => this.requests = response.data)
-                .catch(error => this.log(error));
+                .catch(error => logger(error));
             },
 
             /**

@@ -46,11 +46,7 @@ export default {
         },
 
         contextUpdate(context, delta) {
-            // @TODO
+            // @TODO when needed
         },
-
-        log(message) {
-            window.logger(message);
-        }
     }
 }

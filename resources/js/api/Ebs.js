@@ -55,6 +55,15 @@ export default class Ebs {
     }
 
     /**
+     * Fetches the current axios instance.
+     *
+     * @return {Axios};
+     */
+    getInstance() {
+        return this.instance;
+    }
+
+    /**
      * Get the requests in the queue from the EBS.
      *
      * @return {Promise}
@@ -86,12 +95,28 @@ export default class Ebs {
 
     /**
      * Post/play the given request on the EBS
-     * .
+     *
      * @param  {Number}  id
      * @return {Promise}
      */
     postCurrentRequest(request_id) {
-        return this.instance.get(`/${channelId}/requests/current`, { request_id });
+        return this.instance.post(`/${this.channelId}/requests/current`, { request_id });
+    }
+
+    /**
+     * Post a new request on the EBS.
+     *
+     * @param  {Number}  song_id
+     * @param  {String}  twitch_user_id
+     * @param  {String}  twitch_username
+     * @return {Promise}
+     */
+    postRequest(song_id, twitch_user_id, twitch_username) {
+        return this.instance.post(`/${this.channelId}/requests`, {
+            song_id,
+            twitch_user_id,
+            twitch_username
+        });
     }
 
     /**
@@ -145,5 +170,15 @@ export default class Ebs {
      */
     setToken(token) {
         this.instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    }
+
+    /**
+     * Return a URL based off the baseUrl.
+     *
+     * @param  {String}  path
+     * @return {String}
+     */
+    url(path) {
+        return process.env.MIX_EBS_URL + path;
     }
 }

@@ -85,7 +85,7 @@
             fetch () {
                 this.$api.Ebs.getSongs()
                 .then(response => this.library = response.data.data)
-                .catch(error => this.log(error));
+                .catch(error => logger(error));
             },
 
             /**
@@ -105,7 +105,7 @@
                     this.input = '';
                     this.addSong(response.data);
                 })
-                .catch(error => this.log(error));
+                .catch(error => logger(error));
             },
 
             /**
@@ -116,7 +116,7 @@
             removeSong (index, id) {
                 this.$api.Ebs.deleteSong(id)
                 .then(() => this.library.splice(index, 1))
-                .catch(error => this.log(error));
+                .catch(error => logger(error));
             }
         },
     }

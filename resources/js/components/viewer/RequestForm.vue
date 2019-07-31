@@ -53,16 +53,18 @@
 </template>
 
 <script>
-    import _ from 'lodash';
     import VueTypeahead from 'vue-typeahead';
-    import { Urls } from './../../urls';
-    import { mapState } from 'vuex';
+    import debounce from 'lodash/debounce';
 
     export default {
         name: 'RequestForm',
         extends: VueTypeahead,
 
         props: {
+            auth: {
+                type: Object,
+                required: true
+            },
             rateLimit: {
                 type: Number,
                 default: 60
@@ -84,10 +86,10 @@
         },
 
         mounted () {
-            this.src = Urls.Ebs + this.client.channel_id + '/songs';
+            // Set the client and src for vue-typeahead to use.
+            this.$http = this.$api.Ebs.getInstance();
+            this.src = this.$api.Ebs.url(`/${this.auth.getChannelId()}/songs`);
         },
-
-        computed: mapState(['auth', 'client']),
 
         methods: {
             /**
@@ -144,11 +146,7 @@
 
                 this.reset();
 
-                this.$http.post(Urls.Ebs + this.client.channel_id + '/requests', {
-                    song_id: id,
-                    twitch_user_id: this.auth.user_id,
-                    twitch_username: this.auth.username
-                })
+                this.$api.Ebs.postRequest(id, this.auth.user_id, this.auth.username)
                 .then(response => this.startCooldown())
                 .catch(error => {
                     if (error.response.status == 429) {
@@ -162,7 +160,7 @@
                         });
                     }
 
-                    this.error(error);
+                    logger(error);
                 });
             },
 
@@ -171,7 +169,7 @@
              *
              * @return {void}
              */
-            search: _.debounce(function (e) {
+            search: debounce(function (e) {
                 this.update();
             }, 300, { 'maxWait': 1000 }),
 
@@ -227,7 +225,8 @@
 
                 this.loading = true;
 
-                this.fetch().then((response) => {
+                this.fetch()
+                .then((response) => {
                     if (response && this.query) {
                         let data = response.data.data;
                         data = this.prepareResponseData ? this.prepareResponseData(data) : data;

@@ -2,7 +2,7 @@
     import VideoComponent from './VideoComponent';
 
     export default {
-        name: 'Mobile',
+        name: 'Panel',
         extends: VideoComponent
     }
 </script>
