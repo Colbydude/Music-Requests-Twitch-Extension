@@ -148,7 +148,7 @@
                         return this.register();
                     }
 
-                    this.log(error);
+                    logger(error);
                 });
             },
 
@@ -162,7 +162,7 @@
                 .then(response => {
                     this.settings = { ...this.settings, ...response.data.settings };
                 })
-                .catch(error => this.log(error));
+                .catch(error => logger(error));
             },
 
             /**
@@ -175,7 +175,7 @@
                 .then(response => {
                     this.$notify(this.$t('notifications.extension_settings_saved'));
                 })
-                .catch(error => this.log(error));
+                .catch(error => logger(error));
             }
         }
     }

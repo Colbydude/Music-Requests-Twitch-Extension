@@ -1,10 +1,12 @@
 import './bootstrap';
-import VideoComponent from './views/VideoComponent';
+import Api from './api';
 import Lang from './utils/Lang';
 import Notifications from 'vue-notification';
+import VideoComponent from './views/VideoComponent';
 import VueI18n from 'vue-i18n';
 import Vue from 'vue';
 
+Vue.prototype.$api = Api;
 Vue.use(Notifications);
 Vue.use(VueI18n);
 
