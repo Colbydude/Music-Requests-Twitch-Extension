@@ -1,0 +1,54 @@
+.config {
+    code {
+        @apply rounded text-sm;
+        background-color: theme('colors.red-lightest');
+        color: theme('colors.red-dark');
+    }
+
+    label {
+        @apply block text-sm font-bold mb-2;
+        color: theme('colors.grey-darker');
+    }
+
+    .card {
+        @apply rounded overflow-hidden shadow-md;
+        background-color: theme('colors.white');
+    }
+
+    .card-header {
+        @apply mb-2;
+
+        h3 {
+            @apply font-bold text-xl;
+        }
+    }
+
+    .card-interior {
+        @apply px-6 py-4;
+    }
+
+    .form-control {
+        @apply appearance-none border rounded w-full py-2 px-3 leading-tight;
+        background-color: transparent;
+        color: theme('colors.grey-darker');
+
+        &:focus {
+            @apply outline-none shadow-outline;
+        }
+    }
+
+    .list-item {
+        @apply border-b;
+    }
+
+    .list-wrap {
+        @apply overflow-y-scroll;
+
+        max-height: 264px;
+        min-height: 264px;
+
+        .list-item:last-child {
+            @apply border-none;
+        }
+    }
+}

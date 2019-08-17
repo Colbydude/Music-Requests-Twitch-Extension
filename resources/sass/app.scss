@@ -1,0 +1,55 @@
+$fa-font-path: "/fonts/vendor/fontawesome";
+
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "components/buttons";
+@import "components/modals";
+
+@import "config";
+@import "viewer";
+
+body {
+    @apply font-sans;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .25s;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
+
+.marquee {
+    @apply overflow-hidden;
+
+    text-overflow: hidden;
+
+    .inner {
+        display: inline-block;
+        white-space: nowrap;
+        position: relative;
+        transition-property: display;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-font-smoothing: subpixel-antialiased;
+        image-rendering: optimizeSpeed;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        -ms-interpolation-mode: nearest-neighbor;
+    }
+}
+
+.vue-notification {
+    @apply rounded;
+
+    background-color: #3490dc !important;
+    border-left-color: #2779bd !important;
+}
