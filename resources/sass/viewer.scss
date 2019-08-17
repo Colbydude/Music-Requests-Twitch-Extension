@@ -1,0 +1,149 @@
+.viewer-wrapper {
+    @apply min-h-screen relative w-full;
+}
+
+.viewer {
+    @apply flex flex-col h-screen relative;
+
+    background-color: theme('colors.grey-darkest');
+    color: theme('colors.white');
+
+    section {
+        @apply px-1 flex flex-col overflow-y-auto;
+
+        box-sizing: border-box;
+    }
+
+    ul {
+        @apply list-none mb-2 overflow-y-auto;
+
+        li {
+            @apply p-1;
+
+            box-sizing: border-box;
+            color: hsla(0, 0%, 100%, .8);
+            cursor: pointer;
+            margin: 2px 0;
+            transition: background-color .15s ease-out;
+
+            &:hover, &.active {
+                background: hsla(0, 0%, 100%, .1);
+                color: theme('colors.white');
+            }
+        }
+    }
+
+    .form-control {
+        @apply rounded py-2 px-1 w-full text-sm;
+        background-color: transparent;
+        color: theme('colors.white');
+
+        border: 1px solid hsla(0, 0%, 100%, .3);
+        box-sizing: border-box;
+
+        &:focus {
+            background-color: hsla(0, 0%, 100%, .05);
+            border-color: hsla(0, 0%, 100%, .5);
+        }
+    }
+
+    .panel {
+        h2 {
+            @apply font-normal text-sm leading-tight p-2 m-0;
+            color: theme('colors.white');
+        }
+    }
+
+    .queue {
+        li {
+            cursor: unset;
+
+            &.active {
+                background-color: theme('colors.blue-dark');
+            }
+        }
+    }
+
+    .tab-nav {
+        @apply flex flex-shrink-0 h-8 items-center;
+
+        .nav-item {
+            @apply border-none flex h-8 items-center justify-center outline-none px-2 text-base;
+        }
+    }
+
+    .tile {
+        @apply flex;
+
+        .tile-content {
+            @apply flex flex-col justify-center;
+        }
+
+        .tile-content {
+            @apply flex min-w-0;
+
+            &:not(:first-child) {
+                @apply ml-3;
+            }
+
+            &:not(:last-child) {
+                @apply mr-3;
+            }
+        }
+    }
+
+    .search-bar {
+        @apply p-2;
+
+        button {
+            @apply absolute w-auto;
+
+            top: 5px;
+            right: 5px;
+        }
+
+        form {
+            @apply relative;
+        }
+
+        input {
+            padding-right: 62px;
+
+            &:disabled {
+                color: hsla(0, 0%, 100%, .3);
+                padding-right: .25rem;
+            }
+        }
+
+        .clear {
+            @apply absolute cursor-pointer;
+
+            color: hsla(0, 0%, 100%, .8);
+            top: 9px;
+            right: 36px;
+        }
+    }
+}
+
+.mobile {
+    background: rgb(50, 47, 55);
+}
+
+.video-component {
+    .notifications {
+        bottom: 85px !important;
+        width: 206px !important;
+
+        &.left {
+            left: 65px;
+        }
+
+        &.right {
+            right: 65px;
+        }
+
+        .vue-notification {
+            margin: 0 !important;
+        }
+    }
+}

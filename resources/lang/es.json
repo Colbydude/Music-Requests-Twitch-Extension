@@ -1,0 +1,63 @@
+{
+    "common": {
+        "actions": "Acciones",
+        "add": "Añadir",
+        "clear": "Borrar",
+        "queue": "Cola",
+        "requested_by": "Pedido de",
+        "song": "Canción",
+        "songs": "Canciones",
+        "time": {
+            "minute": "minuto",
+            "minutes": "minutos",
+            "second": "segundo",
+            "seconds": "segundos"
+        }
+    },
+    "config": {
+        "extension_settings": "Configuraciones de Extensión",
+        "extension_settings_save": "Guardar Configuraciones",
+        "extension_setting_language": "Idioma de Extensión",
+        "extension_setting_language_help_text": "Este función cambia el idioma principal de la extensión por su audiencia.",
+        "extension_setting_menu_placement": "Posición de icono y ventana ",
+        "extension_setting_menu_placement_help_text": "Eligir entre izquierda y derecha para la posición del menú, así que evitar bloqueando otros elementos ",
+        "extension_setting_menu_placement_left": "Izquierda",
+        "extension_setting_menu_placement_right": "Derecho",
+        "extension_setting_rate_limit": "Límite de Pedidos (por tiempo)",
+        "extension_setting_rate_limit_help_text": "Con qué frecuencia alguien pueda mandar un pedido musical",
+
+        "library": "Colección de canciones",
+        "library_add_song": "Añadir una canción",
+        "library_empty": "No hay nada canciones en su colección",
+
+        "requests": "Pedidos Musicales",
+        "requests_current_request": "Pedido Actual",
+        "requests_current_request_placeholder": "No Pedido Actual",
+        "requests_empty": "No hay pedidos musicales en la cola.",
+
+        "streamer_widget": "Streamer Widget",
+        "streamer_widget_help_text": "Puede añadir un Streamer Widget (se actualiza con pedidos musicales) a su diseño de Streaming. Añade un BrowserSource plugin nuevo, ponga el URL abajo en el plugin, y personalize el CSS ."
+    },
+    "notifications": {
+        "extension_settings_saved": "Configuraciones se han guardado en suceso.",
+        "too_many_requests_title": "Demasiado Pedidos Musicales.",
+        "too_many_requests_text": "Por favor espere por {time} {units} antes de que puede mandar más pedidos."
+    },
+    "viewer": {
+        "grant_permissions_1": "Autorizará el acceso a",
+        "grant_permissions_2": "para mandar pedidos musicales!",
+
+        "queue_panel": {
+            "current_queue": "Cola Actual",
+            "empty_queue": "No hay pedidos musicales en la cola."
+        },
+
+        "request_form": {
+            "title": "Manda un Pedido Musical",
+            "input_placeholder": "Buscar a la Colección de Canciones ",
+            "search_results": "Resultos de Buscar",
+            "search_results_empty": "No Resultos.",
+            "wait_text": "Espere {time} {units} para mandar más pedidos."
+        }
+    }
+}

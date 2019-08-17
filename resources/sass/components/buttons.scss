@@ -1,0 +1,50 @@
+.btn {
+    @apply text-center font-bold px-3 py-2 rounded;
+
+    -webkit-font-smoothing: antialiased;
+}
+
+.btn-outline-blue-dark {
+    @apply border;
+    background-color: transparent;
+    border-color: theme('colors.blue-dark');
+    color: theme('colors.blue-dark');
+
+    &.active, &:hover, &:focus {
+        background-color: theme('colors.blue-dark');
+        border-color: transparent;
+        color: theme('colors.white');
+    }
+}
+
+.btn-blue-dark {
+    background-color: theme('colors.blue-dark');
+    color: theme('colors.white');
+
+    &:hover, &:focus {
+        background-color: theme('colors.blue-darker');
+    }
+}
+
+.btn-red-dark {
+    background-color: theme('colors.red-dark');
+    color: theme('colors.white');
+
+    &:hover, &:focus {
+        background-color: theme('colors.red-darker');
+    }
+}
+
+.btn-sm {
+    @apply p-1 font-semibold text-sm tracking-wide;
+}
+
+.btn-transparent {
+    background-color: transparent;
+    color: theme('colors.grey-dark');
+
+    &:hover, &:focus {
+        background: hsla(0, 0%, 100%, 0.1);
+        color: theme('colors.white');
+    }
+}

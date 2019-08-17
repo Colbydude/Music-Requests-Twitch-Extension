@@ -11,3 +11,8 @@ This extension is intended for musicians who perform on Twitch and wish to be ab
 ## Twitch Extension documentation
 
 Please consult the [Twitch Extensions documentation on the Twitch developer site](https://dev.twitch.tv/docs/extensions)
+
+
+## Credits
+
+- Spanish Translation: [@RoPanuganti](https://twitter.com/RoPanuganti)
