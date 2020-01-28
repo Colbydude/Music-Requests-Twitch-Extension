@@ -5,9 +5,14 @@
             :rate-limit="this.rateLimit"
             v-if="auth.user_id"
         />
-        <p class="p-4 text-white text-center" v-else>
-            {{ $t('viewer.grant_permissions_1') }} <i class="fas fa-cog"></i> {{ $t('viewer.grant_permissions_2') }}
-        </p>
+        <div class="text-center" v-else>
+            <p class="p-4 text-white">
+                {{ $t('viewer.grant_permissions') }}
+            </p>
+            <p>
+                <button class="btn btn-blue-dark" @click="askForAuth">{{ $t('common.click_here') }}</button>
+            </p>
+        </div>
         <queue-panel style="overflow: auto;" />
     </div>
 </template>
@@ -25,6 +30,10 @@
         },
 
         props: {
+            askForAuth: {
+                type: Function,
+                required: true
+            },
             auth: {
                 type: Object,
                 required: true

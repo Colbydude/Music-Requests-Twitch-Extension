@@ -3,6 +3,7 @@
         "actions": "Acciones",
         "add": "Añadir",
         "clear": "Borrar",
+        "click_here": "Haga Clic Aquí",
         "queue": "Cola",
         "requested_by": "Pedido de",
         "song": "Canción",
@@ -44,8 +45,7 @@
         "too_many_requests_text": "Por favor espere por {time} {units} antes de que puede mandar más pedidos."
     },
     "viewer": {
-        "grant_permissions_1": "Autorizará el acceso a",
-        "grant_permissions_2": "para mandar pedidos musicales!",
+        "grant_permissions": "Para pedir una canción, tiene que escribir su Twitch ID por favor.",
 
         "queue_panel": {
             "current_queue": "Cola Actual",

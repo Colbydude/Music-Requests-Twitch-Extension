@@ -158,7 +158,7 @@
              * @return {Void}
              */
             register() {
-                return this.$api.Ebs.postSettings()
+                return this.$api.Ebs.postSettings(this.auth.username)
                 .then(response => {
                     this.settings = { ...this.settings, ...response.data.settings };
                 })

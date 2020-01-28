@@ -13,12 +13,12 @@ export default class Authentication {
      * @constructor
      */
     constructor(token, opaque_id) {
-        this.channel_id = false;
+        this.channel_id;
         this.opaque_id = opaque_id;
-        this.role = "";
+        this.role;
         this.token = token;
-        this.username = false;
-        this.user_id = false;
+        this.username;
+        this.user_id;
     }
 
     /**
