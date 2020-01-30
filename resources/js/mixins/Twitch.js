@@ -9,14 +9,14 @@ export default {
         };
     },
 
-    mounted () {
+    async beforeMount () {
         if (this.twitch) {
             if (this.twitch.rig) {
                 window.logger = this.twitch.rig.log.bind(this.twitch);
             }
 
             // Setup our auth and API and ready the extension for use.
-            this.twitch.onAuthorized(async (auth) => {
+            await this.twitch.onAuthorized(async (auth) => {
                 this.auth.setToken(auth.token, auth.userId);
                 this.$api.Ebs.setChannelId(auth.channelId);
                 this.$api.Ebs.setToken(auth.token);
@@ -41,6 +41,20 @@ export default {
     },
 
     methods: {
+        /**
+         * Prompt to ask for authentication.
+         *
+         * @return {void}
+         */
+        askForAuth() {
+            this.twitch.actions.requestIdShare();
+        },
+
+        /**
+         * Auth has been verified, finish "booting"
+         *
+         * @return {void}
+         */
         boot() {
             this.finishedLoading = true;
         },

@@ -3,6 +3,7 @@
         "actions": "Actions",
         "add": "Add",
         "clear": "Clear",
+        "click_here": "Click Here",
         "queue": "Queue",
         "requested_by": "Requested by",
         "song": "Song",
@@ -44,8 +45,7 @@
         "too_many_requests_text": "You must wait at least {time} {units} until you can request again."
     },
     "viewer": {
-        "grant_permissions_1": "Grant access in",
-        "grant_permissions_2": "to make requests!",
+        "grant_permissions": "To request a song, you need to share your Twitch ID with us.",
 
         "queue_panel": {
             "current_queue": "Current Queue",

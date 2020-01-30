@@ -1,6 +1,7 @@
 <template>
     <div class="viewer-wrapper">
         <viewer
+            :askForAuth="askForAuth"
             :auth="auth"
             :finished-loading="finishedLoading"
             :settings="settings"
