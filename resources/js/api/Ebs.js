@@ -94,6 +94,15 @@ export default class Ebs {
     }
 
     /**
+     * Get the username for the given channel_id from the EBS.
+     *
+     * @param {String} channel_id
+     */
+    getUsername(channel_id) {
+        return this.instance.get(`/${channel_id}/username`);
+    }
+
+    /**
      * Post/play the given request on the EBS
      *
      * @param  {Number}  id
