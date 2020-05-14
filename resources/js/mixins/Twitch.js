@@ -20,12 +20,11 @@ export default {
                 this.auth.setToken(auth.token, auth.userId);
                 this.$api.Ebs.setChannelId(auth.channelId);
                 this.$api.Ebs.setToken(auth.token);
-                this.$api.Twitch.setClientId(auth.clientId);
 
                 // Fetch username from the Twitch API if their identity was shared.
                 if (this.auth.getUserId()) {
-                    let user = await this.$api.Twitch.getUser(this.auth.getUserId());
-                    this.auth.setUsername(user.data.data[0].display_name);
+                    let { data } = await this.$api.Ebs.getUsername(this.auth.getUserId());
+                    this.auth.setUsername(data.username);
                 }
 
                 if (!this.finishedLoading) {
