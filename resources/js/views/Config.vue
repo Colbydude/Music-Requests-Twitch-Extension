@@ -3,7 +3,7 @@
         <notifications position="bottom right" />
 
         <div class="flex flex-wrap p-4 -mx-4" v-if="finishedLoading">
-            <request-card class="w-full lg:w-1/2 px-4 mb-6" />
+            <request-card class="w-full lg:w-1/2 px-4 mb-6" :settings="settings" />
             <library-card class="w-full lg:w-1/2 px-4 mb-6" />
 
             <div class="w-full lg:w-1/2 px-4 mb-6">
@@ -11,6 +11,22 @@
                     <div class="card-interior">
                         <div class="card-header">
                             <h3>{{ $t('config.extension_settings') }}</h3>
+                        </div>
+                        <div class="mb-4">
+                            <label for="rate_limit">{{ $t('config.extension_setting_group_requests') }}</label>
+                            <div class="flex items-center">
+                                <p class="w-full text-sm">{{ $t('config.extension_setting_group_requests_help_text') }}</p>
+                                <select
+                                    id="group_requests"
+                                    name="group_requests"
+                                    class="flex-no-shrink form-control ml-2 mr-1"
+                                    style="width: 151px;"
+                                    v-model="settings.group_requests"
+                                >
+                                    <option :value="false">{{ $t('common.off') }}</option>
+                                    <option :value="true">{{ $t('common.on') }}</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="mb-4">
                             <label for="rate_limit">{{ $t('config.extension_setting_rate_limit') }}</label>
@@ -91,6 +107,7 @@
         data () {
             return {
                 settings: {
+                    group_requests: false,
                     language: 'en',
                     rate_limit: 600
                 }

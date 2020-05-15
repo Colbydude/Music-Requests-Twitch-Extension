@@ -2,8 +2,11 @@
     "common": {
         "actions": "Actions",
         "add": "Add",
+        "amount": "Amount",
         "clear": "Clear",
         "click_here": "Click Here",
+        "on": "On",
+        "off": "Off",
         "queue": "Queue",
         "requested_by": "Requested by",
         "song": "Song",
@@ -18,6 +21,8 @@
     "config": {
         "extension_settings": "Extension Settings",
         "extension_settings_save": "Save Settings",
+        "extension_setting_group_requests": "Group Requests",
+        "extension_setting_group_requests_help_text": "Combine requests for the same song and prioritize songs that have more requests in the queue.",
         "extension_setting_language": "Extension Language",
         "extension_setting_language_help_text": "This will change the primary langauge of the extension for your audience.",
         "extension_setting_menu_placement": "Button and window placement",
