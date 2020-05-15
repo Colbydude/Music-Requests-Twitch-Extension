@@ -104,6 +104,7 @@
                 switch (message.header) {
                     case 'Current Request Updated': this.setCurrentRequest(message); break;
                     case 'Requests Cleared': this.clear(); break;
+                    case 'Settings Saved': this.getRequests(); break;
                     case 'Song Requested': this.addRequest(message); break;
                     case 'Song Skipped': this.removeRequest(message); break;
                 }
