@@ -87,12 +87,12 @@ export default class Authentication {
      * @return {Void}
      */
     setToken(token, opaque_id) {
-        let channel_id = "";
-        let role = "";
-        let user_id = "";
+        let channel_id = '';
+        let role = '';
+        let user_id = '';
 
         try {
-            const parts = token.split(".");
+            const parts = token.split('.');
             let decoded = JSON.parse(window.atob(parts[1]));
 
             channel_id = decoded.channel_id;
