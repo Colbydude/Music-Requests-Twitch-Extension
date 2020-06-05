@@ -13,7 +13,7 @@
                 <button class="btn btn-blue-dark" @click="askForAuth">{{ $t('common.click_here') }}</button>
             </p>
         </div>
-        <queue-panel style="overflow: auto;" />
+        <queue-panel :settings="settings" style="overflow: auto;" />
     </div>
 </template>
 

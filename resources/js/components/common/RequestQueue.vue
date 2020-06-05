@@ -6,10 +6,16 @@
         name: 'RequestQueue',
         extends: TwitchPubSub,
 
+        props: {
+            settings: {
+                type: Object,
+                required: true
+            }
+        },
+
         data () {
             return {
                 currentRequest: null,   // Value of the current request textbox.
-                lastPlayed: null,       // The last played request.
                 requests: []            // The request queue.
             };
         },
@@ -30,8 +36,7 @@
         },
 
         mounted () {
-            this.getCurrentRequest();
-            this.getRequests();
+            this.refresh();
             this.listen();
         },
 
@@ -49,7 +54,11 @@
                     text: this.$t('common.requested_by') + ` ${request.twitch_username}`
                 });
 
-                this.requests.push(request);
+                if (this.settings.group_requests) {
+                    this.refresh();
+                } else {
+                    this.requests.push(request);
+                }
             },
 
             /**
@@ -84,7 +93,10 @@
              */
             getRequests () {
                 this.$api.Ebs.getRequests()
-                .then(response => this.requests = response.data)
+                .then(response => {
+                    this.requests = response.data
+                    logger(JSON.stringify(response.data));
+                })
                 .catch(error => logger(error));
             },
 
@@ -111,13 +123,30 @@
             },
 
             /**
+             * Get the current request and request queue.
+             *
+             * @return {void}
+             */
+            refresh () {
+                this.getCurrentRequest();
+                this.getRequests();
+            },
+
+            /**
              * Remove a request from the list.
              *
              * @param  {Object}  request
              * @return {void}
              */
             removeRequest (request) {
-                let item = this.requests.find(item => item.id === request.id);
+                let item;
+
+                if (this.settings.group_requests) {
+                    item = this.requests.find(item => item.song_id === request.song_id);
+                }
+                else {
+                    item = this.requests.find(item => item.id === request.id);
+                }
 
                 if (item) {
                     this.requests.splice(this.requests.indexOf(item), 1);
