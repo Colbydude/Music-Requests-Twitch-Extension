@@ -11,8 +11,7 @@ export default {
 
     async beforeMount () {
         if (this.twitch) {
-            if (this.twitch.rig) {
-                console.log('Rig detected.', this.twitch.rig);
+            if (process.env.NODE_ENV === 'development') {
                 window.logger = this.twitch.rig.log.bind(this.twitch);
             }
 
