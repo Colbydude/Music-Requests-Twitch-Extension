@@ -90,8 +90,6 @@
              * @param  {Number}  id
              */
             playRequest (id) {
-                this.lastPlayed = this.currentRequest;
-
                 this.$api.Ebs.postCurrentRequest(id)
                 .catch(error => logger(error));
             },

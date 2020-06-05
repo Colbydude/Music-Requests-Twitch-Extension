@@ -3,7 +3,7 @@
         <notifications position="bottom right" />
 
         <div class="flex flex-wrap p-4 -mx-4" v-if="finishedLoading">
-            <request-card class="w-full lg:w-1/2 px-4 mb-6" :settings="settings" />
+            <request-card :settings="settings" class="w-full lg:w-1/2 px-4 mb-6" />
             <library-card class="w-full lg:w-1/2 px-4 mb-6" />
 
             <div class="w-full lg:w-1/2 px-4 mb-6">
