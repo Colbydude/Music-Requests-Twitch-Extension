@@ -55,7 +55,30 @@
                 });
 
                 if (this.settings.group_requests) {
-                    this.refresh();
+                    let foundRequest = this.requests.find(item => item.song_id === request.song_id);
+
+                    if (!foundRequest) {
+                        this.requests.push({ amount: 1, ...request });
+                    } else {
+                        foundRequest.amount++;
+
+                        const ids = foundRequest.twitch_user_id.split(',');
+                        const usernames = foundRequest.twitch_username.split(',');
+
+                        ids.push(request.twitch_user_id);
+                        usernames.push(request.twitch_username);
+
+                        foundRequest.twitch_user_id = ids.filter((v, i, a) => a.indexOf(v) === i).join(',');
+                        foundRequest.twitch_username = usernames.filter((v, i, a) => a.indexOf(v) === i).join(',');
+
+                        this.requests.sort((a, b) =>  {
+                            if (a.amount === b.amount) {
+                                return b.created_at - a.created_at;
+                            }
+
+                            return b.amount > a.amount ? 1 : -1;
+                        });
+                    }
                 } else {
                     this.requests.push(request);
                 }
@@ -93,10 +116,7 @@
              */
             getRequests () {
                 this.$api.Ebs.getRequests()
-                .then(response => {
-                    this.requests = response.data
-                    logger(JSON.stringify(response.data));
-                })
+                .then(response => this.requests = response.data)
                 .catch(error => logger(error));
             },
 
