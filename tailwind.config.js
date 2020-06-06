@@ -109,8 +109,5 @@ module.exports = {
       '100': 100
     }
   },
-  variants: {},
-  plugins: [
-    require('@tailwindcss/ui'),
-  ]
+  variants: {}
 };
