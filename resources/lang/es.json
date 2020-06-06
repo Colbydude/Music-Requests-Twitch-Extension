@@ -2,8 +2,11 @@
     "common": {
         "actions": "Acciones",
         "add": "Añadir",
+        "amount": "Cantidad",
         "clear": "Borrar",
         "click_here": "Haga Clic Aquí",
+        "on": "En",
+        "off": "Apagado",
         "queue": "Cola",
         "requested_by": "Pedido de",
         "song": "Canción",
