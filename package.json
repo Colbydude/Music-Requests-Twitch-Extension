@@ -12,7 +12,6 @@
         "frontend": "node services/frontend"
     },
     "dependencies": {
-        "@tailwindcss/ui": "^0.3.0",
         "axios": "^0.19",
         "tailwindcss": "^1.2.0",
         "vue": "^2.5.17",
