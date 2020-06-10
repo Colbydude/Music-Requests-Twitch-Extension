@@ -85,6 +85,11 @@ let colors = {
 };
 
 module.exports = {
+  purge: [
+    './**/*.html',
+    './**/*.vue',
+    './**/*.jsx',
+  ],
   theme: {
     borderColor: global.Object.assign({ default: colors['grey-light'] }, colors),
     colors: colors,
@@ -104,6 +109,5 @@ module.exports = {
       '100': 100
     }
   },
-  variants: {},
-  plugins: []
+  variants: {}
 };
