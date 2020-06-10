@@ -6,10 +6,16 @@
         name: 'RequestQueue',
         extends: TwitchPubSub,
 
+        props: {
+            settings: {
+                type: Object,
+                required: true
+            }
+        },
+
         data () {
             return {
                 currentRequest: null,   // Value of the current request textbox.
-                lastPlayed: null,       // The last played request.
                 requests: []            // The request queue.
             };
         },
@@ -30,8 +36,7 @@
         },
 
         mounted () {
-            this.getCurrentRequest();
-            this.getRequests();
+            this.refresh();
             this.listen();
         },
 
@@ -49,7 +54,34 @@
                     text: this.$t('common.requested_by') + ` ${request.twitch_username}`
                 });
 
-                this.requests.push(request);
+                if (this.settings.group_requests) {
+                    let foundRequest = this.requests.find(item => item.song_id === request.song_id);
+
+                    if (!foundRequest) {
+                        this.requests.push({ amount: 1, ...request });
+                    } else {
+                        foundRequest.amount++;
+
+                        const ids = foundRequest.twitch_user_id.split(',');
+                        const usernames = foundRequest.twitch_username.split(',');
+
+                        ids.push(request.twitch_user_id);
+                        usernames.push(request.twitch_username);
+
+                        foundRequest.twitch_user_id = ids.filter((v, i, a) => a.indexOf(v) === i).join(',');
+                        foundRequest.twitch_username = usernames.filter((v, i, a) => a.indexOf(v) === i).join(',');
+
+                        this.requests.sort((a, b) =>  {
+                            if (a.amount === b.amount) {
+                                return b.created_at - a.created_at;
+                            }
+
+                            return b.amount > a.amount ? 1 : -1;
+                        });
+                    }
+                } else {
+                    this.requests.push(request);
+                }
             },
 
             /**
@@ -104,9 +136,20 @@
                 switch (message.header) {
                     case 'Current Request Updated': this.setCurrentRequest(message); break;
                     case 'Requests Cleared': this.clear(); break;
+                    case 'Settings Saved': this.refresh(); break;
                     case 'Song Requested': this.addRequest(message); break;
                     case 'Song Skipped': this.removeRequest(message); break;
                 }
+            },
+
+            /**
+             * Get the current request and request queue.
+             *
+             * @return {void}
+             */
+            refresh () {
+                this.getCurrentRequest();
+                this.getRequests();
             },
 
             /**
@@ -116,7 +159,14 @@
              * @return {void}
              */
             removeRequest (request) {
-                let item = this.requests.find(item => item.id === request.id);
+                let item;
+
+                if (this.settings.group_requests) {
+                    item = this.requests.find(item => item.song_id === request.song_id);
+                }
+                else {
+                    item = this.requests.find(item => item.id === request.id);
+                }
 
                 if (item) {
                     this.requests.splice(this.requests.indexOf(item), 1);

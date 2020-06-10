@@ -2,8 +2,11 @@
     "common": {
         "actions": "Acciones",
         "add": "Añadir",
+        "amount": "Cantidad",
         "clear": "Borrar",
         "click_here": "Haga Clic Aquí",
+        "on": "En",
+        "off": "Apagado",
         "queue": "Cola",
         "requested_by": "Pedido de",
         "song": "Canción",
@@ -18,6 +21,8 @@
     "config": {
         "extension_settings": "Configuraciones de Extensión",
         "extension_settings_save": "Guardar Configuraciones",
+        "extension_setting_group_requests": "Petición de Grupo",
+        "extension_setting_group_requests_help_text": "Combinar petición por los canciones mismos y prioritizar canciones con mas votos.",
         "extension_setting_language": "Idioma de Extensión",
         "extension_setting_language_help_text": "Este función cambia el idioma principal de la extensión por su audiencia.",
         "extension_setting_menu_placement": "Posición de icono y ventana ",

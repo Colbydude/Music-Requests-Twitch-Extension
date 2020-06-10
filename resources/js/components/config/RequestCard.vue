@@ -20,17 +20,23 @@
                     </div>
                     <div class="border-b">
                         <div class="flex px-4 py-2">
-                            <div class="w-full text-sm font-bold">{{ $t('common.song') }}</div>
-                            <div class="flex-no-shrink text-sm font-bold ml-2 mr-1">{{ $t('common.requested_by') }}</div>
-                            <div class="flex-no-shrink text-sm font-bold ml-1">{{ $t('common.actions') }}</div>
+                            <div class="w-full text-sm font-bold mr-1">{{ $t('common.song') }}</div>
+                            <template v-if="settings.group_requests">
+                                <div class="flex-no-shrink text-sm text-right font-bold ml-1 mr-1">{{ $t('common.amount') }}</div>
+                            </template>
+                            <div class="flex-no-shrink text-sm text-right font-bold ml-1 mr-1">{{ $t('common.requested_by') }}</div>
+                            <div class="flex-no-shrink text-sm text-right font-bold ml-1">{{ $t('common.actions') }}</div>
                         </div>
                     </div>
                     <div v-if="requests.length > 0">
                         <div class="list-wrap">
                             <div class="list-item" v-for="(request, index) in requests" :key="request.id">
                                 <div class="flex px-4 py-2 items-center">
-                                    <div class="w-full text-sm">{{ request.song.name }}</div>
-                                    <div class="flex-no-shrink text-sm font-semibold ml-2 mr-1">{{ request.twitch_username }}</div>
+                                    <div class="w-full text-sm mr-1">{{ request.song.name }}</div>
+                                    <template v-if="settings.group_requests">
+                                        <div class="flex-no-shrink text-sm text-right font-semibold ml-1 mr-1">{{ request.amount }}</div>
+                                    </template>
+                                    <div class="flex-no-shrink text-sm text-right font-semibold ml-1 mr-1">{{ request.twitch_username.split(',').join(', ') }}</div>
                                     <button @click="playRequest(request.id)" class="flex-no-shrink btn btn-sm btn-blue-dark ml-1">
                                         <i class="fas fa-fw fa-check"></i>
                                     </button>
@@ -59,6 +65,13 @@
         name: 'RequestCard',
         extends: RequestQueue,
 
+        props: {
+            settings: {
+                type: Object,
+                required: true
+            }
+        },
+
         methods: {
             /**
              * Clear the entire request list.
@@ -77,8 +90,6 @@
              * @param  {Number}  id
              */
             playRequest (id) {
-                this.lastPlayed = this.currentRequest;
-
                 this.$api.Ebs.postCurrentRequest(id)
                 .catch(error => logger(error));
             },

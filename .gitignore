@@ -6,4 +6,5 @@
 Music Requests.json
 npm-debug.log
 yarn-error.log
+.DS_Store
 .env
