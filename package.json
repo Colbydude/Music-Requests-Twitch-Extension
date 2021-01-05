@@ -12,7 +12,7 @@
         "frontend": "node services/frontend"
     },
     "dependencies": {
-        "axios": "^0.19",
+        "axios": "^0.21",
         "tailwindcss": "^1.2.0",
         "vue": "^2.5.17",
         "vue-i18n": "^8.0.0",
