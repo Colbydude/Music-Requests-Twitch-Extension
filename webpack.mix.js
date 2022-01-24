@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const path = require('path');
 const tailwindcss = require('tailwindcss');
 
 /*
@@ -18,6 +19,7 @@ const tailwindcss = require('tailwindcss');
     .js('resources/js/mobile.js', 'js')
     .js('resources/js/panel.js', 'js')
     .js('resources/js/video_component.js', 'js')
+    .vue()
     .sass('resources/sass/app.scss', 'css')
     .copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/fonts/vendor/fontawesome')
     .options({
@@ -25,12 +27,8 @@ const tailwindcss = require('tailwindcss');
         processCssUrls: false,
         uglify: false
     })
-    .webpackConfig({
-        resolve: {
-            alias: {
-                '@': path.resolve(__dirname, 'resources/js/'),
-            },
-        },
+    .alias({
+        '@': path.join(__dirname, 'resources/js')
     })
     .extract([
         'axios', 'lodash', 'vue', 'vue-notification', 'vue-typeahead', 'vue-i18n'
