@@ -23,7 +23,7 @@
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.2.0",
-        "express": "^4.19.2",
+        "express": "^4.20.0",
         "laravel-mix": "^6.0.41",
         "postcss": "^8.4.31",
         "sass": "^1.49.0",
